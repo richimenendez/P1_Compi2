@@ -1,0 +1,1274 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    DERLLAVE
+    IZQLLAVE
+    PORCENTAJE
+    SXOR
+    abs
+    array
+    char
+    float
+    int
+    print
+    unset
+
+Grammar
+
+Rule 0     S' -> ltag
+Rule 1     ltag -> ltag tag linst
+Rule 2     ltag -> tag linst
+Rule 3     linst -> linst inst PCOMA
+Rule 4     linst -> inst PCOMA
+Rule 5     inst -> asignacion
+Rule 6     inst -> iff
+Rule 7     inst -> jump
+Rule 8     asignacion -> VAR IGUAL exp
+Rule 9     tag -> ID DP
+Rule 10    tag -> main DP
+Rule 11    jump -> goto ID
+Rule 12    iff -> if IZQPAR exp DERPAR goto ID
+Rule 13    exp -> expa
+Rule 14    exp -> expl
+Rule 15    exp -> expra
+Rule 16    exp -> expb
+Rule 17    exp -> E
+Rule 18    expl -> NOT E
+Rule 19    expl -> E AND E
+Rule 20    expl -> E OR E
+Rule 21    expl -> E xor E
+Rule 22    expra -> E DIGUAL E
+Rule 23    expra -> E DESIGUAL E
+Rule 24    expra -> E MAYORIGUAL E
+Rule 25    expra -> E MENORIGUAL E
+Rule 26    expra -> E MAYOR E
+Rule 27    expra -> E MENOR E
+Rule 28    expb -> BNOT E
+Rule 29    expb -> E BAND E
+Rule 30    expb -> E BOR E
+Rule 31    expb -> E BXOR E
+Rule 32    expb -> E BLEFT E
+Rule 33    expb -> E BRIGHT E
+Rule 34    expa -> E SUMA E
+Rule 35    expa -> E RESTA E
+Rule 36    expa -> E MULTI E
+Rule 37    expa -> E DIV E
+Rule 38    E -> ent
+Rule 39    E -> dou
+Rule 40    E -> va
+Rule 41    ent -> INTEGER
+Rule 42    dou -> DOUBLE
+Rule 43    va -> VAR
+
+Terminals, with rules where they appear
+
+AND                  : 19
+BAND                 : 29
+BLEFT                : 32
+BNOT                 : 28
+BOR                  : 30
+BRIGHT               : 33
+BXOR                 : 31
+DERLLAVE             : 
+DERPAR               : 12
+DESIGUAL             : 23
+DIGUAL               : 22
+DIV                  : 37
+DOUBLE               : 42
+DP                   : 9 10
+ID                   : 9 11 12
+IGUAL                : 8
+INTEGER              : 41
+IZQLLAVE             : 
+IZQPAR               : 12
+MAYOR                : 26
+MAYORIGUAL           : 24
+MENOR                : 27
+MENORIGUAL           : 25
+MULTI                : 36
+NOT                  : 18
+OR                   : 20
+PCOMA                : 3 4
+PORCENTAJE           : 
+RESTA                : 35
+SUMA                 : 34
+SXOR                 : 
+VAR                  : 8 43
+abs                  : 
+array                : 
+char                 : 
+error                : 
+float                : 
+goto                 : 11 12
+if                   : 12
+int                  : 
+main                 : 10
+print                : 
+unset                : 
+xor                  : 21
+
+Nonterminals, with rules where they appear
+
+E                    : 17 18 19 19 20 20 21 21 22 22 23 23 24 24 25 25 26 26 27 27 28 29 29 30 30 31 31 32 32 33 33 34 34 35 35 36 36 37 37
+asignacion           : 5
+dou                  : 39
+ent                  : 38
+exp                  : 8 12
+expa                 : 13
+expb                 : 16
+expl                 : 14
+expra                : 15
+iff                  : 6
+inst                 : 3 4
+jump                 : 7
+linst                : 1 2 3
+ltag                 : 1 0
+tag                  : 1 2
+va                   : 40
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . ltag
+    (1) ltag -> . ltag tag linst
+    (2) ltag -> . tag linst
+    (9) tag -> . ID DP
+    (10) tag -> . main DP
+
+    ID              shift and go to state 3
+    main            shift and go to state 4
+
+    ltag                           shift and go to state 1
+    tag                            shift and go to state 2
+
+state 1
+
+    (0) S' -> ltag .
+    (1) ltag -> ltag . tag linst
+    (9) tag -> . ID DP
+    (10) tag -> . main DP
+
+    ID              shift and go to state 3
+    main            shift and go to state 4
+
+    tag                            shift and go to state 5
+
+state 2
+
+    (2) ltag -> tag . linst
+    (3) linst -> . linst inst PCOMA
+    (4) linst -> . inst PCOMA
+    (5) inst -> . asignacion
+    (6) inst -> . iff
+    (7) inst -> . jump
+    (8) asignacion -> . VAR IGUAL exp
+    (12) iff -> . if IZQPAR exp DERPAR goto ID
+    (11) jump -> . goto ID
+
+    VAR             shift and go to state 11
+    if              shift and go to state 12
+    goto            shift and go to state 13
+
+    linst                          shift and go to state 6
+    inst                           shift and go to state 7
+    asignacion                     shift and go to state 8
+    iff                            shift and go to state 9
+    jump                           shift and go to state 10
+
+state 3
+
+    (9) tag -> ID . DP
+
+    DP              shift and go to state 14
+
+
+state 4
+
+    (10) tag -> main . DP
+
+    DP              shift and go to state 15
+
+
+state 5
+
+    (1) ltag -> ltag tag . linst
+    (3) linst -> . linst inst PCOMA
+    (4) linst -> . inst PCOMA
+    (5) inst -> . asignacion
+    (6) inst -> . iff
+    (7) inst -> . jump
+    (8) asignacion -> . VAR IGUAL exp
+    (12) iff -> . if IZQPAR exp DERPAR goto ID
+    (11) jump -> . goto ID
+
+    VAR             shift and go to state 11
+    if              shift and go to state 12
+    goto            shift and go to state 13
+
+    linst                          shift and go to state 16
+    inst                           shift and go to state 7
+    asignacion                     shift and go to state 8
+    iff                            shift and go to state 9
+    jump                           shift and go to state 10
+
+state 6
+
+    (2) ltag -> tag linst .
+    (3) linst -> linst . inst PCOMA
+    (5) inst -> . asignacion
+    (6) inst -> . iff
+    (7) inst -> . jump
+    (8) asignacion -> . VAR IGUAL exp
+    (12) iff -> . if IZQPAR exp DERPAR goto ID
+    (11) jump -> . goto ID
+
+    ID              reduce using rule 2 (ltag -> tag linst .)
+    main            reduce using rule 2 (ltag -> tag linst .)
+    $end            reduce using rule 2 (ltag -> tag linst .)
+    VAR             shift and go to state 11
+    if              shift and go to state 12
+    goto            shift and go to state 13
+
+    inst                           shift and go to state 17
+    asignacion                     shift and go to state 8
+    iff                            shift and go to state 9
+    jump                           shift and go to state 10
+
+state 7
+
+    (4) linst -> inst . PCOMA
+
+    PCOMA           shift and go to state 18
+
+
+state 8
+
+    (5) inst -> asignacion .
+
+    PCOMA           reduce using rule 5 (inst -> asignacion .)
+
+
+state 9
+
+    (6) inst -> iff .
+
+    PCOMA           reduce using rule 6 (inst -> iff .)
+
+
+state 10
+
+    (7) inst -> jump .
+
+    PCOMA           reduce using rule 7 (inst -> jump .)
+
+
+state 11
+
+    (8) asignacion -> VAR . IGUAL exp
+
+    IGUAL           shift and go to state 19
+
+
+state 12
+
+    (12) iff -> if . IZQPAR exp DERPAR goto ID
+
+    IZQPAR          shift and go to state 20
+
+
+state 13
+
+    (11) jump -> goto . ID
+
+    ID              shift and go to state 21
+
+
+state 14
+
+    (9) tag -> ID DP .
+
+    VAR             reduce using rule 9 (tag -> ID DP .)
+    if              reduce using rule 9 (tag -> ID DP .)
+    goto            reduce using rule 9 (tag -> ID DP .)
+
+
+state 15
+
+    (10) tag -> main DP .
+
+    VAR             reduce using rule 10 (tag -> main DP .)
+    if              reduce using rule 10 (tag -> main DP .)
+    goto            reduce using rule 10 (tag -> main DP .)
+
+
+state 16
+
+    (1) ltag -> ltag tag linst .
+    (3) linst -> linst . inst PCOMA
+    (5) inst -> . asignacion
+    (6) inst -> . iff
+    (7) inst -> . jump
+    (8) asignacion -> . VAR IGUAL exp
+    (12) iff -> . if IZQPAR exp DERPAR goto ID
+    (11) jump -> . goto ID
+
+    ID              reduce using rule 1 (ltag -> ltag tag linst .)
+    main            reduce using rule 1 (ltag -> ltag tag linst .)
+    $end            reduce using rule 1 (ltag -> ltag tag linst .)
+    VAR             shift and go to state 11
+    if              shift and go to state 12
+    goto            shift and go to state 13
+
+    inst                           shift and go to state 17
+    asignacion                     shift and go to state 8
+    iff                            shift and go to state 9
+    jump                           shift and go to state 10
+
+state 17
+
+    (3) linst -> linst inst . PCOMA
+
+    PCOMA           shift and go to state 22
+
+
+state 18
+
+    (4) linst -> inst PCOMA .
+
+    VAR             reduce using rule 4 (linst -> inst PCOMA .)
+    if              reduce using rule 4 (linst -> inst PCOMA .)
+    goto            reduce using rule 4 (linst -> inst PCOMA .)
+    ID              reduce using rule 4 (linst -> inst PCOMA .)
+    main            reduce using rule 4 (linst -> inst PCOMA .)
+    $end            reduce using rule 4 (linst -> inst PCOMA .)
+
+
+state 19
+
+    (8) asignacion -> VAR IGUAL . exp
+    (13) exp -> . expa
+    (14) exp -> . expl
+    (15) exp -> . expra
+    (16) exp -> . expb
+    (17) exp -> . E
+    (34) expa -> . E SUMA E
+    (35) expa -> . E RESTA E
+    (36) expa -> . E MULTI E
+    (37) expa -> . E DIV E
+    (18) expl -> . NOT E
+    (19) expl -> . E AND E
+    (20) expl -> . E OR E
+    (21) expl -> . E xor E
+    (22) expra -> . E DIGUAL E
+    (23) expra -> . E DESIGUAL E
+    (24) expra -> . E MAYORIGUAL E
+    (25) expra -> . E MENORIGUAL E
+    (26) expra -> . E MAYOR E
+    (27) expra -> . E MENOR E
+    (28) expb -> . BNOT E
+    (29) expb -> . E BAND E
+    (30) expb -> . E BOR E
+    (31) expb -> . E BXOR E
+    (32) expb -> . E BLEFT E
+    (33) expb -> . E BRIGHT E
+    (38) E -> . ent
+    (39) E -> . dou
+    (40) E -> . va
+    (41) ent -> . INTEGER
+    (42) dou -> . DOUBLE
+    (43) va -> . VAR
+
+    NOT             shift and go to state 30
+    BNOT            shift and go to state 31
+    INTEGER         shift and go to state 35
+    DOUBLE          shift and go to state 36
+    VAR             shift and go to state 23
+
+    exp                            shift and go to state 24
+    expa                           shift and go to state 25
+    expl                           shift and go to state 26
+    expra                          shift and go to state 27
+    expb                           shift and go to state 28
+    E                              shift and go to state 29
+    ent                            shift and go to state 32
+    dou                            shift and go to state 33
+    va                             shift and go to state 34
+
+state 20
+
+    (12) iff -> if IZQPAR . exp DERPAR goto ID
+    (13) exp -> . expa
+    (14) exp -> . expl
+    (15) exp -> . expra
+    (16) exp -> . expb
+    (17) exp -> . E
+    (34) expa -> . E SUMA E
+    (35) expa -> . E RESTA E
+    (36) expa -> . E MULTI E
+    (37) expa -> . E DIV E
+    (18) expl -> . NOT E
+    (19) expl -> . E AND E
+    (20) expl -> . E OR E
+    (21) expl -> . E xor E
+    (22) expra -> . E DIGUAL E
+    (23) expra -> . E DESIGUAL E
+    (24) expra -> . E MAYORIGUAL E
+    (25) expra -> . E MENORIGUAL E
+    (26) expra -> . E MAYOR E
+    (27) expra -> . E MENOR E
+    (28) expb -> . BNOT E
+    (29) expb -> . E BAND E
+    (30) expb -> . E BOR E
+    (31) expb -> . E BXOR E
+    (32) expb -> . E BLEFT E
+    (33) expb -> . E BRIGHT E
+    (38) E -> . ent
+    (39) E -> . dou
+    (40) E -> . va
+    (41) ent -> . INTEGER
+    (42) dou -> . DOUBLE
+    (43) va -> . VAR
+
+    NOT             shift and go to state 30
+    BNOT            shift and go to state 31
+    INTEGER         shift and go to state 35
+    DOUBLE          shift and go to state 36
+    VAR             shift and go to state 23
+
+    exp                            shift and go to state 37
+    expa                           shift and go to state 25
+    expl                           shift and go to state 26
+    expra                          shift and go to state 27
+    expb                           shift and go to state 28
+    E                              shift and go to state 29
+    ent                            shift and go to state 32
+    dou                            shift and go to state 33
+    va                             shift and go to state 34
+
+state 21
+
+    (11) jump -> goto ID .
+
+    PCOMA           reduce using rule 11 (jump -> goto ID .)
+
+
+state 22
+
+    (3) linst -> linst inst PCOMA .
+
+    VAR             reduce using rule 3 (linst -> linst inst PCOMA .)
+    if              reduce using rule 3 (linst -> linst inst PCOMA .)
+    goto            reduce using rule 3 (linst -> linst inst PCOMA .)
+    ID              reduce using rule 3 (linst -> linst inst PCOMA .)
+    main            reduce using rule 3 (linst -> linst inst PCOMA .)
+    $end            reduce using rule 3 (linst -> linst inst PCOMA .)
+
+
+state 23
+
+    (43) va -> VAR .
+
+    SUMA            reduce using rule 43 (va -> VAR .)
+    RESTA           reduce using rule 43 (va -> VAR .)
+    MULTI           reduce using rule 43 (va -> VAR .)
+    DIV             reduce using rule 43 (va -> VAR .)
+    AND             reduce using rule 43 (va -> VAR .)
+    OR              reduce using rule 43 (va -> VAR .)
+    xor             reduce using rule 43 (va -> VAR .)
+    DIGUAL          reduce using rule 43 (va -> VAR .)
+    DESIGUAL        reduce using rule 43 (va -> VAR .)
+    MAYORIGUAL      reduce using rule 43 (va -> VAR .)
+    MENORIGUAL      reduce using rule 43 (va -> VAR .)
+    MAYOR           reduce using rule 43 (va -> VAR .)
+    MENOR           reduce using rule 43 (va -> VAR .)
+    BAND            reduce using rule 43 (va -> VAR .)
+    BOR             reduce using rule 43 (va -> VAR .)
+    BXOR            reduce using rule 43 (va -> VAR .)
+    BLEFT           reduce using rule 43 (va -> VAR .)
+    BRIGHT          reduce using rule 43 (va -> VAR .)
+    PCOMA           reduce using rule 43 (va -> VAR .)
+    DERPAR          reduce using rule 43 (va -> VAR .)
+
+
+state 24
+
+    (8) asignacion -> VAR IGUAL exp .
+
+    PCOMA           reduce using rule 8 (asignacion -> VAR IGUAL exp .)
+
+
+state 25
+
+    (13) exp -> expa .
+
+    PCOMA           reduce using rule 13 (exp -> expa .)
+    DERPAR          reduce using rule 13 (exp -> expa .)
+
+
+state 26
+
+    (14) exp -> expl .
+
+    PCOMA           reduce using rule 14 (exp -> expl .)
+    DERPAR          reduce using rule 14 (exp -> expl .)
+
+
+state 27
+
+    (15) exp -> expra .
+
+    PCOMA           reduce using rule 15 (exp -> expra .)
+    DERPAR          reduce using rule 15 (exp -> expra .)
+
+
+state 28
+
+    (16) exp -> expb .
+
+    PCOMA           reduce using rule 16 (exp -> expb .)
+    DERPAR          reduce using rule 16 (exp -> expb .)
+
+
+state 29
+
+    (17) exp -> E .
+    (34) expa -> E . SUMA E
+    (35) expa -> E . RESTA E
+    (36) expa -> E . MULTI E
+    (37) expa -> E . DIV E
+    (19) expl -> E . AND E
+    (20) expl -> E . OR E
+    (21) expl -> E . xor E
+    (22) expra -> E . DIGUAL E
+    (23) expra -> E . DESIGUAL E
+    (24) expra -> E . MAYORIGUAL E
+    (25) expra -> E . MENORIGUAL E
+    (26) expra -> E . MAYOR E
+    (27) expra -> E . MENOR E
+    (29) expb -> E . BAND E
+    (30) expb -> E . BOR E
+    (31) expb -> E . BXOR E
+    (32) expb -> E . BLEFT E
+    (33) expb -> E . BRIGHT E
+
+    PCOMA           reduce using rule 17 (exp -> E .)
+    DERPAR          reduce using rule 17 (exp -> E .)
+    SUMA            shift and go to state 38
+    RESTA           shift and go to state 39
+    MULTI           shift and go to state 40
+    DIV             shift and go to state 41
+    AND             shift and go to state 42
+    OR              shift and go to state 43
+    xor             shift and go to state 44
+    DIGUAL          shift and go to state 45
+    DESIGUAL        shift and go to state 46
+    MAYORIGUAL      shift and go to state 47
+    MENORIGUAL      shift and go to state 48
+    MAYOR           shift and go to state 49
+    MENOR           shift and go to state 50
+    BAND            shift and go to state 51
+    BOR             shift and go to state 52
+    BXOR            shift and go to state 53
+    BLEFT           shift and go to state 54
+    BRIGHT          shift and go to state 55
+
+
+state 30
+
+    (18) expl -> NOT . E
+    (38) E -> . ent
+    (39) E -> . dou
+    (40) E -> . va
+    (41) ent -> . INTEGER
+    (42) dou -> . DOUBLE
+    (43) va -> . VAR
+
+    INTEGER         shift and go to state 35
+    DOUBLE          shift and go to state 36
+    VAR             shift and go to state 23
+
+    E                              shift and go to state 56
+    ent                            shift and go to state 32
+    dou                            shift and go to state 33
+    va                             shift and go to state 34
+
+state 31
+
+    (28) expb -> BNOT . E
+    (38) E -> . ent
+    (39) E -> . dou
+    (40) E -> . va
+    (41) ent -> . INTEGER
+    (42) dou -> . DOUBLE
+    (43) va -> . VAR
+
+    INTEGER         shift and go to state 35
+    DOUBLE          shift and go to state 36
+    VAR             shift and go to state 23
+
+    E                              shift and go to state 57
+    ent                            shift and go to state 32
+    dou                            shift and go to state 33
+    va                             shift and go to state 34
+
+state 32
+
+    (38) E -> ent .
+
+    SUMA            reduce using rule 38 (E -> ent .)
+    RESTA           reduce using rule 38 (E -> ent .)
+    MULTI           reduce using rule 38 (E -> ent .)
+    DIV             reduce using rule 38 (E -> ent .)
+    AND             reduce using rule 38 (E -> ent .)
+    OR              reduce using rule 38 (E -> ent .)
+    xor             reduce using rule 38 (E -> ent .)
+    DIGUAL          reduce using rule 38 (E -> ent .)
+    DESIGUAL        reduce using rule 38 (E -> ent .)
+    MAYORIGUAL      reduce using rule 38 (E -> ent .)
+    MENORIGUAL      reduce using rule 38 (E -> ent .)
+    MAYOR           reduce using rule 38 (E -> ent .)
+    MENOR           reduce using rule 38 (E -> ent .)
+    BAND            reduce using rule 38 (E -> ent .)
+    BOR             reduce using rule 38 (E -> ent .)
+    BXOR            reduce using rule 38 (E -> ent .)
+    BLEFT           reduce using rule 38 (E -> ent .)
+    BRIGHT          reduce using rule 38 (E -> ent .)
+    PCOMA           reduce using rule 38 (E -> ent .)
+    DERPAR          reduce using rule 38 (E -> ent .)
+
+
+state 33
+
+    (39) E -> dou .
+
+    SUMA            reduce using rule 39 (E -> dou .)
+    RESTA           reduce using rule 39 (E -> dou .)
+    MULTI           reduce using rule 39 (E -> dou .)
+    DIV             reduce using rule 39 (E -> dou .)
+    AND             reduce using rule 39 (E -> dou .)
+    OR              reduce using rule 39 (E -> dou .)
+    xor             reduce using rule 39 (E -> dou .)
+    DIGUAL          reduce using rule 39 (E -> dou .)
+    DESIGUAL        reduce using rule 39 (E -> dou .)
+    MAYORIGUAL      reduce using rule 39 (E -> dou .)
+    MENORIGUAL      reduce using rule 39 (E -> dou .)
+    MAYOR           reduce using rule 39 (E -> dou .)
+    MENOR           reduce using rule 39 (E -> dou .)
+    BAND            reduce using rule 39 (E -> dou .)
+    BOR             reduce using rule 39 (E -> dou .)
+    BXOR            reduce using rule 39 (E -> dou .)
+    BLEFT           reduce using rule 39 (E -> dou .)
+    BRIGHT          reduce using rule 39 (E -> dou .)
+    PCOMA           reduce using rule 39 (E -> dou .)
+    DERPAR          reduce using rule 39 (E -> dou .)
+
+
+state 34
+
+    (40) E -> va .
+
+    SUMA            reduce using rule 40 (E -> va .)
+    RESTA           reduce using rule 40 (E -> va .)
+    MULTI           reduce using rule 40 (E -> va .)
+    DIV             reduce using rule 40 (E -> va .)
+    AND             reduce using rule 40 (E -> va .)
+    OR              reduce using rule 40 (E -> va .)
+    xor             reduce using rule 40 (E -> va .)
+    DIGUAL          reduce using rule 40 (E -> va .)
+    DESIGUAL        reduce using rule 40 (E -> va .)
+    MAYORIGUAL      reduce using rule 40 (E -> va .)
+    MENORIGUAL      reduce using rule 40 (E -> va .)
+    MAYOR           reduce using rule 40 (E -> va .)
+    MENOR           reduce using rule 40 (E -> va .)
+    BAND            reduce using rule 40 (E -> va .)
+    BOR             reduce using rule 40 (E -> va .)
+    BXOR            reduce using rule 40 (E -> va .)
+    BLEFT           reduce using rule 40 (E -> va .)
+    BRIGHT          reduce using rule 40 (E -> va .)
+    PCOMA           reduce using rule 40 (E -> va .)
+    DERPAR          reduce using rule 40 (E -> va .)
+
+
+state 35
+
+    (41) ent -> INTEGER .
+
+    SUMA            reduce using rule 41 (ent -> INTEGER .)
+    RESTA           reduce using rule 41 (ent -> INTEGER .)
+    MULTI           reduce using rule 41 (ent -> INTEGER .)
+    DIV             reduce using rule 41 (ent -> INTEGER .)
+    AND             reduce using rule 41 (ent -> INTEGER .)
+    OR              reduce using rule 41 (ent -> INTEGER .)
+    xor             reduce using rule 41 (ent -> INTEGER .)
+    DIGUAL          reduce using rule 41 (ent -> INTEGER .)
+    DESIGUAL        reduce using rule 41 (ent -> INTEGER .)
+    MAYORIGUAL      reduce using rule 41 (ent -> INTEGER .)
+    MENORIGUAL      reduce using rule 41 (ent -> INTEGER .)
+    MAYOR           reduce using rule 41 (ent -> INTEGER .)
+    MENOR           reduce using rule 41 (ent -> INTEGER .)
+    BAND            reduce using rule 41 (ent -> INTEGER .)
+    BOR             reduce using rule 41 (ent -> INTEGER .)
+    BXOR            reduce using rule 41 (ent -> INTEGER .)
+    BLEFT           reduce using rule 41 (ent -> INTEGER .)
+    BRIGHT          reduce using rule 41 (ent -> INTEGER .)
+    PCOMA           reduce using rule 41 (ent -> INTEGER .)
+    DERPAR          reduce using rule 41 (ent -> INTEGER .)
+
+
+state 36
+
+    (42) dou -> DOUBLE .
+
+    SUMA            reduce using rule 42 (dou -> DOUBLE .)
+    RESTA           reduce using rule 42 (dou -> DOUBLE .)
+    MULTI           reduce using rule 42 (dou -> DOUBLE .)
+    DIV             reduce using rule 42 (dou -> DOUBLE .)
+    AND             reduce using rule 42 (dou -> DOUBLE .)
+    OR              reduce using rule 42 (dou -> DOUBLE .)
+    xor             reduce using rule 42 (dou -> DOUBLE .)
+    DIGUAL          reduce using rule 42 (dou -> DOUBLE .)
+    DESIGUAL        reduce using rule 42 (dou -> DOUBLE .)
+    MAYORIGUAL      reduce using rule 42 (dou -> DOUBLE .)
+    MENORIGUAL      reduce using rule 42 (dou -> DOUBLE .)
+    MAYOR           reduce using rule 42 (dou -> DOUBLE .)
+    MENOR           reduce using rule 42 (dou -> DOUBLE .)
+    BAND            reduce using rule 42 (dou -> DOUBLE .)
+    BOR             reduce using rule 42 (dou -> DOUBLE .)
+    BXOR            reduce using rule 42 (dou -> DOUBLE .)
+    BLEFT           reduce using rule 42 (dou -> DOUBLE .)
+    BRIGHT          reduce using rule 42 (dou -> DOUBLE .)
+    PCOMA           reduce using rule 42 (dou -> DOUBLE .)
+    DERPAR          reduce using rule 42 (dou -> DOUBLE .)
+
+
+state 37
+
+    (12) iff -> if IZQPAR exp . DERPAR goto ID
+
+    DERPAR          shift and go to state 58
+
+
+state 38
+
+    (34) expa -> E SUMA . E
+    (38) E -> . ent
+    (39) E -> . dou
+    (40) E -> . va
+    (41) ent -> . INTEGER
+    (42) dou -> . DOUBLE
+    (43) va -> . VAR
+
+    INTEGER         shift and go to state 35
+    DOUBLE          shift and go to state 36
+    VAR             shift and go to state 23
+
+    E                              shift and go to state 59
+    ent                            shift and go to state 32
+    dou                            shift and go to state 33
+    va                             shift and go to state 34
+
+state 39
+
+    (35) expa -> E RESTA . E
+    (38) E -> . ent
+    (39) E -> . dou
+    (40) E -> . va
+    (41) ent -> . INTEGER
+    (42) dou -> . DOUBLE
+    (43) va -> . VAR
+
+    INTEGER         shift and go to state 35
+    DOUBLE          shift and go to state 36
+    VAR             shift and go to state 23
+
+    E                              shift and go to state 60
+    ent                            shift and go to state 32
+    dou                            shift and go to state 33
+    va                             shift and go to state 34
+
+state 40
+
+    (36) expa -> E MULTI . E
+    (38) E -> . ent
+    (39) E -> . dou
+    (40) E -> . va
+    (41) ent -> . INTEGER
+    (42) dou -> . DOUBLE
+    (43) va -> . VAR
+
+    INTEGER         shift and go to state 35
+    DOUBLE          shift and go to state 36
+    VAR             shift and go to state 23
+
+    E                              shift and go to state 61
+    ent                            shift and go to state 32
+    dou                            shift and go to state 33
+    va                             shift and go to state 34
+
+state 41
+
+    (37) expa -> E DIV . E
+    (38) E -> . ent
+    (39) E -> . dou
+    (40) E -> . va
+    (41) ent -> . INTEGER
+    (42) dou -> . DOUBLE
+    (43) va -> . VAR
+
+    INTEGER         shift and go to state 35
+    DOUBLE          shift and go to state 36
+    VAR             shift and go to state 23
+
+    E                              shift and go to state 62
+    ent                            shift and go to state 32
+    dou                            shift and go to state 33
+    va                             shift and go to state 34
+
+state 42
+
+    (19) expl -> E AND . E
+    (38) E -> . ent
+    (39) E -> . dou
+    (40) E -> . va
+    (41) ent -> . INTEGER
+    (42) dou -> . DOUBLE
+    (43) va -> . VAR
+
+    INTEGER         shift and go to state 35
+    DOUBLE          shift and go to state 36
+    VAR             shift and go to state 23
+
+    E                              shift and go to state 63
+    ent                            shift and go to state 32
+    dou                            shift and go to state 33
+    va                             shift and go to state 34
+
+state 43
+
+    (20) expl -> E OR . E
+    (38) E -> . ent
+    (39) E -> . dou
+    (40) E -> . va
+    (41) ent -> . INTEGER
+    (42) dou -> . DOUBLE
+    (43) va -> . VAR
+
+    INTEGER         shift and go to state 35
+    DOUBLE          shift and go to state 36
+    VAR             shift and go to state 23
+
+    E                              shift and go to state 64
+    ent                            shift and go to state 32
+    dou                            shift and go to state 33
+    va                             shift and go to state 34
+
+state 44
+
+    (21) expl -> E xor . E
+    (38) E -> . ent
+    (39) E -> . dou
+    (40) E -> . va
+    (41) ent -> . INTEGER
+    (42) dou -> . DOUBLE
+    (43) va -> . VAR
+
+    INTEGER         shift and go to state 35
+    DOUBLE          shift and go to state 36
+    VAR             shift and go to state 23
+
+    E                              shift and go to state 65
+    ent                            shift and go to state 32
+    dou                            shift and go to state 33
+    va                             shift and go to state 34
+
+state 45
+
+    (22) expra -> E DIGUAL . E
+    (38) E -> . ent
+    (39) E -> . dou
+    (40) E -> . va
+    (41) ent -> . INTEGER
+    (42) dou -> . DOUBLE
+    (43) va -> . VAR
+
+    INTEGER         shift and go to state 35
+    DOUBLE          shift and go to state 36
+    VAR             shift and go to state 23
+
+    E                              shift and go to state 66
+    ent                            shift and go to state 32
+    dou                            shift and go to state 33
+    va                             shift and go to state 34
+
+state 46
+
+    (23) expra -> E DESIGUAL . E
+    (38) E -> . ent
+    (39) E -> . dou
+    (40) E -> . va
+    (41) ent -> . INTEGER
+    (42) dou -> . DOUBLE
+    (43) va -> . VAR
+
+    INTEGER         shift and go to state 35
+    DOUBLE          shift and go to state 36
+    VAR             shift and go to state 23
+
+    E                              shift and go to state 67
+    ent                            shift and go to state 32
+    dou                            shift and go to state 33
+    va                             shift and go to state 34
+
+state 47
+
+    (24) expra -> E MAYORIGUAL . E
+    (38) E -> . ent
+    (39) E -> . dou
+    (40) E -> . va
+    (41) ent -> . INTEGER
+    (42) dou -> . DOUBLE
+    (43) va -> . VAR
+
+    INTEGER         shift and go to state 35
+    DOUBLE          shift and go to state 36
+    VAR             shift and go to state 23
+
+    E                              shift and go to state 68
+    ent                            shift and go to state 32
+    dou                            shift and go to state 33
+    va                             shift and go to state 34
+
+state 48
+
+    (25) expra -> E MENORIGUAL . E
+    (38) E -> . ent
+    (39) E -> . dou
+    (40) E -> . va
+    (41) ent -> . INTEGER
+    (42) dou -> . DOUBLE
+    (43) va -> . VAR
+
+    INTEGER         shift and go to state 35
+    DOUBLE          shift and go to state 36
+    VAR             shift and go to state 23
+
+    E                              shift and go to state 69
+    ent                            shift and go to state 32
+    dou                            shift and go to state 33
+    va                             shift and go to state 34
+
+state 49
+
+    (26) expra -> E MAYOR . E
+    (38) E -> . ent
+    (39) E -> . dou
+    (40) E -> . va
+    (41) ent -> . INTEGER
+    (42) dou -> . DOUBLE
+    (43) va -> . VAR
+
+    INTEGER         shift and go to state 35
+    DOUBLE          shift and go to state 36
+    VAR             shift and go to state 23
+
+    E                              shift and go to state 70
+    ent                            shift and go to state 32
+    dou                            shift and go to state 33
+    va                             shift and go to state 34
+
+state 50
+
+    (27) expra -> E MENOR . E
+    (38) E -> . ent
+    (39) E -> . dou
+    (40) E -> . va
+    (41) ent -> . INTEGER
+    (42) dou -> . DOUBLE
+    (43) va -> . VAR
+
+    INTEGER         shift and go to state 35
+    DOUBLE          shift and go to state 36
+    VAR             shift and go to state 23
+
+    E                              shift and go to state 71
+    ent                            shift and go to state 32
+    dou                            shift and go to state 33
+    va                             shift and go to state 34
+
+state 51
+
+    (29) expb -> E BAND . E
+    (38) E -> . ent
+    (39) E -> . dou
+    (40) E -> . va
+    (41) ent -> . INTEGER
+    (42) dou -> . DOUBLE
+    (43) va -> . VAR
+
+    INTEGER         shift and go to state 35
+    DOUBLE          shift and go to state 36
+    VAR             shift and go to state 23
+
+    E                              shift and go to state 72
+    ent                            shift and go to state 32
+    dou                            shift and go to state 33
+    va                             shift and go to state 34
+
+state 52
+
+    (30) expb -> E BOR . E
+    (38) E -> . ent
+    (39) E -> . dou
+    (40) E -> . va
+    (41) ent -> . INTEGER
+    (42) dou -> . DOUBLE
+    (43) va -> . VAR
+
+    INTEGER         shift and go to state 35
+    DOUBLE          shift and go to state 36
+    VAR             shift and go to state 23
+
+    E                              shift and go to state 73
+    ent                            shift and go to state 32
+    dou                            shift and go to state 33
+    va                             shift and go to state 34
+
+state 53
+
+    (31) expb -> E BXOR . E
+    (38) E -> . ent
+    (39) E -> . dou
+    (40) E -> . va
+    (41) ent -> . INTEGER
+    (42) dou -> . DOUBLE
+    (43) va -> . VAR
+
+    INTEGER         shift and go to state 35
+    DOUBLE          shift and go to state 36
+    VAR             shift and go to state 23
+
+    E                              shift and go to state 74
+    ent                            shift and go to state 32
+    dou                            shift and go to state 33
+    va                             shift and go to state 34
+
+state 54
+
+    (32) expb -> E BLEFT . E
+    (38) E -> . ent
+    (39) E -> . dou
+    (40) E -> . va
+    (41) ent -> . INTEGER
+    (42) dou -> . DOUBLE
+    (43) va -> . VAR
+
+    INTEGER         shift and go to state 35
+    DOUBLE          shift and go to state 36
+    VAR             shift and go to state 23
+
+    E                              shift and go to state 75
+    ent                            shift and go to state 32
+    dou                            shift and go to state 33
+    va                             shift and go to state 34
+
+state 55
+
+    (33) expb -> E BRIGHT . E
+    (38) E -> . ent
+    (39) E -> . dou
+    (40) E -> . va
+    (41) ent -> . INTEGER
+    (42) dou -> . DOUBLE
+    (43) va -> . VAR
+
+    INTEGER         shift and go to state 35
+    DOUBLE          shift and go to state 36
+    VAR             shift and go to state 23
+
+    E                              shift and go to state 76
+    ent                            shift and go to state 32
+    dou                            shift and go to state 33
+    va                             shift and go to state 34
+
+state 56
+
+    (18) expl -> NOT E .
+
+    PCOMA           reduce using rule 18 (expl -> NOT E .)
+    DERPAR          reduce using rule 18 (expl -> NOT E .)
+
+
+state 57
+
+    (28) expb -> BNOT E .
+
+    PCOMA           reduce using rule 28 (expb -> BNOT E .)
+    DERPAR          reduce using rule 28 (expb -> BNOT E .)
+
+
+state 58
+
+    (12) iff -> if IZQPAR exp DERPAR . goto ID
+
+    goto            shift and go to state 77
+
+
+state 59
+
+    (34) expa -> E SUMA E .
+
+    PCOMA           reduce using rule 34 (expa -> E SUMA E .)
+    DERPAR          reduce using rule 34 (expa -> E SUMA E .)
+
+
+state 60
+
+    (35) expa -> E RESTA E .
+
+    PCOMA           reduce using rule 35 (expa -> E RESTA E .)
+    DERPAR          reduce using rule 35 (expa -> E RESTA E .)
+
+
+state 61
+
+    (36) expa -> E MULTI E .
+
+    PCOMA           reduce using rule 36 (expa -> E MULTI E .)
+    DERPAR          reduce using rule 36 (expa -> E MULTI E .)
+
+
+state 62
+
+    (37) expa -> E DIV E .
+
+    PCOMA           reduce using rule 37 (expa -> E DIV E .)
+    DERPAR          reduce using rule 37 (expa -> E DIV E .)
+
+
+state 63
+
+    (19) expl -> E AND E .
+
+    PCOMA           reduce using rule 19 (expl -> E AND E .)
+    DERPAR          reduce using rule 19 (expl -> E AND E .)
+
+
+state 64
+
+    (20) expl -> E OR E .
+
+    PCOMA           reduce using rule 20 (expl -> E OR E .)
+    DERPAR          reduce using rule 20 (expl -> E OR E .)
+
+
+state 65
+
+    (21) expl -> E xor E .
+
+    PCOMA           reduce using rule 21 (expl -> E xor E .)
+    DERPAR          reduce using rule 21 (expl -> E xor E .)
+
+
+state 66
+
+    (22) expra -> E DIGUAL E .
+
+    PCOMA           reduce using rule 22 (expra -> E DIGUAL E .)
+    DERPAR          reduce using rule 22 (expra -> E DIGUAL E .)
+
+
+state 67
+
+    (23) expra -> E DESIGUAL E .
+
+    PCOMA           reduce using rule 23 (expra -> E DESIGUAL E .)
+    DERPAR          reduce using rule 23 (expra -> E DESIGUAL E .)
+
+
+state 68
+
+    (24) expra -> E MAYORIGUAL E .
+
+    PCOMA           reduce using rule 24 (expra -> E MAYORIGUAL E .)
+    DERPAR          reduce using rule 24 (expra -> E MAYORIGUAL E .)
+
+
+state 69
+
+    (25) expra -> E MENORIGUAL E .
+
+    PCOMA           reduce using rule 25 (expra -> E MENORIGUAL E .)
+    DERPAR          reduce using rule 25 (expra -> E MENORIGUAL E .)
+
+
+state 70
+
+    (26) expra -> E MAYOR E .
+
+    PCOMA           reduce using rule 26 (expra -> E MAYOR E .)
+    DERPAR          reduce using rule 26 (expra -> E MAYOR E .)
+
+
+state 71
+
+    (27) expra -> E MENOR E .
+
+    PCOMA           reduce using rule 27 (expra -> E MENOR E .)
+    DERPAR          reduce using rule 27 (expra -> E MENOR E .)
+
+
+state 72
+
+    (29) expb -> E BAND E .
+
+    PCOMA           reduce using rule 29 (expb -> E BAND E .)
+    DERPAR          reduce using rule 29 (expb -> E BAND E .)
+
+
+state 73
+
+    (30) expb -> E BOR E .
+
+    PCOMA           reduce using rule 30 (expb -> E BOR E .)
+    DERPAR          reduce using rule 30 (expb -> E BOR E .)
+
+
+state 74
+
+    (31) expb -> E BXOR E .
+
+    PCOMA           reduce using rule 31 (expb -> E BXOR E .)
+    DERPAR          reduce using rule 31 (expb -> E BXOR E .)
+
+
+state 75
+
+    (32) expb -> E BLEFT E .
+
+    PCOMA           reduce using rule 32 (expb -> E BLEFT E .)
+    DERPAR          reduce using rule 32 (expb -> E BLEFT E .)
+
+
+state 76
+
+    (33) expb -> E BRIGHT E .
+
+    PCOMA           reduce using rule 33 (expb -> E BRIGHT E .)
+    DERPAR          reduce using rule 33 (expb -> E BRIGHT E .)
+
+
+state 77
+
+    (12) iff -> if IZQPAR exp DERPAR goto . ID
+
+    ID              shift and go to state 78
+
+
+state 78
+
+    (12) iff -> if IZQPAR exp DERPAR goto ID .
+
+    PCOMA           reduce using rule 12 (iff -> if IZQPAR exp DERPAR goto ID .)
+
