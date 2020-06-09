@@ -14,7 +14,10 @@ reservadas = {
     'unset': 'unset',
     'if': 'if',
     'abs': 'abs',
-    'xor': 'xor'
+    'xor': 'xor',
+    'print': 'print',
+    'exit': 'exit',
+    'unset': 'unset'
 
 }
 
@@ -55,7 +58,8 @@ tokens = [
     'ID',
     'DOUBLE',
     'INTEGER',
-    'VAR'
+    'VAR',
+    'STR'
 ] + list(reservadas.values())
 
 t_RESTA = r'-'
@@ -100,6 +104,11 @@ def t_DOUBLE(t):
         print("Valor no es parseable a decimal %d",t.value)
         t.value = 0
     return t    
+
+def t_STR(t):
+    r'\'.*?\''
+    t.value = t.value[1:-1]
+    return t
 
 def t_INTEGER(t):
     r'\d+'
@@ -166,7 +175,9 @@ def p_lista_instrucciones(t):
 def p_instruccion(t):
     ''' inst        :   asignacion
                     |   iff
-                    |   jump'''
+                    |   jump
+                    |   printt
+                    |   ext'''
     t[0] = t[1]
 
 
@@ -184,6 +195,16 @@ def p_jump(t):
 
 def p_iff(t):
     'iff         :   if IZQPAR exp DERPAR goto ID'
+    t[0] = Si(t[3],t[6])
+
+def p_printt(t):
+    'printt     :   print IZQPAR va DERPAR'
+    t[0] = Print(t[3])
+
+
+def p_exxit(t):
+    'ext     :   exit'
+    t[0] = Exit()
 
 def p_expresion(t):
     '''exp         : expa
@@ -199,6 +220,12 @@ def p_expresion_logica(t):
                     | E AND E
                     | E OR E
                     | E xor E'''
+    if(t[2]=='&&'):
+        t[0] = And(t[1],t[3])
+    if(t[2]=='||'):
+        t[0] = Or(t[1],t[3])
+    if(t[2]=='xor'):
+        t[0] = Xor(t[1],t[3])
 
 def p_expresion_relacional(t):
     '''expra        : E DIGUAL E
@@ -209,6 +236,16 @@ def p_expresion_relacional(t):
                     | E MENOR E'''
     if(t[2]=='=='):
         t[0] = Igual(t[1],t[3])
+    if(t[2]=='!='):
+        t[0] = DesIgual(t[1],t[3])
+    if(t[2]=='>'):
+        t[0] = Mayor(t[1],t[3])
+    if(t[2]=='<'):
+        t[0] = Menor(t[1],t[3])
+    if(t[2]=='>='):
+        t[0] = MayorI(t[1],t[3])
+    if(t[2]=='<='):
+        t[0] = MenorI(t[1],t[3])
 
 def p_expresion_bit(t):
     '''expb        : BNOT E
@@ -236,6 +273,7 @@ def p_expr(t):
     '''E           : ent
                     | dou
                     | va
+                    | str
     '''
     t[0] = t[1]
 
@@ -252,10 +290,17 @@ def p_expDou(t):
     '''
     t[0] = NodoDouble(t[1])
 
+def p_expStr(t):
+    '''
+        str : STR
+    '''
+    t[0] = NodoCadena(t[1])
+
 def p_expVar(t):
     '''
         va : VAR
     '''
+    t[0] = NodoVariable(t[1])
 
 def p_error(t):
     print("Error sintáctico en: '%s'" % t.value)
@@ -266,21 +311,21 @@ parser = yacc.yacc()
 ts = TablaMetodos()
 arbol = parser.parse('''
 main:
-    $t1 = 1 == 6;
-    $t4 = 5/2;
-a2:
-    $t3 = 4*5;
-    goto ende3;
-a1:
-    $t1 = 3.2 / 2.4;
-    $t2 = 3 + 2;
-    goto a2;
-ende:
-    $t1 = 5 + 3;
-end2:
-    $t5 =  1-5;
-    $t6 = 10;
+    $t1 = 0 || 0;
 ''')
+
+'''
+main:
+    $t1 = 1;
+for:
+    print($t1);
+    $t1 = $t1+1;
+    if ($t1 == 10) goto end2;
+    goto for;
+end2:
+    exit;
+    $t2 = 10;
+'''
 
 nodo = ts.metodos.get("main")
 if(nodo!=None):
@@ -293,6 +338,10 @@ if(nodo!=None):
             if(v==1):
                 break
     
+print("Se termino de ejecutar")
 for x,y in ts.variables.items():
     print(x, " = ", y.valor.value)
-print("Se termino de ejecutar")
+
+print("MENSAJES --------------------------")
+for x in ts.mensajes:
+    print(x)

@@ -12,6 +12,7 @@ class TablaMetodos:
     def __init__(self):
         self.metodos = {}
         self.variables = {}
+        self.mensajes = []
 
     def añadirMetodo(self,metodo):
         self.metodos[metodo.nombre] = metodo

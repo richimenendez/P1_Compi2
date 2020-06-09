@@ -5,6 +5,7 @@ class TIPO(Enum):
     DOBLE = 2
     STRING = 3
     ARRAY = 4
+    ERROR = 5
 
 class OPERACION_RELACIONAL(Enum):
     IGUAL = 1
@@ -41,5 +42,15 @@ class Valor():
             except:
                 errorSemantico.add("ErrorSemantico: No se puede convertir a Double")
                 print("Error 2")
+        elif(self.tipo == TIPO.STRING):
+            try:
+                self.value = self.value
+            except:
+                errorSemantico.add("ErrorSemantico: No se puede convertir a String")
+        elif(self.tipo == TIPO.ERROR):
+            try:
+                self.value = self.value
+            except:
+                errorSemantico.add("ErrorSemantico: Se dio un error semantico!")
         return Valor(self.value, self.tipo)
 

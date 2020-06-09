@@ -18,8 +18,12 @@ class Tag(Nodo):
     def ejecutar(self, metodos, ts):
         print(self.nombre," :")
         for inst in self.instrucciones:
-            inst.ejecutar(metodos,ts)
+            a = inst.ejecutar(metodos,ts)
             if(isinstance(inst,Salto)):
+                return 1
+            if(isinstance(inst,Exit)):
+                return 1
+            if(isinstance(inst,Si)&(a==1)):
                 return 1
         return 0
     
@@ -28,6 +32,20 @@ class Print(Nodo):
     #Esta clase permite imprimir un valor.
     def __init__(self, valor):
         self.valor = valor
+    
+    def ejecutar(self,metodos,ts):
+        v = self.valor.ejecutar(metodos,ts)
+        print(v)
+        metodos.mensajes.append(v.value)
+    
+    
+class Exit(Nodo):
+    #Esta clase permite imprimir un valor.
+    def __init__(self):
+        pass
+    
+    def ejecutar(self,metodos,ts):
+        return 1
 
 class Asignacion(Nodo):
     #Esta clase representa una asignación
@@ -52,11 +70,26 @@ class Si(Nodo):
         self.etiqueta = etiqueta 
 
     def ejecutar(self, metodos, ts):
-        cond = condicion.ejecutar(metodos,ts)
+        cond = self.condicion.ejecutar(metodos,ts)
+        print(cond.value)
         if(cond.value == 1):
-            pass
+            flag = 0
+            v = 1
+            for x,y in metodos.metodos.items(): 
+                if(x==self.etiqueta):
+                    flag =1
+                if(flag==1):
+                    v = y.ejecutar(metodos,ts)
+                    if(v==1):
+                        break
+            if(flag==1):
+                return 1
+            else:
+                print("Error Semantico: No existe la etiqueta!")
+                return 1
         else:
-            pass
+            print("No se cumplio la condición")
+            return 0
 
 class Salto(Nodo):
     #Esta clase representa un salto normal
@@ -97,6 +130,9 @@ class NodoCadena(Nodo):
     def __init__(self, valor):
         self.valor = valor
     
+    def ejecutar(self, metodos, ts):
+        return Valor(self.valor, TIPO.STRING)
+    
 
 class NodoArreglo(Nodo):
     #Esta clase representa cuando viene un valor entero
@@ -104,3 +140,14 @@ class NodoArreglo(Nodo):
         pass
 
     
+class NodoVariable(Nodo):
+    #Esta clase representa cuando viene un valor entero
+    def __init__(self, valor):
+        self.valor = valor
+    
+    def ejecutar(self, metodos, ts):
+        try:
+            val = ts.variables.get(self.valor).valor
+            return val
+        except:
+            print("No se encontro")

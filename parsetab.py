@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'AND BAND BLEFT BNOT BOR BRIGHT BXOR DERLLAVE DERPAR DESIGUAL DIGUAL DIV DOUBLE DP ID IGUAL INTEGER IZQLLAVE IZQPAR MAYOR MAYORIGUAL MENOR MENORIGUAL MULTI NOT OR PCOMA PORCENTAJE RESTA SUMA SXOR VAR abs array char float goto if int main print unset xor\n        ltag : ltag tag linst\n             | tag linst\n     linst       :   linst  inst PCOMA\n                    | inst PCOMA  inst        :   asignacion\n                    |   iff\n                    |   jumpasignacion  :   VAR IGUAL exptag         :   ID DP\n                    |  main DPjump        :   goto IDiff         :   if IZQPAR exp DERPAR goto IDexp         : expa\n                    | expl\n                    | expra\n                    | expb\n                    | E\n    expl        : NOT E\n                    | E AND E\n                    | E OR E\n                    | E xor Eexpra        : E DIGUAL E\n                    | E DESIGUAL E\n                    | E MAYORIGUAL E\n                    | E MENORIGUAL E\n                    | E MAYOR E\n                    | E MENOR Eexpb        : BNOT E\n                    | E BAND E\n                    | E BOR E\n                    | E BXOR E\n                    | E BLEFT E\n                    | E BRIGHT Eexpa        : E SUMA E\n                    | E RESTA E\n                    | E MULTI E\n                    | E DIV EE           : ent\n                    | dou\n                    | va\n    \n        ent : INTEGER\n    \n        dou : DOUBLE\n    \n        va : VAR\n    '
+_lr_signature = 'AND BAND BLEFT BNOT BOR BRIGHT BXOR DERLLAVE DERPAR DESIGUAL DIGUAL DIV DOUBLE DP ID IGUAL INTEGER IZQLLAVE IZQPAR MAYOR MAYORIGUAL MENOR MENORIGUAL MULTI NOT OR PCOMA PORCENTAJE RESTA STR SUMA SXOR VAR abs array char exit float goto if int main print unset xor\n        ltag : ltag tag linst\n             | tag linst\n     linst       :   linst  inst PCOMA\n                    | inst PCOMA  inst        :   asignacion\n                    |   iff\n                    |   jump\n                    |   printt\n                    |   extasignacion  :   VAR IGUAL exptag         :   ID DP\n                    |  main DPjump        :   goto IDiff         :   if IZQPAR exp DERPAR goto IDprintt     :   print IZQPAR va DERPARext     :   exitexp         : expa\n                    | expl\n                    | expra\n                    | expb\n                    | E\n    expl        : NOT E\n                    | E AND E\n                    | E OR E\n                    | E xor Eexpra        : E DIGUAL E\n                    | E DESIGUAL E\n                    | E MAYORIGUAL E\n                    | E MENORIGUAL E\n                    | E MAYOR E\n                    | E MENOR Eexpb        : BNOT E\n                    | E BAND E\n                    | E BOR E\n                    | E BXOR E\n                    | E BLEFT E\n                    | E BRIGHT Eexpa        : E SUMA E\n                    | E RESTA E\n                    | E MULTI E\n                    | E DIV EE           : ent\n                    | dou\n                    | va\n                    | str\n    \n        ent : INTEGER\n    \n        dou : DOUBLE\n    \n        str : STR\n    \n        va : VAR\n    '
     
-_lr_action_items = {'ID':([0,1,6,13,16,18,22,77,],[3,3,-2,21,-1,-4,-3,78,]),'main':([0,1,6,16,18,22,],[4,4,-2,-1,-4,-3,]),'$end':([1,6,16,18,22,],[0,-2,-1,-4,-3,]),'VAR':([2,5,6,14,15,16,18,19,20,22,30,31,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,],[11,11,11,-9,-10,11,-4,23,23,-3,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,]),'if':([2,5,6,14,15,16,18,22,],[12,12,12,-9,-10,12,-4,-3,]),'goto':([2,5,6,14,15,16,18,22,58,],[13,13,13,-9,-10,13,-4,-3,77,]),'DP':([3,4,],[14,15,]),'PCOMA':([7,8,9,10,17,21,23,24,25,26,27,28,29,32,33,34,35,36,56,57,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,78,],[18,-5,-6,-7,22,-11,-43,-8,-13,-14,-15,-16,-17,-38,-39,-40,-41,-42,-18,-28,-34,-35,-36,-37,-19,-20,-21,-22,-23,-24,-25,-26,-27,-29,-30,-31,-32,-33,-12,]),'IGUAL':([11,],[19,]),'IZQPAR':([12,],[20,]),'NOT':([19,20,],[30,30,]),'BNOT':([19,20,],[31,31,]),'INTEGER':([19,20,30,31,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,],[35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,]),'DOUBLE':([19,20,30,31,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,],[36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,]),'SUMA':([23,29,32,33,34,35,36,],[-43,38,-38,-39,-40,-41,-42,]),'RESTA':([23,29,32,33,34,35,36,],[-43,39,-38,-39,-40,-41,-42,]),'MULTI':([23,29,32,33,34,35,36,],[-43,40,-38,-39,-40,-41,-42,]),'DIV':([23,29,32,33,34,35,36,],[-43,41,-38,-39,-40,-41,-42,]),'AND':([23,29,32,33,34,35,36,],[-43,42,-38,-39,-40,-41,-42,]),'OR':([23,29,32,33,34,35,36,],[-43,43,-38,-39,-40,-41,-42,]),'xor':([23,29,32,33,34,35,36,],[-43,44,-38,-39,-40,-41,-42,]),'DIGUAL':([23,29,32,33,34,35,36,],[-43,45,-38,-39,-40,-41,-42,]),'DESIGUAL':([23,29,32,33,34,35,36,],[-43,46,-38,-39,-40,-41,-42,]),'MAYORIGUAL':([23,29,32,33,34,35,36,],[-43,47,-38,-39,-40,-41,-42,]),'MENORIGUAL':([23,29,32,33,34,35,36,],[-43,48,-38,-39,-40,-41,-42,]),'MAYOR':([23,29,32,33,34,35,36,],[-43,49,-38,-39,-40,-41,-42,]),'MENOR':([23,29,32,33,34,35,36,],[-43,50,-38,-39,-40,-41,-42,]),'BAND':([23,29,32,33,34,35,36,],[-43,51,-38,-39,-40,-41,-42,]),'BOR':([23,29,32,33,34,35,36,],[-43,52,-38,-39,-40,-41,-42,]),'BXOR':([23,29,32,33,34,35,36,],[-43,53,-38,-39,-40,-41,-42,]),'BLEFT':([23,29,32,33,34,35,36,],[-43,54,-38,-39,-40,-41,-42,]),'BRIGHT':([23,29,32,33,34,35,36,],[-43,55,-38,-39,-40,-41,-42,]),'DERPAR':([23,25,26,27,28,29,32,33,34,35,36,37,56,57,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,],[-43,-13,-14,-15,-16,-17,-38,-39,-40,-41,-42,58,-18,-28,-34,-35,-36,-37,-19,-20,-21,-22,-23,-24,-25,-26,-27,-29,-30,-31,-32,-33,]),}
+_lr_action_items = {'ID':([0,1,6,15,20,22,27,86,],[3,3,-2,25,-1,-4,-3,87,]),'main':([0,1,6,20,22,27,],[4,4,-2,-1,-4,-3,]),'$end':([1,6,20,22,27,],[0,-2,-1,-4,-3,]),'VAR':([2,5,6,18,19,20,22,23,24,26,27,35,36,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,],[13,13,13,-11,-12,13,-4,28,28,28,-3,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,]),'if':([2,5,6,18,19,20,22,27,],[14,14,14,-11,-12,14,-4,-3,]),'goto':([2,5,6,18,19,20,22,27,66,],[15,15,15,-11,-12,15,-4,-3,86,]),'print':([2,5,6,18,19,20,22,27,],[16,16,16,-11,-12,16,-4,-3,]),'exit':([2,5,6,18,19,20,22,27,],[17,17,17,-11,-12,17,-4,-3,]),'DP':([3,4,],[18,19,]),'PCOMA':([7,8,9,10,11,12,17,21,25,28,29,30,31,32,33,34,37,38,39,40,41,42,43,64,65,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,87,],[22,-5,-6,-7,-8,-9,-16,27,-13,-49,-10,-17,-18,-19,-20,-21,-42,-43,-44,-45,-46,-47,-48,-22,-32,-15,-38,-39,-40,-41,-23,-24,-25,-26,-27,-28,-29,-30,-31,-33,-34,-35,-36,-37,-14,]),'IGUAL':([13,],[23,]),'IZQPAR':([14,16,],[24,26,]),'NOT':([23,24,],[35,35,]),'BNOT':([23,24,],[36,36,]),'INTEGER':([23,24,35,36,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,],[41,41,41,41,41,41,41,41,41,41,41,41,41,41,41,41,41,41,41,41,41,41,]),'DOUBLE':([23,24,35,36,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,],[42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,]),'STR':([23,24,35,36,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,],[43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,]),'SUMA':([28,34,37,38,39,40,41,42,43,],[-49,46,-42,-43,-44,-45,-46,-47,-48,]),'RESTA':([28,34,37,38,39,40,41,42,43,],[-49,47,-42,-43,-44,-45,-46,-47,-48,]),'MULTI':([28,34,37,38,39,40,41,42,43,],[-49,48,-42,-43,-44,-45,-46,-47,-48,]),'DIV':([28,34,37,38,39,40,41,42,43,],[-49,49,-42,-43,-44,-45,-46,-47,-48,]),'AND':([28,34,37,38,39,40,41,42,43,],[-49,50,-42,-43,-44,-45,-46,-47,-48,]),'OR':([28,34,37,38,39,40,41,42,43,],[-49,51,-42,-43,-44,-45,-46,-47,-48,]),'xor':([28,34,37,38,39,40,41,42,43,],[-49,52,-42,-43,-44,-45,-46,-47,-48,]),'DIGUAL':([28,34,37,38,39,40,41,42,43,],[-49,53,-42,-43,-44,-45,-46,-47,-48,]),'DESIGUAL':([28,34,37,38,39,40,41,42,43,],[-49,54,-42,-43,-44,-45,-46,-47,-48,]),'MAYORIGUAL':([28,34,37,38,39,40,41,42,43,],[-49,55,-42,-43,-44,-45,-46,-47,-48,]),'MENORIGUAL':([28,34,37,38,39,40,41,42,43,],[-49,56,-42,-43,-44,-45,-46,-47,-48,]),'MAYOR':([28,34,37,38,39,40,41,42,43,],[-49,57,-42,-43,-44,-45,-46,-47,-48,]),'MENOR':([28,34,37,38,39,40,41,42,43,],[-49,58,-42,-43,-44,-45,-46,-47,-48,]),'BAND':([28,34,37,38,39,40,41,42,43,],[-49,59,-42,-43,-44,-45,-46,-47,-48,]),'BOR':([28,34,37,38,39,40,41,42,43,],[-49,60,-42,-43,-44,-45,-46,-47,-48,]),'BXOR':([28,34,37,38,39,40,41,42,43,],[-49,61,-42,-43,-44,-45,-46,-47,-48,]),'BLEFT':([28,34,37,38,39,40,41,42,43,],[-49,62,-42,-43,-44,-45,-46,-47,-48,]),'BRIGHT':([28,34,37,38,39,40,41,42,43,],[-49,63,-42,-43,-44,-45,-46,-47,-48,]),'DERPAR':([28,30,31,32,33,34,37,38,39,40,41,42,43,44,45,64,65,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,],[-49,-17,-18,-19,-20,-21,-42,-43,-44,-45,-46,-47,-48,66,67,-22,-32,-38,-39,-40,-41,-23,-24,-25,-26,-27,-28,-29,-30,-31,-33,-34,-35,-36,-37,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'ltag':([0,],[1,]),'tag':([0,1,],[2,5,]),'linst':([2,5,],[6,16,]),'inst':([2,5,6,16,],[7,7,17,17,]),'asignacion':([2,5,6,16,],[8,8,8,8,]),'iff':([2,5,6,16,],[9,9,9,9,]),'jump':([2,5,6,16,],[10,10,10,10,]),'exp':([19,20,],[24,37,]),'expa':([19,20,],[25,25,]),'expl':([19,20,],[26,26,]),'expra':([19,20,],[27,27,]),'expb':([19,20,],[28,28,]),'E':([19,20,30,31,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,],[29,29,56,57,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,]),'ent':([19,20,30,31,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,],[32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,]),'dou':([19,20,30,31,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,],[33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,33,]),'va':([19,20,30,31,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,],[34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,]),}
+_lr_goto_items = {'ltag':([0,],[1,]),'tag':([0,1,],[2,5,]),'linst':([2,5,],[6,20,]),'inst':([2,5,6,20,],[7,7,21,21,]),'asignacion':([2,5,6,20,],[8,8,8,8,]),'iff':([2,5,6,20,],[9,9,9,9,]),'jump':([2,5,6,20,],[10,10,10,10,]),'printt':([2,5,6,20,],[11,11,11,11,]),'ext':([2,5,6,20,],[12,12,12,12,]),'exp':([23,24,],[29,44,]),'expa':([23,24,],[30,30,]),'expl':([23,24,],[31,31,]),'expra':([23,24,],[32,32,]),'expb':([23,24,],[33,33,]),'E':([23,24,35,36,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,],[34,34,64,65,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,]),'ent':([23,24,35,36,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,],[37,37,37,37,37,37,37,37,37,37,37,37,37,37,37,37,37,37,37,37,37,37,]),'dou':([23,24,35,36,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,],[38,38,38,38,38,38,38,38,38,38,38,38,38,38,38,38,38,38,38,38,38,38,]),'va':([23,24,26,35,36,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,],[39,39,45,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,]),'str':([23,24,35,36,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,],[40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -27,47 +27,53 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> ltag","S'",1,None,None,None),
-  ('ltag -> ltag tag linst','ltag',3,'p_lista_tag','gramatica.py',144),
-  ('ltag -> tag linst','ltag',2,'p_lista_tag','gramatica.py',145),
-  ('linst -> linst inst PCOMA','linst',3,'p_lista_instrucciones','gramatica.py',157),
-  ('linst -> inst PCOMA','linst',2,'p_lista_instrucciones','gramatica.py',158),
-  ('inst -> asignacion','inst',1,'p_instruccion','gramatica.py',167),
-  ('inst -> iff','inst',1,'p_instruccion','gramatica.py',168),
-  ('inst -> jump','inst',1,'p_instruccion','gramatica.py',169),
-  ('asignacion -> VAR IGUAL exp','asignacion',3,'p_asignacion','gramatica.py',174),
-  ('tag -> ID DP','tag',2,'p_tag','gramatica.py',178),
-  ('tag -> main DP','tag',2,'p_tag','gramatica.py',179),
-  ('jump -> goto ID','jump',2,'p_jump','gramatica.py',182),
-  ('iff -> if IZQPAR exp DERPAR goto ID','iff',6,'p_iff','gramatica.py',186),
-  ('exp -> expa','exp',1,'p_expresion','gramatica.py',189),
-  ('exp -> expl','exp',1,'p_expresion','gramatica.py',190),
-  ('exp -> expra','exp',1,'p_expresion','gramatica.py',191),
-  ('exp -> expb','exp',1,'p_expresion','gramatica.py',192),
-  ('exp -> E','exp',1,'p_expresion','gramatica.py',193),
-  ('expl -> NOT E','expl',2,'p_expresion_logica','gramatica.py',198),
-  ('expl -> E AND E','expl',3,'p_expresion_logica','gramatica.py',199),
-  ('expl -> E OR E','expl',3,'p_expresion_logica','gramatica.py',200),
-  ('expl -> E xor E','expl',3,'p_expresion_logica','gramatica.py',201),
-  ('expra -> E DIGUAL E','expra',3,'p_expresion_relacional','gramatica.py',204),
-  ('expra -> E DESIGUAL E','expra',3,'p_expresion_relacional','gramatica.py',205),
-  ('expra -> E MAYORIGUAL E','expra',3,'p_expresion_relacional','gramatica.py',206),
-  ('expra -> E MENORIGUAL E','expra',3,'p_expresion_relacional','gramatica.py',207),
-  ('expra -> E MAYOR E','expra',3,'p_expresion_relacional','gramatica.py',208),
-  ('expra -> E MENOR E','expra',3,'p_expresion_relacional','gramatica.py',209),
-  ('expb -> BNOT E','expb',2,'p_expresion_bit','gramatica.py',214),
-  ('expb -> E BAND E','expb',3,'p_expresion_bit','gramatica.py',215),
-  ('expb -> E BOR E','expb',3,'p_expresion_bit','gramatica.py',216),
-  ('expb -> E BXOR E','expb',3,'p_expresion_bit','gramatica.py',217),
-  ('expb -> E BLEFT E','expb',3,'p_expresion_bit','gramatica.py',218),
-  ('expb -> E BRIGHT E','expb',3,'p_expresion_bit','gramatica.py',219),
-  ('expa -> E SUMA E','expa',3,'p_expresion_aritmetica','gramatica.py',222),
-  ('expa -> E RESTA E','expa',3,'p_expresion_aritmetica','gramatica.py',223),
-  ('expa -> E MULTI E','expa',3,'p_expresion_aritmetica','gramatica.py',224),
-  ('expa -> E DIV E','expa',3,'p_expresion_aritmetica','gramatica.py',225),
-  ('E -> ent','E',1,'p_expr','gramatica.py',236),
-  ('E -> dou','E',1,'p_expr','gramatica.py',237),
-  ('E -> va','E',1,'p_expr','gramatica.py',238),
-  ('ent -> INTEGER','ent',1,'p_expInt','gramatica.py',245),
-  ('dou -> DOUBLE','dou',1,'p_expDou','gramatica.py',251),
-  ('va -> VAR','va',1,'p_expVar','gramatica.py',257),
+  ('ltag -> ltag tag linst','ltag',3,'p_lista_tag','gramatica.py',153),
+  ('ltag -> tag linst','ltag',2,'p_lista_tag','gramatica.py',154),
+  ('linst -> linst inst PCOMA','linst',3,'p_lista_instrucciones','gramatica.py',166),
+  ('linst -> inst PCOMA','linst',2,'p_lista_instrucciones','gramatica.py',167),
+  ('inst -> asignacion','inst',1,'p_instruccion','gramatica.py',176),
+  ('inst -> iff','inst',1,'p_instruccion','gramatica.py',177),
+  ('inst -> jump','inst',1,'p_instruccion','gramatica.py',178),
+  ('inst -> printt','inst',1,'p_instruccion','gramatica.py',179),
+  ('inst -> ext','inst',1,'p_instruccion','gramatica.py',180),
+  ('asignacion -> VAR IGUAL exp','asignacion',3,'p_asignacion','gramatica.py',185),
+  ('tag -> ID DP','tag',2,'p_tag','gramatica.py',189),
+  ('tag -> main DP','tag',2,'p_tag','gramatica.py',190),
+  ('jump -> goto ID','jump',2,'p_jump','gramatica.py',193),
+  ('iff -> if IZQPAR exp DERPAR goto ID','iff',6,'p_iff','gramatica.py',197),
+  ('printt -> print IZQPAR va DERPAR','printt',4,'p_printt','gramatica.py',201),
+  ('ext -> exit','ext',1,'p_exxit','gramatica.py',206),
+  ('exp -> expa','exp',1,'p_expresion','gramatica.py',210),
+  ('exp -> expl','exp',1,'p_expresion','gramatica.py',211),
+  ('exp -> expra','exp',1,'p_expresion','gramatica.py',212),
+  ('exp -> expb','exp',1,'p_expresion','gramatica.py',213),
+  ('exp -> E','exp',1,'p_expresion','gramatica.py',214),
+  ('expl -> NOT E','expl',2,'p_expresion_logica','gramatica.py',219),
+  ('expl -> E AND E','expl',3,'p_expresion_logica','gramatica.py',220),
+  ('expl -> E OR E','expl',3,'p_expresion_logica','gramatica.py',221),
+  ('expl -> E xor E','expl',3,'p_expresion_logica','gramatica.py',222),
+  ('expra -> E DIGUAL E','expra',3,'p_expresion_relacional','gramatica.py',225),
+  ('expra -> E DESIGUAL E','expra',3,'p_expresion_relacional','gramatica.py',226),
+  ('expra -> E MAYORIGUAL E','expra',3,'p_expresion_relacional','gramatica.py',227),
+  ('expra -> E MENORIGUAL E','expra',3,'p_expresion_relacional','gramatica.py',228),
+  ('expra -> E MAYOR E','expra',3,'p_expresion_relacional','gramatica.py',229),
+  ('expra -> E MENOR E','expra',3,'p_expresion_relacional','gramatica.py',230),
+  ('expb -> BNOT E','expb',2,'p_expresion_bit','gramatica.py',235),
+  ('expb -> E BAND E','expb',3,'p_expresion_bit','gramatica.py',236),
+  ('expb -> E BOR E','expb',3,'p_expresion_bit','gramatica.py',237),
+  ('expb -> E BXOR E','expb',3,'p_expresion_bit','gramatica.py',238),
+  ('expb -> E BLEFT E','expb',3,'p_expresion_bit','gramatica.py',239),
+  ('expb -> E BRIGHT E','expb',3,'p_expresion_bit','gramatica.py',240),
+  ('expa -> E SUMA E','expa',3,'p_expresion_aritmetica','gramatica.py',243),
+  ('expa -> E RESTA E','expa',3,'p_expresion_aritmetica','gramatica.py',244),
+  ('expa -> E MULTI E','expa',3,'p_expresion_aritmetica','gramatica.py',245),
+  ('expa -> E DIV E','expa',3,'p_expresion_aritmetica','gramatica.py',246),
+  ('E -> ent','E',1,'p_expr','gramatica.py',257),
+  ('E -> dou','E',1,'p_expr','gramatica.py',258),
+  ('E -> va','E',1,'p_expr','gramatica.py',259),
+  ('E -> str','E',1,'p_expr','gramatica.py',260),
+  ('ent -> INTEGER','ent',1,'p_expInt','gramatica.py',267),
+  ('dou -> DOUBLE','dou',1,'p_expDou','gramatica.py',273),
+  ('str -> STR','str',1,'p_expStr','gramatica.py',279),
+  ('va -> VAR','va',1,'p_expVar','gramatica.py',285),
 ]
