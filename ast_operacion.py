@@ -89,6 +89,25 @@ class Divi(Expresion):
             print("Error Critico")
 
 
+class Rest(Expresion):
+    def __init__(self,val1):
+        super().__init__(val1,val1)
+
+    def ejecutar(self, metodos, ts):
+        v1 = self.val1.ejecutar(metodos,ts)
+        try:
+            if((v1.tipo==TIPO.ENTERO)):
+                val3 = -v1.value 
+                return Valor(val3, TIPO.ENTERO)
+            elif((v1.tipo==TIPO.DOBLE)):
+                val3 = -v1.value 
+                return Valor(val3, TIPO.DOBLE)
+            else:
+                print("Error")
+        except:
+            print("Error Critico")
+
+
 
 #                   OPERACIONES RELACIONALES
 
@@ -105,7 +124,7 @@ class Igual(Expresion):
                 return Valor(int(val3), TIPO.ENTERO)
             elif((v1.tipo==TIPO.DOBLE)&(v2.tipo==TIPO.DOBLE)):
                 val3 = v1.value == v2.value 
-                return Valor(val3, TIPO.DOBLE)
+                return Valor(val3, TIPO.ENTERO)
             else:
                 print("Error")
         except:
@@ -145,7 +164,7 @@ class Mayor(Expresion):
                 return Valor(int(val3), TIPO.ENTERO)
             elif((v1.tipo==TIPO.DOBLE)&(v2.tipo==TIPO.DOBLE)):
                 val3 = v1.value > v2.value 
-                return Valor(int(val3), TIPO.DOBLE)
+                return Valor(int(val3), TIPO.ENTERO)
             else:
                 print("Error")
         except:
@@ -262,9 +281,9 @@ class Or(Expresion):
         v1 = self.val1.ejecutar(metodos,ts)
         v2 = self.val2.ejecutar(metodos,ts)
         try:
-            if((v1.tipo==TIPO.ENTERO)&(v2.tipo==TIPO.ENTERO)):
-                if((v1.value==1 | v1.value==0) & (v2.value==1 | v2.value ==0) ):
-                    if(v1.value==1 | v2.value==1):
+            if((v1.tipo==TIPO.ENTERO)and(v2.tipo==TIPO.ENTERO)):
+                if((v1.value==1 or v1.value==0) and (v2.value==1 or v2.value ==0) ):
+                    if(v1.value==1 or v2.value==1):
                         return Valor(1,TIPO.ENTERO)
                     else:
                         return Valor(0,TIPO.ENTERO)
@@ -285,8 +304,8 @@ class Xor(Expresion):
         v2 = self.val2.ejecutar(metodos,ts)
         print(v1.value," -- ",v2.value)
         try:
-            if((v1.tipo==TIPO.ENTERO)&(v2.tipo==TIPO.ENTERO)):
-                if((v1.value==1 | v1.value==0) & (v2.value==1 | v2.value ==0) ):
+            if((v1.tipo==TIPO.ENTERO)and(v2.tipo==TIPO.ENTERO)):
+                if((v1.value==1 or v1.value==0) and (v2.value==1 or v2.value ==0) ):
                     if(v1.value== v2.value):
                         return Valor(0,TIPO.ENTERO)
                     else:

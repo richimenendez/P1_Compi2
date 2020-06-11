@@ -9,6 +9,30 @@ class Nodo:
     def graficar(self, metodos, ts):
         pass
 
+def getHash(obj):
+    return hash(obj)
+
+def calcularArreglo(var,indx,args,metodos,ts,val):
+    v = var.ejecutar(metodos,ts)
+    i = args[indx].ejecutar(metodos,ts)
+    if(i.tipo==TIPO.ENTERO or i.tipo == TIPO.STRING):            
+        if(indx==len(args)-1):
+            if(v.tipo==TIPO.STRING):
+                v.value = v.value[:i.value]+val.value+v.value[i.value+1:]
+            elif(v.tipo==TIPO.ARRAY):
+                v.value[i.value] = val
+        else:
+            if(v.tipo==TIPO.ARRAY):
+                if(i.value) in v.value:
+                    v.value[i.value] = calcularArreglo(v.value[i.value],indx+1,args,metodos,ts,val)
+                else:
+                    v.value[i.value] = Valor({},TIPO.ARRAY)
+                    v.value[i.value] = calcularArreglo(v.value[i.value],indx+1,args,metodos,ts,val)
+                
+    else:
+        return Valor("Indice no es numero ni String.",TIPO.ERROR) 
+    return v
+
 class Tag(Nodo):
     # Esta clase permite guardar las instrucciones de las clases
     def __init__(self, nombre, instrucciones):
@@ -18,6 +42,7 @@ class Tag(Nodo):
     def ejecutar(self, metodos, ts):
         print(self.nombre," :")
         for inst in self.instrucciones:
+            print(inst)
             a = inst.ejecutar(metodos,ts)
             if(isinstance(inst,Salto)):
                 return 1
@@ -27,6 +52,41 @@ class Tag(Nodo):
                 return 1
         return 0
     
+    def ast(self):
+        node = hash(self)
+        v = "n"+node+"\nn"+node+'[label="ETIQUETA: '+ self.nombre+'"] \n '
+        for x in self.instrucciones:
+            v+="n"+node+"->"+x.ast()
+        return v
+    
+    def grammarASC(self):
+        v =('''<tr> <td colspan=2  class="et" > Contenido Etiqueta  '''+ self.nombre +''' </td> </tr>
+        <tr> 
+        <td> <p>ListaInstrucciones => ListaInstrucciones  PC ";"<br/> |  Instrucciones PC ";"<br/> </p></td> 
+        <td><p> 
+    if(len(t)==3):<br/>
+        t[0] = []<br/>
+        t[0].append(t[1])<br/><br/>
+    if(len(t)==4):<br/>
+        t[0] = t[1]<br/>
+        t[0].append(t[2]) </p></td> 
+        </tr>
+        <tr>
+            <td> Intrucciones =>    asignacion<br/>
+                    |   iff<br/>
+                    |   jump<br/>
+                    |   printt<br/>
+                    |   ext<br/>
+                    |   uns<br/> </td> <td> <p> t[0] = t[1] </p> </td>
+        </tr>\n''')
+        
+        for x in (self.instrucciones):
+            try:
+                v+=x.grammarASC()
+            except:
+                pass
+        return v
+
     
 class Print(Nodo):
     #Esta clase permite imprimir un valor.
@@ -35,10 +95,54 @@ class Print(Nodo):
     
     def ejecutar(self,metodos,ts):
         v = self.valor.ejecutar(metodos,ts)
-        print(v)
+        print("......... PRINT ...........")
+        print(v.value)
+        print("-----------------------")
         metodos.mensajes.append(v.value)
     
+    def ast(self):
+        node = hash(self)
+        v = "n"+node+"\nn"+node+'[label="PRINT()"] \n '
+        v+="n"+node+"->"+self.valor.ast()
+        return v
+
+    def grammarASC(self):
+        v =('''<tr> <td colspan=2  class="et" > Contenido PRINT  '''+ " " +''' </td> </tr>
+        <tr> 
+        <td> <p>Print => PRINT LEFTPAR "("  ID2    ")" <br/> ID2 => ID LArray <br/> | ID <br/> LArray => IZQLLAVE"[" Expresion DERLLAVE"]" </p></td> 
+        <td><p> Se manda a llamar un registro para imprimirlo en consola. Se busca el ID en la tabla de simbolos para ejecutarse</p></td> 
+        </tr>\n''')
+        return v
     
+class Array(Nodo):
+    #Esta clase permite imprimir un valor.
+    def __init__(self):
+        pass
+    
+    def ejecutar(self,metodos,ts):
+        return Valor({},TIPO.ARRAY)
+
+    def ast(self):
+        node = hash(self)
+        v = "n"+node+"\nn"+node+'[label="Array()"] \n '
+        return v
+        
+    
+class Leer(Nodo):
+    #Esta clase permite imprimir un valor.
+    def __init__(self):
+        pass
+
+    def ejecutar(self,metodos,ts):
+        pass
+
+    def ast(self):
+        node = hash(self)
+        v = "n"+node+"\nn"+node+'[label="Read()"] \n '
+        return v
+        
+
+
 class Exit(Nodo):
     #Esta clase permite imprimir un valor.
     def __init__(self):
@@ -46,6 +150,19 @@ class Exit(Nodo):
     
     def ejecutar(self,metodos,ts):
         return 1
+    
+    def ast(self):
+        node = hash(self)
+        v = "n"+node+"\nn"+node+'[label="Exit"] \n '
+        return v
+    
+    def grammarASC(self):
+        v =('''<tr> <td colspan=2  class="et" > Contenido EXIT  '''+ " " +''' </td> </tr>
+        <tr> 
+        <td> <p>ext => exit  </p></td> 
+        <td><p> t[0] = Exit() </p></td> 
+        </tr>\n''')
+        return v
 
 class Asignacion(Nodo):
     #Esta clase representa una asignación
@@ -55,13 +172,49 @@ class Asignacion(Nodo):
     
     def ejecutar(self, metodos, ts):
         v1 = self.expresion.ejecutar(metodos,ts)
-        if self.variable in metodos.variables:
-            metodos.añadirVariable(self.variable,self.expresion.ejecutar(metodos,ts),"1,1")
-            print("Nueva variable")
+        if self.variable.args == None:
+            if self.variable.valor in metodos.variables:
+                metodos.añadirVariable(self.variable.valor,v1,"1,1")
+            else:
+                metodos.añadirVariable(self.variable.valor,v1,"1,1")
         else:
-            metodos.añadirVariable(self.variable,self.expresion.ejecutar(metodos,ts),"1,1")
-            print("Sobre escribiendo variable")
-        print("La variable ",self.variable," = ",v1.value)
+            for x in self.variable.args:
+                print(x.ejecutar(metodos,ts).value)     
+            if self.variable.valor in metodos.variables:#HAY UNA VARIABLE
+                v = metodos.variables.get(self.variable.valor).valor
+                v = calcularArreglo(v,0,self.variable.args,metodos,ts,v1)
+                metodos.añadirVariable(self.variable.valor,v,"1,1")
+            else:                                       #CREAR ARREGLO
+                v = Valor({},TIPO.ARRAY)
+                v = calcularArreglo(v,0,self.variable.args,metodos,ts,v1)
+                metodos.añadirVariable(self.variable.valor,v,"1,1")
+       
+        print("La variable ",self.variable.valor," = ",v1.value)
+        
+    def grammarASC(self):
+        v =('''<tr> <td colspan=2  class="et" > Contenido ASIGNACION  '''+ " " +''' </td> </tr>
+        <tr> 
+        <td> <p>asignacion => var2 IGUAL exp  </p></td> 
+        <td><p> t[0] = Asignacion(t[1],t[3]) </p></td> 
+        </tr>
+        <tr>
+            <td> var2 => VAR arr <br/> arr </td> <td> 
+    if(len(t)==3): <br/>
+        t[0] = NodoVariable(t[1],t[2]) <br/>
+    else: <br/>
+        t[0] = NodoVariable(t[1],None) </td> 
+        </tr>
+        <tr>
+        <td> arr => arr IZQLLAVE E DERLLAVE <br/> | IZQLLAVE E DERLLAVE</td> <td>  if(len(t)==5):<br/> 
+        lar = t[1]<br/> 
+        lar.append(t[3])<br/> 
+        t[0] = lar <br/> 
+    else:<br/> 
+        lar = []<br/> 
+        lar.append(t[2])<br/> 
+        t[0] = lar </td><br/> 
+        </tr>\n''')
+        return v
 
 class Si(Nodo):
     #Esta clase representa un salto condicional
@@ -91,6 +244,15 @@ class Si(Nodo):
             print("No se cumplio la condición")
             return 0
 
+        
+    def grammarASC(self):
+        v =('''<tr> <td colspan=2  class="et" > Contenido SALTO CONDICIONAL  '''+ " " +''' </td> </tr>
+        <tr> 
+        <td> <p>iff =>   if IZQPAR "(" exp DERPAR ")" goto ID</p></td> 
+        <td><p> t[0] = Si(t[3],t[6]) </p></td> 
+        </tr>\n''')
+        return v
+
 class Salto(Nodo):
     #Esta clase representa un salto normal
     def __init__(self,etiqueta):
@@ -106,6 +268,14 @@ class Salto(Nodo):
                 v = y.ejecutar(metodos,ts)
                 if(v==1):
                     return 1
+                    
+    def grammarASC(self):
+        v =('''<tr> <td colspan=2  class="et" > Contenido SALTO  '''+ " " +''' </td> </tr>
+        <tr> 
+        <td> <p>jump  => goto ID";" </p></td> 
+        <td><p> t[0] = Salto(t[2]) </p></td> 
+        </tr>\n''')
+        return v
 
 class NodoEntero(Nodo):
     #Esta clase representa cuando viene un valor entero
@@ -142,12 +312,24 @@ class NodoArreglo(Nodo):
     
 class NodoVariable(Nodo):
     #Esta clase representa cuando viene un valor entero
-    def __init__(self, valor):
+    def __init__(self, valor, args):
         self.valor = valor
+        self.args = args 
     
     def ejecutar(self, metodos, ts):
         try:
-            val = ts.variables.get(self.valor).valor
+            v = metodos.variables.get(self.valor).valor
+            val = v
+                
+            if(self.args!=None):
+                for x in self.args:
+                    if(v.tipo == TIPO.ARRAY):
+                        v = v.value.get(x.ejecutar(metodos,ts).value)
+                    elif(v.tipo == TIPO.STRING):
+                        v = Valor(v.value[x.ejecutar(metodos,ts).value],TIPO.STRING)
+                    else:
+                        v = v
+                val = v
             return val
-        except:
-            print("No se encontro")
+        except Exception as e:
+            print("No se encontro",e)

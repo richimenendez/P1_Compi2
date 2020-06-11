@@ -15,9 +15,8 @@ reservadas = {
     'if': 'if',
     'abs': 'abs',
     'xor': 'xor',
-    'print': 'print',
     'exit': 'exit',
-    'unset': 'unset'
+    'read': 'read'
 
 }
 
@@ -121,12 +120,16 @@ def t_INTEGER(t):
 
 def t_ID(t):
     r'[a-zA-Z_][a-zA-Z_0-9]*'
-    t.type = reservadas.get(t.value.lower(),'ID')    # Check for reserved words
+    t.type = reservadas.get(t.value.lower(),'ID') 
     return t
 
 def t_VAR(t):
-    r'[\$][t|v|s|a][\d]+'
+    r'[\$](([t|v|s|a][\d]+)|sp|rn)'
     return t
+
+def t_COMENTARIO(t):
+    r'\#.*\n'
+    t.lexer.lineno += 1
 
 t_ignore = " \t"
 
@@ -177,18 +180,32 @@ def p_instruccion(t):
                     |   iff
                     |   jump
                     |   printt
-                    |   ext'''
+                    |   ext
+                    |   uns'''
     t[0] = t[1]
 
+def p_unset(t):
+    '''
+        uns     :   unset IZQPAR va DERPAR
+    '''
 
 def p_asignacion(t):
-    'asignacion  :   VAR IGUAL exp'
+    'asignacion  :   var2 IGUAL exp'
     t[0] = Asignacion(t[1],t[3])
  
+def p_var2(t):
+    '''var2        :   VAR arr
+                 |   VAR'''
+    if(len(t)==3):
+        t[0] = NodoVariable(t[1],t[2])
+    else:
+        t[0] = NodoVariable(t[1],None)
+
 def p_tag(t):
     '''tag         :   ID DP
                     |  main DP'''
     t[0] = t[1]
+
 def p_jump(t):
     'jump        :   goto ID'
     t[0] = Salto(t[2])
@@ -211,9 +228,29 @@ def p_expresion(t):
                     | expl
                     | expra
                     | expb
+                    | casteo
                     | E
+                    | calls
     '''
     t[0] = t[1]
+
+def p_casteo(t):
+    '''
+        casteo      : IZQPAR int DERPAR E
+                    | IZQPAR float DERPAR E
+                    | IZQPAR char DERPAR E
+    '''
+
+def p_calls(t):
+    '''
+        calls       :  read IZQPAR DERPAR
+                    |  array IZQPAR DERPAR
+    '''
+    if(t[1]=="read"):
+        t[0] = Leer()
+    elif(t[1]=="array"):
+        t[0] = Array()
+        pass
 
 def p_expresion_logica(t):
     '''expl        : NOT E
@@ -259,8 +296,12 @@ def p_expresion_aritmetica(t):
     '''expa        : E SUMA E
                     | E RESTA E
                     | E MULTI E
+                    | RESTA E
+                    | abs IZQPAR E DERPAR
                     | E DIV E'''
-    if(t[2]=='+'):
+    if(len(t)==3):
+        t[0] = Rest(t[2])
+    elif(t[2]=='+'):
         t[0] = Suma(t[1],t[3])
     elif(t[2]=='-'):
         t[0] = Resta(t[1],t[3])
@@ -298,12 +339,38 @@ def p_expStr(t):
 
 def p_expVar(t):
     '''
-        va : VAR
+        va : VAR arr
+            | VAR 
     '''
-    t[0] = NodoVariable(t[1])
+    if(len(t)==3):
+        t[0] = NodoVariable(t[1],t[2])
+    else:
+        t[0] = NodoVariable(t[1],None)
+def p_arrayL(t):
+    '''
+        arr : arr IZQLLAVE E DERLLAVE
+            | IZQLLAVE E DERLLAVE
+    '''
+    if(len(t)==5):
+        lar = t[1]
+        lar.append(t[3])
+        t[0] = lar 
+    else:
+        lar = []
+        lar.append(t[2])
+        t[0] = lar
 
 def p_error(t):
-    print("Error sintáctico en: '%s'" % t.value)
+    if(t!=None):
+        print("Error sintáctico en: '%s'" % t.value)
+        while(True):
+            tok = lexer.token() 
+            if(tok==None):
+                break
+            elif(tok.type=="PCOMA"):
+                break
+    else:
+        print("Error critico")
 
 #Creador del Analisis Sintactico
 import ply.yacc as yacc 
@@ -311,21 +378,47 @@ parser = yacc.yacc()
 ts = TablaMetodos()
 arbol = parser.parse('''
 main:
-    $t1 = 0 || 0;
+  $s0 = array(); #stack
+  $sp = -1; #null pointer
+  $a0 = 3; #m
+  $a1 = 1; #n
+  $sp = $sp + 1;
+  $s0[$sp] =$a0; #push
+  goto ack;
+ret0:
+	print($v0);
+	exit;
+ack:
+    if ($sp<0) goto ret3; 
+	$a0 = $s0[$sp]; #pop
+	$sp = $sp - 1;
+	if ($a0 != 0) goto ret1;
+	$t4 = $a0 + 1;
+	$a1 = $a1 + $t4;
+	goto ack;
+ret1:
+	if($a1 != 0) goto ret2;
+	$a1 = $a1 + 1;
+	$a0 = $a0 - 1;
+	$sp = $sp + 1;
+	$s0[$sp] = $a0; #push
+	goto ack;
+ret2:
+	$a0 = $a0 - 1;
+	$sp = $sp + 1;
+	$s0[$sp] = $a0;
+	$a0 = $a0 + 1;
+	$sp = $sp + 1;
+	$s0[$sp] = $a0;
+	$a1 = $a1 - 1;
+	goto ack;
+ret3:
+	$v0 = $a1;
+	goto ret0;
+	
 ''')
 
-'''
-main:
-    $t1 = 1;
-for:
-    print($t1);
-    $t1 = $t1+1;
-    if ($t1 == 10) goto end2;
-    goto for;
-end2:
-    exit;
-    $t2 = 10;
-'''
+
 
 nodo = ts.metodos.get("main")
 if(nodo!=None):
@@ -338,10 +431,19 @@ if(nodo!=None):
             if(v==1):
                 break
     
-print("Se termino de ejecutar")
+print("VARIBALES--------------------------")
 for x,y in ts.variables.items():
     print(x, " = ", y.valor.value)
+
+print("METODOS--------------------------")
+for x,y in ts.metodos.items():
+    print(x, " = ", y)
+
 
 print("MENSAJES --------------------------")
 for x in ts.mensajes:
     print(x)
+
+from reportes import *
+print("HTML DE REPORTE GRAMATICAL.-----------------------")
+#gramaticalASC(ts.metodos)
