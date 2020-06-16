@@ -6,12 +6,14 @@ from tkinter import *
 import tkinter.filedialog
 import tkinter.messagebox
 
-PROGRAM_NAME = "Text Editor GUI"
-file_name = None
 
+IDE = "RichiBeans"
+archivo = None
+
+# Configuración de Ventana
 root = Tk()
-root.geometry('500x500')
-root.title(PROGRAM_NAME)
+root.geometry('1280x720')
+root.title(IDE)
 
 # show pop-up menu
 
@@ -31,7 +33,7 @@ def show_cursor_info_bar():
 def update_cursor_info_bar(event=None):
     row, col = content_text.index(INSERT).split('.')
     line_num, col_num = str(int(row)), str(int(col) + 1)  # col starts at 0
-    infotext = "Line: {0} | Column: {1}".format(line_num, col_num)
+    infotext = "Linea: {0} | Columna: {1}".format(line_num, col_num)
     cursor_info_bar.config(text=infotext)
 
 
@@ -51,22 +53,7 @@ def update_line_numbers(event=None):
     line_number_bar.config(state='disabled')
 
 
-def highlight_line(interval=100):
-    content_text.tag_remove("active_line", 1.0, "end")
-    content_text.tag_add(
-        "active_line", "insert linestart", "insert lineend+1c")
-    content_text.after(interval, toggle_highlight)
 
-
-def undo_highlight():
-    content_text.tag_remove("active_line", 1.0, "end")
-
-
-def toggle_highlight(event=None):
-    if to_highlight_line.get():
-        highlight_line()
-    else:
-        undo_highlight()
 
 
 def on_content_changed(event=None):
@@ -85,13 +72,10 @@ def get_line_numbers():
 
 def display_about_messagebox(event=None):
     tkinter.messagebox.showinfo(
-        "About", "{}{}".format(PROGRAM_NAME, "\nText Editor GUI\nHackAnons\nhackanons@yahoo.com"))
+        "Acerca de", "{}{}".format(IDE, "\nRicardo Menéndez\nCompiladores 2\nrichimenen@gmail.com"))
+        
+#    CREDITOS A : HackAnons hackanons@yahoo.com
 
-
-def display_help_messagebox(event=None):
-    tkinter.messagebox.showinfo(
-        "Help", "Help Book: \nText Editor GUI\nHackAnons\nhackanons@yahoo.com",
-        icon='question')
 
 
 def exit_editor(event=None):
@@ -233,88 +217,66 @@ def redo(event=None):
 
 
 menu_bar = Menu(root)
-file_menu = Menu(menu_bar, tearoff=0)
-file_menu.add_command(label='New', accelerator='Ctrl+N', compound='left', underline=0, command=new_file)
-file_menu.add_command(label='Open', accelerator='Ctrl+O', compound='left', underline=0, command=open_file)
-file_menu.add_command(label='Save', accelerator='Ctrl+S',
+archivo = Menu(menu_bar, tearoff=0)
+archivo.add_command(label='Nuevo Archivo',  compound='left', underline=0, command=new_file)
+archivo.add_command(label='Abrir',  compound='left', underline=0, command=open_file)
+archivo.add_command(label='Guardar', accelerator='Ctrl+S',
                       compound='left',  underline=0, command=save)
-file_menu.add_command(
-    label='Save as', accelerator='Shift+Ctrl+S', command=save_as)
-file_menu.add_separator()
-file_menu.add_command(label='Exit', accelerator='Alt+F4', command=exit_editor)
-menu_bar.add_cascade(label='File', menu=file_menu)
+archivo.add_command(
+    label='Guardar Como', command=save_as)
+archivo.add_separator()
+archivo.add_command(label='Salir', accelerator='Alt+F4', command=exit_editor)
+menu_bar.add_cascade(label='Archivo', menu=archivo)
 
-edit_menu = Menu(menu_bar, tearoff=0)
-edit_menu.add_command(label='Undo', accelerator='Ctrl+Z',
-                      compound='left',  command=undo)
-edit_menu.add_command(label='Redo', accelerator='Ctrl+Y',
-                      compound='left',  command=redo)
-edit_menu.add_separator()
-edit_menu.add_command(label='Cut', accelerator='Ctrl+X',
+editar = Menu(menu_bar, tearoff=0)
+editar.add_command(label='Cortar', accelerator='Ctrl+X',
                       compound='left', command=cut)
-edit_menu.add_command(label='Copy', accelerator='Ctrl+C',
+editar.add_command(label='Copiar', accelerator='Ctrl+C',
                       compound='left', command=copy)
-edit_menu.add_command(label='Paste', accelerator='Ctrl+V',
+editar.add_command(label='Pegar', accelerator='Ctrl+V',
                       compound='left',  command=paste)
-edit_menu.add_separator()
-edit_menu.add_command(label='Find', underline=0,
+editar.add_separator()
+editar.add_command(label='Buscar', underline=0,
                       accelerator='Ctrl+F', command=find_text)
-edit_menu.add_separator()
-edit_menu.add_command(label='Select All', underline=7,
+editar.add_separator()
+editar.add_command(label='Seleccionar Todo', underline=7,
                       accelerator='Ctrl+A', command=select_all)
-menu_bar.add_cascade(label='Edit', menu=edit_menu)
+menu_bar.add_cascade(label='Editar', menu=editar)
 
 
 view_menu = Menu(menu_bar, tearoff=0)
 show_line_number = IntVar()
 show_line_number.set(1)
-view_menu.add_checkbutton(label='Show Line Number', variable=show_line_number,
+view_menu.add_checkbutton(label='Mostrar Linea', variable=show_line_number,
                           command=update_line_numbers)
 show_cursor_info = IntVar()
 show_cursor_info.set(1)
 view_menu.add_checkbutton(
-    label='Show Cursor Location at Bottom', variable=show_cursor_info, command=show_cursor_info_bar)
+    label='Posición del Cursos', variable=show_cursor_info, command=show_cursor_info_bar)
 to_highlight_line = BooleanVar()
-view_menu.add_checkbutton(label='Highlight Current Line', onvalue=1,
-                          offvalue=0, variable=to_highlight_line, command=toggle_highlight)
 themes_menu = Menu(menu_bar, tearoff=0)
-view_menu.add_cascade(label='Themes', menu=themes_menu)
+view_menu.add_cascade(label='Temas', menu=themes_menu)
 
 color_schemes = {
-    'Default': '#000000.#FFFFFF',
-    'Greygarious': '#83406A.#D1D4D1',
-    'Aquamarine': '#5B8340.#D1E7E0',
-    'Bold Beige': '#4B4620.#FFF0E1',
-    'Cobalt Blue': '#ffffBB.#3333aa',
-    'Olive Green': '#D1E7E0.#5B8340',
-    'Night Mode': '#FFFFFF.#000000',
+    'Claridad': '#000000.#FFFFFF',
+    'Oceano': '#ffffBB.#3333aa',
+    'Nocturno': '#FFFFFF.#000000',
 }
 
 theme_choice = StringVar()
-theme_choice.set('Default')
+theme_choice.set('Claridad')
 for k in sorted(color_schemes):
     themes_menu.add_radiobutton(
         label=k, variable=theme_choice, command=change_theme)
-menu_bar.add_cascade(label='View', menu=view_menu)
+menu_bar.add_cascade(label='Vista', menu=view_menu)
 
 about_menu = Menu(menu_bar, tearoff=0)
-about_menu.add_command(label='About', command=display_about_messagebox)
-about_menu.add_command(label='Help', command=display_help_messagebox)
-menu_bar.add_cascade(label='About',  menu=about_menu)
+about_menu.add_command(label='Datos', command=display_about_messagebox)
+menu_bar.add_cascade(label='Extras',  menu=about_menu)
 root.config(menu=menu_bar)
 
-shortcut_bar = Frame(root,  height=25, background='DeepSkyBlue2')
-shortcut_bar.pack(expand='no', fill='x')
-
-icons = ('new_file', 'open_file', 'save', 'cut', 'copy', 'paste',
-         'undo', 'redo', 'find_text')
-for i, icon in enumerate(icons):
-    cmd = eval(icon)
-    tool_bar = Button(shortcut_bar,  command=cmd)
-    tool_bar.pack(side='left')
-
 line_number_bar = Text(root, width=4, padx=3, takefocus=0,  border=0,
-                       background='DarkOliveGreen1', state='disabled',  wrap='none')
+                       background='#D1D4D1', state='disabled',  wrap='none')
 line_number_bar.pack(side='left',  fill='y')
 
 content_text = Text(root, wrap='word', undo=1)
@@ -327,7 +289,6 @@ cursor_info_bar = Label(content_text, text='Line: 1 | Column: 1')
 cursor_info_bar.pack(expand='no', fill=None, side='right', anchor='se')
 
 
-content_text.bind('<KeyPress-F1>', display_help_messagebox)
 content_text.bind('<Control-N>', new_file)
 content_text.bind('<Control-n>', new_file)
 content_text.bind('<Control-O>', open_file)

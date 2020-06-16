@@ -26,6 +26,7 @@ tokens = [
     'MULTI',
     'DIV',
     'PORCENTAJE',
+    'PUNTERO',
 
 
     'NOT',
@@ -66,6 +67,8 @@ t_SUMA = r'\+'
 t_MULTI = r'\*'
 t_DIV = r'\/'
 t_PORCENTAJE = r'\%'
+
+t_PUNTERO = r'\&'
 
 t_NOT = r'\!'
 t_AND = r'\&\&'
@@ -151,20 +154,21 @@ from ast import *
 from ast_operacion import *
 from simbolos import *
 
+def p_s_tag(t):
+    '''s    : ltag'''
+    t[0] = Root(t[1])
+
 def p_lista_tag(t):
     '''
         ltag : ltag tag linst
              | tag linst
     '''
     if(len(t)==3):
-        t[0] = []
-        t[0].append(Tag(t[1],t[2]))
-        ts.añadirMetodo(Tag(t[1],t[2]))
+        t[0] = {}
+        t[0][t[1]] = (Tag(t[1],t[2],t.lineno(1)))
     if(len(t)==4):
         t[0] = t[1]
-        t[0].append(Tag(t[2],t[3]))
-        ts.añadirMetodo(Tag(t[2],t[3]))
-
+        t[0][t[2]] = (Tag(t[2],t[3],t.lineno(1)))
 def p_lista_instrucciones(t):
     ''' linst       :   linst  inst PCOMA
                     | inst PCOMA '''
@@ -188,10 +192,11 @@ def p_unset(t):
     '''
         uns     :   unset IZQPAR va DERPAR
     '''
+    t[0] = Unset(t[3],t.lineno(1))
 
 def p_asignacion(t):
     'asignacion  :   var2 IGUAL exp'
-    t[0] = Asignacion(t[1],t[3])
+    t[0] = Asignacion(t[1],t[3],t.lineno(1))
  
 def p_var2(t):
     '''var2        :   VAR arr
@@ -208,15 +213,15 @@ def p_tag(t):
 
 def p_jump(t):
     'jump        :   goto ID'
-    t[0] = Salto(t[2])
+    t[0] = Salto(t[2],t.lineno(1))
 
 def p_iff(t):
     'iff         :   if IZQPAR exp DERPAR goto ID'
-    t[0] = Si(t[3],t[6])
+    t[0] = Si(t[3],t[6],t.lineno(1))
 
 def p_printt(t):
     'printt     :   print IZQPAR va DERPAR'
-    t[0] = Print(t[3])
+    t[0] = Print(t[3],t.lineno(1))
 
 
 def p_exxit(t):
@@ -240,6 +245,12 @@ def p_casteo(t):
                     | IZQPAR float DERPAR E
                     | IZQPAR char DERPAR E
     '''
+    if(t[2]=="int"):
+        t[0] = Cast2Int(t[4])
+    elif(t[2]=="float"):
+        t[0] = Cast2Double(t[4])
+    elif(t[2]=="char"):
+        t[0] = Cast2Char(t[4])
 
 def p_calls(t):
     '''
@@ -250,7 +261,6 @@ def p_calls(t):
         t[0] = Leer()
     elif(t[1]=="array"):
         t[0] = Array()
-        pass
 
 def p_expresion_logica(t):
     '''expl        : NOT E
@@ -291,16 +301,27 @@ def p_expresion_bit(t):
                     | E BXOR E
                     | E BLEFT E
                     | E BRIGHT E'''
+    if(len(t)==3):
+        t[0] = BNot(t[2])
+    elif(t[2]=='&'):
+        t[0] = BAnd(t[1],t[3])
+    elif(t[2]=='|'):
+        t[0] = BOr(t[1],t[3])
+    elif(t[2]=='^'):
+        t[0] = BXor(t[1],t[3])
+    elif(t[2]=='<<'):
+        t[0] = BLeft(t[1],t[3])
+    elif(t[2]=='>>'):
+        t[0] = BRight(t[1],t[3])
 
 def p_expresion_aritmetica(t):
     '''expa        : E SUMA E
                     | E RESTA E
                     | E MULTI E
-                    | RESTA E
                     | abs IZQPAR E DERPAR
                     | E DIV E'''
-    if(len(t)==3):
-        t[0] = Rest(t[2])
+    if(len(t)==5):
+        t[0] = Absoluto(t[3])
     elif(t[2]=='+'):
         t[0] = Suma(t[1],t[3])
     elif(t[2]=='-'):
@@ -309,14 +330,19 @@ def p_expresion_aritmetica(t):
         t[0] = Divi(t[1],t[3])
     elif(t[2]=='*'):
         t[0] = Multi(t[1],t[3])
+    
 
 def p_expr(t):
     '''E           : ent
                     | dou
                     | va
                     | str
+                    | RESTA E
     '''
-    t[0] = t[1]
+    if(len(t)==3):
+        t[0] = Rest(t[2])
+    else:    
+        t[0] = t[1]
 
 
 def p_expInt(t):
@@ -346,6 +372,7 @@ def p_expVar(t):
         t[0] = NodoVariable(t[1],t[2])
     else:
         t[0] = NodoVariable(t[1],None)
+
 def p_arrayL(t):
     '''
         arr : arr IZQLLAVE E DERLLAVE
@@ -363,87 +390,50 @@ def p_arrayL(t):
 def p_error(t):
     if(t!=None):
         print("Error sintáctico en: '%s'" % t.value)
-        while(True):
-            tok = lexer.token() 
+        
+        '''while(True):
+            tok = lexer.token()
+            print(tok) 
             if(tok==None):
                 break
             elif(tok.type=="PCOMA"):
-                break
+                yacc.errok()
+                break'''
     else:
         print("Error critico")
 
 #Creador del Analisis Sintactico
 import ply.yacc as yacc 
-parser = yacc.yacc()
-ts = TablaMetodos()
-arbol = parser.parse('''
-main:
-  $s0 = array(); #stack
-  $sp = -1; #null pointer
-  $a0 = 3; #m
-  $a1 = 1; #n
-  $sp = $sp + 1;
-  $s0[$sp] =$a0; #push
-  goto ack;
-ret0:
-	print($v0);
-	exit;
-ack:
-    if ($sp<0) goto ret3; 
-	$a0 = $s0[$sp]; #pop
-	$sp = $sp - 1;
-	if ($a0 != 0) goto ret1;
-	$t4 = $a0 + 1;
-	$a1 = $a1 + $t4;
-	goto ack;
-ret1:
-	if($a1 != 0) goto ret2;
-	$a1 = $a1 + 1;
-	$a0 = $a0 - 1;
-	$sp = $sp + 1;
-	$s0[$sp] = $a0; #push
-	goto ack;
-ret2:
-	$a0 = $a0 - 1;
-	$sp = $sp + 1;
-	$s0[$sp] = $a0;
-	$a0 = $a0 + 1;
-	$sp = $sp + 1;
-	$s0[$sp] = $a0;
-	$a1 = $a1 - 1;
-	goto ack;
-ret3:
-	$v0 = $a1;
-	goto ret0;
-	
-''')
-
-
-
-nodo = ts.metodos.get("main")
-if(nodo!=None):
-    v = 0
-    for x,y in ts.metodos.items(): 
-        if(x=="main"):
-            flag =1
-        if(flag==1):
-            v = y.ejecutar(ts,ts)
-            if(v==1):
-                break
-    
-print("VARIBALES--------------------------")
-for x,y in ts.variables.items():
-    print(x, " = ", y.valor.value)
-
-print("METODOS--------------------------")
-for x,y in ts.metodos.items():
-    print(x, " = ", y)
-
-
-print("MENSAJES --------------------------")
-for x in ts.mensajes:
-    print(x)
 
 from reportes import *
-print("HTML DE REPORTE GRAMATICAL.-----------------------")
-#gramaticalASC(ts.metodos)
+from tkinter import *
+
+def ejecutar(v):
+    parser = yacc.yacc()
+    ts = TablaMetodos()
+    arbol = parser.parse(v,tracking=True)
+
+
+    arbol.ejecutar(ts,ts)
+
+    print("HTML DE REPORTE GRAMATICAL.-----------------------")
+    #gramaticalASC(ts.metodos)    
+    print("VARIBALES--------------------------")
+    reporteTS(ts.variables,ts.metodos)
+
+    print("METODOS--------------------------")
+    for x,y in ts.metodos.items():
+        print(x, " = ", y)
+
+    tk = tkinter.Tk() # Create the object
+    tk.geometry('1280x200')
+    text = tkinter.Text(tk,height=200, width=1280)
+    text.pack()
+
+    print("MENSAJES --------------------------")
+    for x in ts.mensajes:
+        x = str(x)+"\n"
+        text.insert(END,x)
+
+    tk.mainloop()
+    tk.destroy()

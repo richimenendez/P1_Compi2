@@ -1,5 +1,8 @@
 from values import *
 from simbolos import * 
+import tkinter
+from tkinter import simpledialog
+from tkinter.messagebox import showinfo
 
 errorSemantico = []
 
@@ -8,6 +11,23 @@ class Nodo:
         pass
     def graficar(self, metodos, ts):
         pass
+
+class Root(Nodo):
+    def __init__(self,inst):
+        self.inst = inst 
+
+    def ejecutar(self,metodos, ts):
+        nodo = self.inst.get("main")
+        if(nodo!=None):
+            v = 0
+            for x,y in self.inst.items(): 
+                if(x=="main"):
+                    flag =1
+                if(flag==1):
+                    v = y.ejecutar(ts,ts)
+                    if(v==1):
+                        break
+
 
 def getHash(obj):
     return hash(obj)
@@ -27,17 +47,17 @@ def calcularArreglo(var,indx,args,metodos,ts,val):
                     v.value[i.value] = calcularArreglo(v.value[i.value],indx+1,args,metodos,ts,val)
                 else:
                     v.value[i.value] = Valor({},TIPO.ARRAY)
-                    v.value[i.value] = calcularArreglo(v.value[i.value],indx+1,args,metodos,ts,val)
-                
+                    v.value[i.value] = calcularArreglo(v.value[i.value],indx+1,args,metodos,ts,val)      
     else:
         return Valor("Indice no es numero ni String.",TIPO.ERROR) 
     return v
 
 class Tag(Nodo):
     # Esta clase permite guardar las instrucciones de las clases
-    def __init__(self, nombre, instrucciones):
+    def __init__(self, nombre, instrucciones, linea):
         self.instrucciones = instrucciones
         self.nombre = nombre
+        self.linea = linea
 
     def ejecutar(self, metodos, ts):
         print(self.nombre," :")
@@ -48,7 +68,7 @@ class Tag(Nodo):
                 return 1
             if(isinstance(inst,Exit)):
                 return 1
-            if(isinstance(inst,Si)&(a==1)):
+            if(isinstance(inst,Si)and(a==1)):
                 return 1
         return 0
     
@@ -90,8 +110,9 @@ class Tag(Nodo):
     
 class Print(Nodo):
     #Esta clase permite imprimir un valor.
-    def __init__(self, valor):
+    def __init__(self, valor, linea):
         self.valor = valor
+        self.linea = linea
     
     def ejecutar(self,metodos,ts):
         v = self.valor.ejecutar(metodos,ts)
@@ -113,7 +134,36 @@ class Print(Nodo):
         <td><p> Se manda a llamar un registro para imprimirlo en consola. Se busca el ID en la tabla de simbolos para ejecutarse</p></td> 
         </tr>\n''')
         return v
+ 
     
+class Unset(Nodo):
+    #Esta clase permite imprimir un valor.
+    def __init__(self, valor, linea):
+        self.valor = valor
+        self.linea = linea
+    
+    def ejecutar(self,metodos,ts):
+        if self.valor.valor in metodos.variables:
+            del metodos.variables[self.valor.valor]
+        else:
+            metodos.errores.append(Simbolo("Error Semantico:  No existe la variable en la tabla de simbolos! No se puede hacer Pop",self.linea))
+        return 0
+    
+    def ast(self):
+        node = hash(self)
+        v = "n"+node+"\nn"+node+'[label="PRINT()"] \n '
+        v+="n"+node+"->"+self.valor.ast()
+        return v
+
+    def grammarASC(self):
+        v =('''<tr> <td colspan=2  class="et" > Contenido PRINT  '''+ " " +''' </td> </tr>
+        <tr> 
+        <td> <p>Print => PRINT LEFTPAR "("  ID2    ")" <br/> ID2 => ID LArray <br/> | ID <br/> LArray => IZQLLAVE"[" Expresion DERLLAVE"]" </p></td> 
+        <td><p> Se manda a llamar un registro para imprimirlo en consola. Se busca el ID en la tabla de simbolos para ejecutarse</p></td> 
+        </tr>\n''')
+        return v
+
+
 class Array(Nodo):
     #Esta clase permite imprimir un valor.
     def __init__(self):
@@ -134,7 +184,14 @@ class Leer(Nodo):
         pass
 
     def ejecutar(self,metodos,ts):
-        pass
+
+        tk = tkinter.Tk() # Create the object
+        tk.withdraw()
+        name = simpledialog.askstring("Information","Mensaje")
+        tk.destroy()
+        print("Read >>>  ",name)
+        return Valor(name,TIPO.STRING)
+
 
     def ast(self):
         node = hash(self)
@@ -166,9 +223,10 @@ class Exit(Nodo):
 
 class Asignacion(Nodo):
     #Esta clase representa una asignación
-    def __init__(self,variable, expresion):
+    def __init__(self,variable, expresion, linea):
         self.variable = variable
         self.expresion = expresion
+        self.linea = linea
     
     def ejecutar(self, metodos, ts):
         v1 = self.expresion.ejecutar(metodos,ts)
@@ -188,8 +246,8 @@ class Asignacion(Nodo):
                 v = Valor({},TIPO.ARRAY)
                 v = calcularArreglo(v,0,self.variable.args,metodos,ts,v1)
                 metodos.añadirVariable(self.variable.valor,v,"1,1")
-       
-        print("La variable ",self.variable.valor," = ",v1.value)
+        if(v1!=None):
+            print("La variable ",self.variable.valor," = ",v1.value)
         
     def grammarASC(self):
         v =('''<tr> <td colspan=2  class="et" > Contenido ASIGNACION  '''+ " " +''' </td> </tr>
@@ -218,9 +276,10 @@ class Asignacion(Nodo):
 
 class Si(Nodo):
     #Esta clase representa un salto condicional
-    def __init__(self, condicion, etiqueta):
+    def __init__(self, condicion, etiqueta, linea):
         self.condicion = condicion
         self.etiqueta = etiqueta 
+        self.linea = linea
 
     def ejecutar(self, metodos, ts):
         cond = self.condicion.ejecutar(metodos,ts)
@@ -255,8 +314,9 @@ class Si(Nodo):
 
 class Salto(Nodo):
     #Esta clase representa un salto normal
-    def __init__(self,etiqueta):
+    def __init__(self,etiqueta, linea):
         self.etiqueta = etiqueta
+        self.linea = linea
 
     def ejecutar(self, metodos, ts):
         flag = 0

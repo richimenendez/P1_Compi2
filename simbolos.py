@@ -3,7 +3,6 @@ class Simbolo:
         self.valor = valor
         self.linea = linea
 
-
 class TablaSimbolos:
     def __init__(self):
         self.tabla = []
@@ -13,6 +12,7 @@ class TablaMetodos:
         self.metodos = {}
         self.variables = {}
         self.mensajes = []
+        self.errores= []
 
     def añadirMetodo(self,metodo):
         self.metodos[metodo.nombre] = metodo
