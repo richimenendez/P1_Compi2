@@ -127,7 +127,7 @@ def t_ID(t):
     return t
 
 def t_VAR(t):
-    r'[\$](([t|v|s|a][\d]+)|sp|rn)'
+    r'[\$](([t|v|s|a][\d]+)|sp|ra)'
     return t
 
 def t_COMENTARIO(t):
@@ -143,6 +143,7 @@ def t_newline(t):
 def t_error(t):
     print("Caracter irreconocible! '%s'"% t.value[0])
     #meter a tabla de errores!
+    erroresLexicos.append("Error Lexico: "+t.value[0]+"  en linea:  "+ str(int(t.lexer.lineno)))
     t.lexer.skip(1)
 
 #Creador del analizador lexico LEX
@@ -220,7 +221,7 @@ def p_iff(t):
     t[0] = Si(t[3],t[6],t.lineno(1))
 
 def p_printt(t):
-    'printt     :   print IZQPAR va DERPAR'
+    'printt     :   print IZQPAR E DERPAR'
     t[0] = Print(t[3],t.lineno(1))
 
 
@@ -256,11 +257,14 @@ def p_calls(t):
     '''
         calls       :  read IZQPAR DERPAR
                     |  array IZQPAR DERPAR
+                    | PUNTERO VAR
     '''
     if(t[1]=="read"):
         t[0] = Leer()
     elif(t[1]=="array"):
         t[0] = Array()
+    else:
+        t[0] = NodoPuntero(t[2])
 
 def p_expresion_logica(t):
     '''expl        : NOT E
@@ -390,17 +394,19 @@ def p_arrayL(t):
 def p_error(t):
     if(t!=None):
         print("Error sintáctico en: '%s'" % t.value)
+        erroresSintacticos.append("Error Sintactico:  Token: "+t.value + "   En Linea : " +str(t.lineno))
         
-        '''while(True):
-            tok = lexer.token()
-            print(tok) 
+        while(True):
+            tok = parser.token()
             if(tok==None):
                 break
             elif(tok.type=="PCOMA"):
-                yacc.errok()
-                break'''
+                break
+        parser.errok()
+        return tok
     else:
-        print("Error critico")
+        print("Error Irrecuperable")
+        erroresSintacticos.append("Error Sintactico: No hay un token!")
 
 #Creador del Analisis Sintactico
 import ply.yacc as yacc 
@@ -408,19 +414,31 @@ import ply.yacc as yacc
 from reportes import *
 from tkinter import *
 
+erroresLexicos = []
+erroresSintacticos = []
+parser = yacc.yacc()
+
 def ejecutar(v):
+    global parser
     parser = yacc.yacc()
     ts = TablaMetodos()
+    global erroresLexicos 
+    erroresLexicos = []
+    global erroresSintacticos
+    erroresSintacticos = []
+
     arbol = parser.parse(v,tracking=True)
 
-
-    arbol.ejecutar(ts,ts)
-
+    try:
+        arbol.ejecutar(ts,ts)
+    except Exception as e:
+        print("Error de compilación!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!   "+str(e))
     print("HTML DE REPORTE GRAMATICAL.-----------------------")
-    #gramaticalASC(ts.metodos)    
+    gramaticalASC(ts.metodos)    
     print("VARIBALES--------------------------")
     reporteTS(ts.variables,ts.metodos)
-
+    reporteAST(arbol)
+    reporteErrores(erroresLexicos, erroresSintacticos, ts.errores)
     print("METODOS--------------------------")
     for x,y in ts.metodos.items():
         print(x, " = ", y)
@@ -432,7 +450,7 @@ def ejecutar(v):
 
     print("MENSAJES --------------------------")
     for x in ts.mensajes:
-        x = str(x)+"\n"
+        x = str(x).replace('\\n','\n')
         text.insert(END,x)
 
     tk.mainloop()

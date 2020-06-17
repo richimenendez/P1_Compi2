@@ -6,6 +6,7 @@ class TIPO(Enum):
     STRING = 3
     ARRAY = 4
     ERROR = 5
+    PUNTERO = 6
 
 class OPERACION_RELACIONAL(Enum):
     IGUAL = 1

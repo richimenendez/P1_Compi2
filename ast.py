@@ -3,6 +3,7 @@ from simbolos import *
 import tkinter
 from tkinter import simpledialog
 from tkinter.messagebox import showinfo
+import re
 
 errorSemantico = []
 
@@ -17,6 +18,8 @@ class Root(Nodo):
         self.inst = inst 
 
     def ejecutar(self,metodos, ts):
+        for x,y in self.inst.items():
+            metodos.metodos[x] = y 
         nodo = self.inst.get("main")
         if(nodo!=None):
             v = 0
@@ -28,6 +31,12 @@ class Root(Nodo):
                     if(v==1):
                         break
 
+    def ast(self):
+        node = abs(hash(self))
+        v = "n"+str(node)+"\nn"+str(node)+'[label="ROOT "] \n '
+        for x,y in self.inst.items():
+            v+="n"+str(node)+"->"+y.ast()
+        return v
 
 def getHash(obj):
     return hash(obj)
@@ -73,10 +82,10 @@ class Tag(Nodo):
         return 0
     
     def ast(self):
-        node = hash(self)
-        v = "n"+node+"\nn"+node+'[label="ETIQUETA: '+ self.nombre+'"] \n '
+        node = abs(hash(self))
+        v = "n"+str(node)+"\nn"+str(node)+'[label="ETIQUETA: '+ self.nombre+'"] \n '
         for x in self.instrucciones:
-            v+="n"+node+"->"+x.ast()
+            v+="n"+str(node)+"->"+x.ast()
         return v
     
     def grammarASC(self):
@@ -103,8 +112,8 @@ class Tag(Nodo):
         for x in (self.instrucciones):
             try:
                 v+=x.grammarASC()
-            except:
-                pass
+            except Exception as ex:
+                print("ERrrrrrroooooooorrrrrrrrrrrrrr:    "+ str(ex))
         return v
 
     
@@ -115,16 +124,21 @@ class Print(Nodo):
         self.linea = linea
     
     def ejecutar(self,metodos,ts):
+        
+        if(self.valor==None):
+            metodos.errores.append(Simbolo("Error Semantico: No existe un valor para el Print, viene un valor Nulo!",self.linea))
+            return
         v = self.valor.ejecutar(metodos,ts)
-        print("......... PRINT ...........")
-        print(v.value)
-        print("-----------------------")
+        if(v.tipo==TIPO.ERROR):
+            metodos.errores.append(Simbolo("Error Semantico: No existe un valor para Imprimir!\n"+v.value,self.linea))
+            return
+
         metodos.mensajes.append(v.value)
     
     def ast(self):
-        node = hash(self)
-        v = "n"+node+"\nn"+node+'[label="PRINT()"] \n '
-        v+="n"+node+"->"+self.valor.ast()
+        node = abs(hash(self))
+        v = "n"+str(node)+"\nn"+str(node)+'[label="PRINT()"] \n '
+        v+="n"+str(node)+"->"+self.valor.ast()
         return v
 
     def grammarASC(self):
@@ -132,7 +146,7 @@ class Print(Nodo):
         <tr> 
         <td> <p>Print => PRINT LEFTPAR "("  ID2    ")" <br/> ID2 => ID LArray <br/> | ID <br/> LArray => IZQLLAVE"[" Expresion DERLLAVE"]" </p></td> 
         <td><p> Se manda a llamar un registro para imprimirlo en consola. Se busca el ID en la tabla de simbolos para ejecutarse</p></td> 
-        </tr>\n''')
+        </tr>\n'''+self.valor.grammarASC())
         return v
  
     
@@ -150,15 +164,15 @@ class Unset(Nodo):
         return 0
     
     def ast(self):
-        node = hash(self)
-        v = "n"+node+"\nn"+node+'[label="PRINT()"] \n '
-        v+="n"+node+"->"+self.valor.ast()
+        node = abs(hash(self))
+        v = "n"+str(node)+"\nn"+str(node)+'[label="Unset()"] \n '
+        v+="n"+str(node)+"->"+self.valor.ast()
         return v
 
     def grammarASC(self):
-        v =('''<tr> <td colspan=2  class="et" > Contenido PRINT  '''+ " " +''' </td> </tr>
+        v =('''<tr> <td colspan=2  class="et" > Contenido Unset  '''+ " " +''' </td> </tr>
         <tr> 
-        <td> <p>Print => PRINT LEFTPAR "("  ID2    ")" <br/> ID2 => ID LArray <br/> | ID <br/> LArray => IZQLLAVE"[" Expresion DERLLAVE"]" </p></td> 
+        <td> <p>Unset => Unset LEFTPAR "("  ID2    ")" <br/> ID2 => ID LArray <br/> | ID <br/> LArray => IZQLLAVE"[" Expresion DERLLAVE"]" </p></td> 
         <td><p> Se manda a llamar un registro para imprimirlo en consola. Se busca el ID en la tabla de simbolos para ejecutarse</p></td> 
         </tr>\n''')
         return v
@@ -173,8 +187,16 @@ class Array(Nodo):
         return Valor({},TIPO.ARRAY)
 
     def ast(self):
-        node = hash(self)
-        v = "n"+node+"\nn"+node+'[label="Array()"] \n '
+        node = abs(hash(self))
+        v = "n"+str(node)+"\nn"+str(node)+'[label="Array()"] \n '
+        return v
+
+    def grammarASC(self):
+        v =('''<tr> <td colspan=2  class="et" > Contenido ARRAY  '''+ " " +''' </td> </tr>
+        <tr> 
+        <td> <p>arry => ARRAY LEFTPAR "("     DERPAR ")" <br/> </td> 
+        <td><p> Se crea un objeto de tipo Array. </p></td> 
+        </tr>\n''')
         return v
         
     
@@ -190,12 +212,19 @@ class Leer(Nodo):
         name = simpledialog.askstring("Information","Mensaje")
         tk.destroy()
         print("Read >>>  ",name)
+        metodos.mensajes.append("Read>>>  "+str(name))
+        if(re.match(r'-?\d+\.\d+',name)!=None):
+            print("----------- VALOR DOBLE------------")
+            return Valor(float(name),TIPO.DOBLE)
+        if(re.match(r'-?\d+',name)!=None):
+            print(".---------- VALOR ENTERO ---------------")
+            return Valor(int(name),TIPO.ENTERO)
         return Valor(name,TIPO.STRING)
 
 
     def ast(self):
-        node = hash(self)
-        v = "n"+node+"\nn"+node+'[label="Read()"] \n '
+        node = abs(hash(self))
+        v = "n"+str(node)+"\nn"+str(node)+'[label="Read()"] \n '
         return v
         
 
@@ -209,8 +238,8 @@ class Exit(Nodo):
         return 1
     
     def ast(self):
-        node = hash(self)
-        v = "n"+node+"\nn"+node+'[label="Exit"] \n '
+        node = abs(hash(self))
+        v = "n"+str(node)+"\nn"+str(node)+'[label="Exit"] \n '
         return v
     
     def grammarASC(self):
@@ -229,7 +258,13 @@ class Asignacion(Nodo):
         self.linea = linea
     
     def ejecutar(self, metodos, ts):
+        if(self.expresion==None):
+            metodos.errores.append(Simbolo("Error Semantico: No existe un valor, viene un valor Nulo!",self.linea))
+            return
         v1 = self.expresion.ejecutar(metodos,ts)
+        if(v1.tipo==TIPO.ERROR):
+            metodos.errores.append(Simbolo("Error Semantico: No se puede asignar, hay un error\n"+v1.value,self.linea))
+            return
         if self.variable.args == None:
             if self.variable.valor in metodos.variables:
                 metodos.añadirVariable(self.variable.valor,v1,"1,1")
@@ -271,7 +306,12 @@ class Asignacion(Nodo):
         lar = []<br/> 
         lar.append(t[2])<br/> 
         t[0] = lar </td><br/> 
-        </tr>\n''')
+        </tr>\n'''+self.expresion.grammarASC())
+        return v
+
+    def ast(self):
+        node = abs(hash(self))
+        v = "n"+str(node)+"\nn"+str(node)+'[label="Asignacion: '+ self.variable.valor+'"] \n n'+str(node)+" ->"+self.expresion.ast()
         return v
 
 class Si(Nodo):
@@ -282,8 +322,13 @@ class Si(Nodo):
         self.linea = linea
 
     def ejecutar(self, metodos, ts):
+        if(self.condicion==None):
+            metodos.errores.append(Simbolo("Error Semantico: No existe un valor, viene un valor Nulo!",self.linea))
+            return
         cond = self.condicion.ejecutar(metodos,ts)
-        print(cond.value)
+        if(cond.tipo==TIPO.ERROR):
+            metodos.errores.append(Simbolo("Error Semantico: No se puede asignar, hay un error\n"+cond.value,self.linea))
+            return
         if(cond.value == 1):
             flag = 0
             v = 1
@@ -309,7 +354,12 @@ class Si(Nodo):
         <tr> 
         <td> <p>iff =>   if IZQPAR "(" exp DERPAR ")" goto ID</p></td> 
         <td><p> t[0] = Si(t[3],t[6]) </p></td> 
-        </tr>\n''')
+        </tr>\n'''+self.condicion.grammarASC())
+        return v
+
+    def ast(self):
+        node = abs(hash(self))
+        v = "n"+str(node)+"\nn"+str(node)+'[label="Salto Condicional A: '+ self.etiqueta+'"] \n n'+str(node)+" ->"+self.condicion.ast()
         return v
 
 class Salto(Nodo):
@@ -337,6 +387,11 @@ class Salto(Nodo):
         </tr>\n''')
         return v
 
+    def ast(self):
+        node = abs(hash(self))
+        v = "n"+str(node)+"\nn"+str(node)+'[label="Goto:  '+ self.etiqueta+'"] \n '
+        return v
+
 class NodoEntero(Nodo):
     #Esta clase representa cuando viene un valor entero
     def __init__(self, valor):
@@ -345,6 +400,18 @@ class NodoEntero(Nodo):
     def ejecutar(self, metodos, ts):
         return Valor(self.valor, TIPO.ENTERO)
     
+    def ast(self):
+        node = abs(hash(self))
+        v = "n"+str(node)+"\nn"+str(node)+'[label="Entero: '+ str(self.valor)+'"] \n '
+        return v
+    
+    def grammarASC(self):
+        v =('''
+        <tr> 
+        <td> <p>E  =>  ENTERO   <br/> </p></td> 
+        <td><p>t[0] = NodoEntero(t[1]) </p></td> 
+        </tr>''')
+        return v
 
 class NodoDouble(Nodo):
     #Esta clase representa cuando viene un valor entero
@@ -353,6 +420,19 @@ class NodoDouble(Nodo):
     
     def ejecutar(self, metodos, ts):
         return Valor(self.valor, TIPO.DOBLE)
+
+    def ast(self):
+        node = abs(hash(self))
+        v = "n"+str(node)+"\nn"+str(node)+'[label="Doble: '+ str(self.valor)+'"] \n '
+        return v
+    
+    def grammarASC(self):
+        v =('''
+        <tr> 
+        <td> <p>E  =>  DOBLE   <br/> </p></td> 
+        <td><p>t[0] = NodoDouble(t[1]) </p></td> 
+        </tr>''')
+        return v
     
 
 class NodoCadena(Nodo):
@@ -363,6 +443,18 @@ class NodoCadena(Nodo):
     def ejecutar(self, metodos, ts):
         return Valor(self.valor, TIPO.STRING)
     
+    def ast(self):
+        node = abs(hash(self))
+        v = "n"+str(node)+"\nn"+str(node)+'[label="Cadena: '+ self.valor+'"] \n '
+        return v
+    
+    def grammarASC(self):
+        v =('''
+        <tr> 
+        <td> <p>E  =>  CADENA   <br/> </p></td> 
+        <td><p>t[0] = NodoCadena(t[1]) </p></td> 
+        </tr>''')
+        return v
 
 class NodoArreglo(Nodo):
     #Esta clase representa cuando viene un valor entero
@@ -390,6 +482,50 @@ class NodoVariable(Nodo):
                     else:
                         v = v
                 val = v
+            if(val.tipo== TIPO.PUNTERO):
+                val = metodos.variables.get(val.value).valor
             return val
         except Exception as e:
-            print("No se encontro",e)
+            return Valor("Error Semantico: No se encontro la variable!",TIPO.ERROR)
+
+        
+    def ast(self):
+        node = abs(hash(self))
+        v = "n"+str(node)+"\nn"+str(node)+'[label="Variable: '+ self.valor+'"] \n '
+        return v
+    
+    def grammarASC(self):
+        v =('''
+        <tr> 
+        <td> <p>E  =>   ID <br/>| ID LCOR <br/> LCOR   => LCOR [E] <br/> | [E]  </p></td> 
+        <td><p> t[0] = NodoVariable(t[1]) </p></td> 
+        </tr>''')
+        return v
+
+    
+    
+class NodoPuntero(Nodo):
+    #Esta clase representa cuando viene un valor entero
+    def __init__(self, valor):
+        self.valor = valor
+    
+    def ejecutar(self, metodos, ts):
+        try:
+            v = metodos.variables.get(self.valor).valor
+            return Valor(self.valor,TIPO.PUNTERO)
+        except Exception as e:
+            return Valor("Error Semantico: No se encontro la variable!",TIPO.ERROR)
+
+        
+    def ast(self):
+        node = abs(hash(self))
+        v = "n"+str(node)+"\nn"+str(node)+'[label="PUNTERO : '+ self.valor+'"] \n '
+        return v
+    
+    def grammarASC(self):
+        v =('''
+        <tr> 
+        <td> <p>E  =>  PUNTERO "&"  ID <br/> </p></td> 
+        <td><p>t[0] = NodoPuntero(t[1],t[3]) </p></td> 
+        </tr>''')
+        return v

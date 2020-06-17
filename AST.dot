@@ -1,0 +1,413 @@
+digraph {
+n3594352
+n3594352[label="ROOT "] 
+ n3594352->n2143892283
+n2143892283[label="ETIQUETA: main"] 
+ n2143892283->n3580579
+n3580579[label="Asignacion: $t1"] 
+ n3580579 ->n3580543
+n3580543[label=" * "] 
+ n3580543->n3580561
+n3580561[label="Entero: 3"] 
+ n3580543->n3580570
+n3580570[label="Cadena: hola"] 
+ n2143892283->n3580600
+n3580600[label="Asignacion: $t1"] 
+ n3580600 ->n3580591
+n3580591[label="Cadena: Hugo"] 
+ n2143892283->n3580615
+n3580615[label="Asignacion: $t1"] 
+ n3580615 ->n3580603
+n3580603[label="Cadena: zona 4"] 
+ n2143892283->n3580636
+n3580636[label="Asignacion: $t1"] 
+ n3580636 ->n3580618
+n3580618[label="Entero: 56457854"] 
+ n2143892283->n3580654
+n3580654[label="Asignacion: $t1"] 
+ n3580654 ->n3580639
+n3580639[label="Entero: 45784565"] 
+ n2143892283->n2143903041
+n2143903041[label="Asignacion: $t1"] 
+ n2143903041 ->n2143903014
+n2143903014[label="Cadena: Paco"] 
+ n2143892283->n3591205
+n3591205[label="Asignacion: $t1"] 
+ n3591205 ->n2143903002
+n2143903002[label="Cadena: zona 8, villa nueva"] 
+ n2143892283->n2143892448
+n2143892448[label="Asignacion: $t1"] 
+ n2143892448 ->n3591208
+n3591208[label="Entero: 56412854"] 
+ n2143892283->n2143892406
+n2143892406[label="Asignacion: $t1"] 
+ n2143892406 ->n2143892436
+n2143892436[label="Cadena: Luis"] 
+ n2143892283->n2143892391
+n2143892391[label="Asignacion: $t1"] 
+ n2143892391 ->n2143892409
+n2143892409[label="Cadena: zona 1, San Jose Pinula "] 
+ n2143892283->n2143892373
+n2143892373[label="Asignacion: $t1"] 
+ n2143892373 ->n2143892394
+n2143892394[label="Entero: 12412854"] 
+ n2143892283->n2143892355
+n2143892355[label="Asignacion: $t1"] 
+ n2143892355 ->n2143892376
+n2143892376[label="Entero: 45784125"] 
+ n2143892283->n2143892340
+n2143892340[label="Asignacion: $t1"] 
+ n2143892340 ->n3591250
+n3591250[label="Cadena: Peter Parker"] 
+ n2143892283->n2143892325
+n2143892325[label="Asignacion: $t1"] 
+ n2143892325 ->n2143892343
+n2143892343[label="Cadena: Petapolis"] 
+ n2143892283->n2143892307
+n2143892307[label="Asignacion: $t1"] 
+ n2143892307 ->n2143892328
+n2143892328[label="Entero: 12412124"] 
+ n2143892283->n2143892289
+n2143892289[label="Asignacion: $t1"] 
+ n2143892289 ->n2143892310
+n2143892310[label="Entero: 45124125"] 
+ n2143892283->n3591367
+n3591367[label="Asignacion: $t2"] 
+ n3591367 ->n2143892292
+n2143892292[label="Entero: 0"] 
+ n3594352->n2143890683
+n2143890683[label="ETIQUETA: while0"] 
+ n2143890683->n3591385
+n3591385[label="Salto Condicional A: end0"] 
+ n3591385 ->n3591337
+n3591337[label=" >= "] 
+ n3591337->n3591364
+n3591364[label="Variable: $t2"] 
+ n3591337->n2143903092
+n2143903092[label="Entero: 4"] 
+ n2143890683->n3591376
+n3591376[label="PRINT()"] 
+ n3591376->n2143892250
+n2143892250[label="Variable: $t1"] 
+ n2143890683->n3591373
+n3591373[label="PRINT()"] 
+ n3591373->n3591316
+n3591316[label="Cadena: ,"] 
+ n2143890683->n3591397
+n3591397[label="PRINT()"] 
+ n3591397->n2143892232
+n2143892232[label="Variable: $t1"] 
+ n2143890683->n3591400
+n3591400[label="PRINT()"] 
+ n3591400->n2143892247
+n2143892247[label="Cadena: ,"] 
+ n2143890683->n3591415
+n3591415[label="PRINT()"] 
+ n3591415->n3592970
+n3592970[label="Variable: $t1"] 
+ n2143890683->n3591418
+n3591418[label="PRINT()"] 
+ n3591418->n2143892229
+n2143892229[label="Cadena: \n"] 
+ n2143890683->n3592988
+n3592988[label="Asignacion: $t2"] 
+ n3592988 ->n2143890671
+n2143890671[label=" + "] 
+ n2143890671->n3592976
+n3592976[label="Variable: $t2"] 
+ n2143890671->n2143890677
+n2143890677[label="Entero: 1"] 
+ n2143890683->n3592979
+n3592979[label="Goto:  while0"] 
+ n3594352->n3593560
+n3593560[label="ETIQUETA: end0"] 
+ n3593560->n3593003
+n3593003[label="Asignacion: $t3"] 
+ n3593003 ->n3593000
+n3593000[label="Array()"] 
+ n3593560->n3593018
+n3593018[label="Asignacion: $t3"] 
+ n3593018 ->n2143890641
+n2143890641[label="Entero: 0"] 
+ n3593560->n3593030
+n3593030[label="Asignacion: $t3"] 
+ n3593030 ->n3593015
+n3593015[label="Entero: 1"] 
+ n3593560->n3593024
+n3593024[label="PRINT()"] 
+ n3593024->n3591370
+n3591370[label="Variable: $t3"] 
+ n3593560->n2143890611
+n2143890611[label="PRINT()"] 
+ n2143890611->n3593042
+n3593042[label="Variable: $t3"] 
+ n3593560->n2143890623
+n2143890623[label="PRINT()"] 
+ n2143890623->n2143890614
+n2143890614[label="Cadena: \n"] 
+ n3593560->n2143890602
+n2143890602[label="PRINT()"] 
+ n2143890602->n3593057
+n3593057[label="Variable: $t3"] 
+ n3593560->n3593051
+n3593051[label="PRINT()"] 
+ n3593051->n2143890596
+n2143890596[label="Cadena: \n"] 
+ n3593560->n3593081
+n3593081[label="Asignacion: $t3"] 
+ n3593081 ->n2143890620
+n2143890620[label="Entero: 10"] 
+ n3593560->n3593096
+n3593096[label="Asignacion: $t3"] 
+ n3593096 ->n3593072
+n3593072[label="Entero: 20"] 
+ n3593560->n2143890563
+n2143890563[label="PRINT()"] 
+ n2143890563->n2143890536
+n2143890536[label="Variable: $t3"] 
+ n3593560->n2143890548
+n2143890548[label="PRINT()"] 
+ n2143890548->n2143890575
+n2143890575[label="Cadena: \n"] 
+ n3593560->n3593111
+n3593111[label="PRINT()"] 
+ n3593111->n2143890518
+n2143890518[label="Variable: $t3"] 
+ n3593560->n3593138
+n3593138[label="Asignacion: $t3"] 
+ n3593138 ->n2143890524
+n2143890524[label="Cadena: Carla"] 
+ n3593560->n3593132
+n3593132[label="PRINT()"] 
+ n3593132->n2143890515
+n2143890515[label="Variable: $t3"] 
+ n3593560->n2143890503
+n2143890503[label="PRINT()"] 
+ n2143890503->n3593114
+n3593114[label="Cadena: \n"] 
+ n3593560->n3593168
+n3593168[label="Asignacion: $t3"] 
+ n3593168 ->n3593135
+n3593135[label="Cadena: o"] 
+ n3593560->n2143890488
+n2143890488[label="PRINT()"] 
+ n2143890488->n3593165
+n3593165[label="Variable: $t3"] 
+ n3593560->n2143890473
+n2143890473[label="PRINT()"] 
+ n2143890473->n2143890500
+n2143890500[label="Cadena: \n"] 
+ n3593560->n3593198
+n3593198[label="Asignacion: $t3"] 
+ n3593198 ->n3593159
+n3593159[label="Cadena: s"] 
+ n3593560->n2143890458
+n2143890458[label="PRINT()"] 
+ n2143890458->n3593195
+n3593195[label="Variable: $t3"] 
+ n3593560->n2143890443
+n2143890443[label="PRINT()"] 
+ n2143890443->n2143890470
+n2143890470[label="Cadena: \n"] 
+ n3593560->n2143890162
+n2143890162[label="Asignacion: $t3"] 
+ n2143890162 ->n3593189
+n3593189[label="Cadena: s"] 
+ n3593560->n3593479
+n3593479[label="PRINT()"] 
+ n3593479->n2143890165
+n2143890165[label="Variable: $t3"] 
+ n3593560->n3593494
+n3593494[label="PRINT()"] 
+ n3593494->n2143890440
+n2143890440[label="Cadena: \n"] 
+ n3593560->n2143890153
+n2143890153[label="Asignacion: $s0"] 
+ n2143890153 ->n2143890156
+n2143890156[label="Array()"] 
+ n3593560->n3593515
+n3593515[label="Asignacion: $sp"] 
+ n3593515 ->n2143890138
+n2143890138[label=" - E "] 
+ n2143890138->n3593512
+n3593512[label="Entero: 1"] 
+ n3593560->n3593530
+n3593530[label="Asignacion: $a0"] 
+ n3593530 ->n2143890126
+n2143890126[label="Entero: 2"] 
+ n3593560->n3593539
+n3593539[label="Asignacion: $a1"] 
+ n3593539 ->n2143890123
+n2143890123[label="Entero: 3"] 
+ n3593560->n2143890099
+n2143890099[label="Asignacion: $sp"] 
+ n2143890099 ->n2143890105
+n2143890105[label=" + "] 
+ n2143890105->n2143890114
+n2143890114[label="Variable: $sp"] 
+ n2143890105->n3593536
+n3593536[label="Entero: 1"] 
+ n3593560->n3593566
+n3593566[label="Asignacion: $s0"] 
+ n3593566 ->n3593557
+n3593557[label="Variable: $a0"] 
+ n3593560->n3593527
+n3593527[label="Goto:  ack"] 
+ n3594352->n2143890662
+n2143890662[label="ETIQUETA: ret0"] 
+ n2143890662->n2143890069
+n2143890069[label="PRINT()"] 
+ n2143890069->n3593575
+n3593575[label="Variable: $v0"] 
+ n2143890662->n3593584
+n3593584[label="Exit"] 
+ n3594352->n2143890006
+n2143890006[label="ETIQUETA: ack"] 
+ n2143890006->n2143890051
+n2143890051[label="Salto Condicional A: ret3"] 
+ n2143890051 ->n2143890072
+n2143890072[label=" < "] 
+ n2143890072->n2143890063
+n2143890063[label="Variable: $sp"] 
+ n2143890072->n2143890078
+n2143890078[label="Entero: 0"] 
+ n2143890006->n2143890045
+n2143890045[label="Asignacion: $a0"] 
+ n2143890045 ->n2143890048
+n2143890048[label="Variable: $s0"] 
+ n2143890006->n3593617
+n3593617[label="Asignacion: $sp"] 
+ n3593617 ->n3593611
+n3593611[label=" - "] 
+ n3593611->n3593593
+n3593593[label="Variable: $sp"] 
+ n3593611->n3593608
+n3593608[label="Entero: 1"] 
+ n2143890006->n3593629
+n3593629[label="Salto Condicional A: ret1"] 
+ n3593629 ->n3593626
+n3593626[label=" != "] 
+ n3593626->n3593587
+n3593587[label="Variable: $a0"] 
+ n3593626->n2143890033
+n2143890033[label="Entero: 0"] 
+ n2143890006->n3593644
+n3593644[label="Asignacion: $t4"] 
+ n3593644 ->n2143890021
+n2143890021[label=" + "] 
+ n2143890021->n2143890018
+n2143890018[label="Variable: $a0"] 
+ n2143890021->n3593596
+n3593596[label="Entero: 1"] 
+ n2143890006->n3593659
+n3593659[label="Asignacion: $a1"] 
+ n3593659 ->n3593653
+n3593653[label=" + "] 
+ n3593653->n2143889997
+n2143889997[label="Variable: $a1"] 
+ n3593653->n2143890003
+n2143890003[label="Variable: $t4"] 
+ n2143890006->n2143890030
+n2143890030[label="Goto:  ack"] 
+ n3594352->n2143889928
+n2143889928[label="ETIQUETA: ret1"] 
+ n2143889928->n2143889964
+n2143889964[label="Salto Condicional A: ret2"] 
+ n2143889964 ->n2143889982
+n2143889982[label=" != "] 
+ n2143889982->n2143889979
+n2143889979[label="Variable: $a1"] 
+ n2143889982->n3593563
+n3593563[label="Entero: 0"] 
+ n2143889928->n3593692
+n3593692[label="Asignacion: $a1"] 
+ n3593692 ->n3593680
+n3593680[label=" + "] 
+ n3593680->n3593677
+n3593677[label="Variable: $a1"] 
+ n3593680->n2143889973
+n2143889973[label="Entero: 1"] 
+ n2143889928->n3593707
+n3593707[label="Asignacion: $a0"] 
+ n3593707 ->n3593701
+n3593701[label=" - "] 
+ n3593701->n2143889949
+n2143889949[label="Variable: $a0"] 
+ n3593701->n2143889955
+n2143889955[label="Entero: 1"] 
+ n2143889928->n3593722
+n3593722[label="Asignacion: $sp"] 
+ n3593722 ->n3593716
+n3593716[label=" + "] 
+ n3593716->n2143889934
+n2143889934[label="Variable: $sp"] 
+ n3593716->n2143889940
+n2143889940[label="Entero: 1"] 
+ n2143889928->n3594253
+n3594253[label="Asignacion: $s0"] 
+ n3594253 ->n3594244
+n3594244[label="Variable: $a0"] 
+ n2143889928->n2143889943
+n2143889943[label="Goto:  ack"] 
+ n3594352->n2143889301
+n2143889301[label="ETIQUETA: ret2"] 
+ n2143889301->n2143889385
+n2143889385[label="Asignacion: $a0"] 
+ n2143889385 ->n3594259
+n3594259[label=" - "] 
+ n3594259->n2143889388
+n2143889388[label="Variable: $a0"] 
+ n3594259->n3594250
+n3594250[label="Entero: 1"] 
+ n2143889301->n2143889364
+n2143889364[label="Asignacion: $sp"] 
+ n2143889364 ->n2143889367
+n2143889367[label=" + "] 
+ n2143889367->n2143889373
+n2143889373[label="Variable: $sp"] 
+ n2143889367->n3594268
+n3594268[label="Entero: 1"] 
+ n2143889301->n3594301
+n3594301[label="Asignacion: $s0"] 
+ n3594301 ->n3594292
+n3594292[label="Variable: $a0"] 
+ n2143889301->n2143889337
+n2143889337[label="Asignacion: $a0"] 
+ n2143889337 ->n2143889340
+n2143889340[label=" + "] 
+ n2143889340->n3594298
+n3594298[label="Variable: $a0"] 
+ n2143889340->n3594295
+n3594295[label="Entero: 1"] 
+ n2143889301->n2143889322
+n2143889322[label="Asignacion: $sp"] 
+ n2143889322 ->n2143889328
+n2143889328[label=" + "] 
+ n2143889328->n3594319
+n3594319[label="Variable: $sp"] 
+ n2143889328->n3594313
+n3594313[label="Entero: 1"] 
+ n2143889301->n3594343
+n3594343[label="Asignacion: $s0"] 
+ n3594343 ->n3594334
+n3594334[label="Variable: $a0"] 
+ n2143889301->n2143889295
+n2143889295[label="Asignacion: $a1"] 
+ n2143889295 ->n2143889298
+n2143889298[label=" - "] 
+ n2143889298->n3594340
+n3594340[label="Variable: $a1"] 
+ n2143889298->n3594337
+n3594337[label="Entero: 1"] 
+ n2143889301->n3594325
+n3594325[label="Goto:  ack"] 
+ n3594352->n2143889277
+n2143889277[label="ETIQUETA: ret3"] 
+ n2143889277->n3594373
+n3594373[label="Asignacion: $v0"] 
+ n3594373 ->n3594367
+n3594367[label="Variable: $a1"] 
+ n2143889277->n2143889271
+n2143889271[label="Goto:  ret0"] 
+ 
+}

@@ -21,7 +21,7 @@ import tkinter.filedialog
 import tkinter.messagebox
 import reportes 
 from gramatica import ejecutar
-
+import webbrowser
 
 IDE = "RichiBeans"
 archivo = None
@@ -35,8 +35,19 @@ root.title(IDE)
 
 def compilar():
     texto = content_text.get("1.0",END)
-    print(texto)
     ejecutar(texto)
+
+def abrirAST():
+    webbrowser.open_new_tab('AST.pdf')
+
+def abrirGramaticalASC():
+    webbrowser.open_new_tab('reporte_GAsc.html')
+
+def abrirErrores():
+    webbrowser.open_new_tab('reporte_Errores.html')
+
+def abrirSimbolos():
+    webbrowser.open_new_tab('reporte_TS.html')
 
 def show_popup_menu(event):
     popup_menu.tk_popup(event.x_root, event.y_root)
@@ -261,6 +272,19 @@ editar.add_command(label='Seleccionar Todo', underline=7,
                       accelerator='Ctrl+A', command=select_all)
 menu_bar.add_cascade(label='Editar', menu=editar)
 
+compil = Menu(menu_bar, tearoff=0)
+compil.add_command(label="Compilar Ascendente", accelerator='Ctrl+9', compound="left", command=compilar)
+compil.add_command(label="Compilar Descendente", accelerator='Ctrl+8', compound="left", command=compilar)
+menu_bar.add_cascade(label='Compilar', menu=compil)
+
+
+report = Menu(menu_bar, tearoff=0)
+report.add_command(label="Gramatical Ascendente", compound="left", command=abrirGramaticalASC)
+report.add_command(label="Gramatical Descendente", compound="left", command=compilar)
+report.add_command(label="AST", compound="left", command=abrirAST)
+report.add_command(label="Tabla de Simbolos", compound="left", command=abrirSimbolos)
+report.add_command(label="Errores", compound="left", command=abrirErrores)
+menu_bar.add_cascade(label='Reportes', menu=report)
 
 view_menu = Menu(menu_bar, tearoff=0)
 show_line_number = IntVar()

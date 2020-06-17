@@ -39,8 +39,21 @@ class Cast2Int():
         v = calcularEntero(v1)
         return v
         
+    def ast(self):
+        node = abs(hash(self))
+        v = "n"+str(node)+"\nn"+str(node)+'[label=" Cast (Int) "] \n '
+        v+="n"+str(node)+"->"+self.val1.ast()
+        return v   
+    
+    def grammarASC(self):
+        v =('''
+        <tr> 
+        <td> <p>EXP  =>  LEFTPAR "("  int   DERPAR ")"  E <br/> </p></td> 
+        <td><p> t[0]  = Cast2Int(t[2]) </p></td> 
+        </tr>'''+self.val1.grammarASC())
+        return v
 
-def calcularDouble(v1):
+def calcularDouble(val1):
         if(v1.tipo==TIPO.ERROR):
             return v1
         elif(v1.tipo==TIPO.ENTERO):
@@ -70,7 +83,20 @@ class Cast2Double():
         v1 = self.val1.ejecutar(metodos,ts)
         v = calcularDouble(v1)
         return v
+    def ast(self):
+        node = abs(hash(self))
+        v = "n"+str(node)+"\nn"+str(node)+'[label=" Cast (Double) "] \n '
+        v+="n"+str(node)+"->"+self.val1.ast()
+        return v
         
+    
+    def grammarASC(self):
+        v =('''
+        <tr> 
+        <td> <p>EXP  =>  LEFTPAR "("  double   DERPAR ")"  E <br/> </p></td> 
+        <td><p> t[0]  = Cast2Int(t[2]) </p></td> 
+        </tr>'''+self.val1.grammarASC())
+        return v
 
 
 def calcularString(v1):
@@ -104,7 +130,20 @@ class Cast2Char():
         v = calcularString(v1)
         return v
         
+    def ast(self):
+        node = abs(hash(self))
+        v = "n"+str(node)+"\nn"+str(node)+'[label=" Cast (Char) "] \n '
+        v+="n"+str(node)+"->"+self.val1.ast()
+        return v
 
+    
+    def grammarASC(self):
+        v =('''
+        <tr> 
+        <td> <p>EXP  =>  LEFTPAR "("  char   DERPAR ")"  E <br/> </p></td> 
+        <td><p> t[0]  = Cast2Int(t[2]) </p></td> 
+        </tr>'''+self.val1.grammarASC())
+        return v
 
 
 # ??????????????????????????????????????????????????????                OPERACIONES ARITMETICAS
@@ -143,6 +182,24 @@ class Suma(Expresion):
         except:
             return Valor("Imposible realizar Suma!",TIPO.ERROR)
 
+    def ast(self):
+        node = abs(hash(self))
+        v = "n"+str(node)+"\nn"+str(node)+'[label=" + "] \n '
+        v+="n"+str(node)+"->"+self.val1.ast()
+        v+="n"+str(node)+"->"+self.val2.ast()
+        return v
+
+
+    
+    def grammarASC(self):
+        v =('''
+        <tr> 
+        <td> <p>EXP  =>  E + E <br/> </p></td> 
+        <td><p> if(t[2]=="+")<br>
+        t[0]  = Suma(t[1],t[3]) </p></td> 
+        </tr>'''+self.val1.grammarASC()+self.val2.grammarASC())
+        return v
+
 class Resta(Expresion):
     def __init__(self,val1,val2):
         super().__init__(val1,val2)
@@ -174,6 +231,24 @@ class Resta(Expresion):
         except:
             return Valor("Imposible realizar Resta!",TIPO.ERROR)
 
+    def ast(self):
+        node = abs(hash(self))
+        v = "n"+str(node)+"\nn"+str(node)+'[label=" - "] \n '
+        v+="n"+str(node)+"->"+self.val1.ast()
+        v+="n"+str(node)+"->"+self.val2.ast()
+        return v
+
+        
+    
+    def grammarASC(self):
+        v =('''
+        <tr> 
+        <td> <p>EXP  =>  E - E <br/> </p></td> 
+        <td><p> if(t[2]=="-")<br>
+        t[0]  = Resta(t[1],t[3]) </p></td> 
+        </tr>'''+self.val1.grammarASC()+self.val2.grammarASC())
+        return v
+
 class Multi(Expresion):
     def __init__(self,val1,val2):
         super().__init__(val1,val2)
@@ -204,6 +279,22 @@ class Multi(Expresion):
                 return Valor("Imposible realizar MULTIPLICACION!",TIPO.ERROR)
         except:
             return Valor("Imposible realizar MULTIPLICACION!",TIPO.ERROR)
+    def ast(self):
+        node = abs(hash(self))
+        v = "n"+str(node)+"\nn"+str(node)+'[label=" * "] \n '
+        v+="n"+str(node)+"->"+self.val1.ast()
+        v+="n"+str(node)+"->"+self.val2.ast()
+        return v
+
+    
+    def grammarASC(self):
+        v =('''
+        <tr> 
+        <td> <p>EXP  =>  E * E <br/> </p></td> 
+        <td><p> if(t[2]=="*")<br>
+        t[0]  = Multi(t[1],t[3]) </p></td> 
+        </tr>'''+self.val1.grammarASC()+self.val2.grammarASC())
+        return v
 
 
 class Divi(Expresion):
@@ -237,6 +328,24 @@ class Divi(Expresion):
         except:
             return Valor("Imposible realizar División!",TIPO.ERROR)
 
+    def ast(self):
+        node = abs(hash(self))
+        v = "n"+str(node)+"\nn"+str(node)+'[label=" / "] \n '
+        v+="n"+str(node)+"->"+self.val1.ast()
+        v+="n"+str(node)+"->"+self.val2.ast()
+        return v
+
+        
+    
+    def grammarASC(self):
+        v =('''
+        <tr> 
+        <td> <p>EXP  =>  E / E <br/> </p></td> 
+        <td><p> if(t[2]=="/")<br>
+        t[0]  = Divi(t[1],t[3]) </p></td> 
+        </tr>'''+self.val1.grammarASC()+self.val2.grammarASC())
+        return v
+
 
 class Rest(Expresion):
     def __init__(self,val1):
@@ -259,6 +368,22 @@ class Rest(Expresion):
                 return Valor("Imposible realizar Negacion!",TIPO.ERROR)
         except:
             return Valor("Imposible realizar Negacion!",TIPO.ERROR)
+
+    def ast(self):
+        node = abs(hash(self))
+        v = "n"+str(node)+"\nn"+str(node)+'[label=" - E "] \n '
+        v+="n"+str(node)+"->"+self.val1.ast()
+        return v
+    
+    def grammarASC(self):
+        v =('''
+        <tr> 
+        <td> <p>EXP  => - E  <br/> </p></td> 
+        <td><p> if(t[1]=="-")<br>
+        t[0]  = Negativo(t[1]) </p></td> 
+        </tr>'''+self.val1.grammarASC())
+        return v
+
 
 class Absoluto(Expresion):
     def __init__(self,val1):
@@ -283,7 +408,21 @@ class Absoluto(Expresion):
             return Valor("Imposible realizar Valor Absoluto!",TIPO.ERROR)
 
 
+    def ast(self):
+        node = abs(hash(self))
+        v = "n"+str(node)+"\nn"+str(node)+'[label= "abs" ] \n '
+        v+="n"+str(node)+"->"+self.val1.ast()
+        return v
 
+    
+    def grammarASC(self):
+        v =('''
+        <tr> 
+        <td> <p>EXP  => abs "(" E ")" <br/> </p></td> 
+        <td><p> if(t[1]=="abs")<br>
+        t[0]  = abs(t[3]) </p></td> 
+        </tr>'''+self.val1.grammarASC())
+        return v
 #                   OPERACIONES RELACIONALES
 
 class Igual(Expresion):
@@ -320,6 +459,21 @@ class Igual(Expresion):
         except:
             return Valor("Imposible realizar comparación Igual!",TIPO.ERROR)
 
+    def ast(self):
+        node = abs(hash(self))
+        v = "n"+str(node)+"\nn"+str(node)+'[label=" == "] \n '
+        v+="n"+str(node)+"->"+self.val1.ast()
+        v+="n"+str(node)+"->"+self.val2.ast()
+        return v
+    
+    def grammarASC(self):
+        v =('''
+        <tr> 
+        <td> <p>EXP  =>  E == E <br/> </p></td> 
+        <td><p> if(t[2]=="==")<br>
+        t[0]  = Igual(t[1],t[3]) </p></td> 
+        </tr>'''+self.val1.grammarASC()+self.val2.grammarASC())
+        return v
 
 class DesIgual(Expresion):
     def __init__(self,val1,val2):
@@ -355,6 +509,21 @@ class DesIgual(Expresion):
         except:
             return Valor("Imposible realizar comparación Desigual!",TIPO.ERROR)
 
+    def ast(self):
+        node = abs(hash(self))
+        v = "n"+str(node)+"\nn"+str(node)+'[label=" != "] \n '
+        v+="n"+str(node)+"->"+self.val1.ast()
+        v+="n"+str(node)+"->"+self.val2.ast()
+        return v
+    
+    def grammarASC(self):
+        v =('''
+        <tr> 
+        <td> <p>EXP  =>  E != E <br/> </p></td> 
+        <td><p> if(t[2]=="!=")<br>
+        t[0]  = DesIgual(t[1],t[3]) </p></td> 
+        </tr>'''+self.val1.grammarASC()+self.val2.grammarASC())
+        return v
 
 class Mayor(Expresion):
     def __init__(self,val1,val2):
@@ -390,6 +559,21 @@ class Mayor(Expresion):
         except:
             return Valor("Imposible realizar comparación Mayor!",TIPO.ERROR)
 
+    def ast(self):
+        node = abs(hash(self))
+        v = "n"+str(node)+"\nn"+str(node)+'[label=" > "] \n '
+        v+="n"+str(node)+"->"+self.val1.ast()
+        v+="n"+str(node)+"->"+self.val2.ast()
+        return v
+    
+    def grammarASC(self):
+        v =('''
+        <tr> 
+        <td> <p>EXP  =>  E > E <br/> </p></td> 
+        <td><p> if(t[2]==">")<br>
+        t[0]  = Mayor(t[1],t[3]) </p></td> 
+        </tr>'''+self.val1.grammarASC()+self.val2.grammarASC())
+        return v
 
 class Menor(Expresion):
     def __init__(self,val1,val2):
@@ -425,6 +609,21 @@ class Menor(Expresion):
         except:
             return Valor("Imposible realizar comparación Menor!",TIPO.ERROR)
 
+    def ast(self):
+        node = abs(hash(self))
+        v = "n"+str(node)+"\nn"+str(node)+'[label=" < "] \n '
+        v+="n"+str(node)+"->"+self.val1.ast()
+        v+="n"+str(node)+"->"+self.val2.ast()
+        return v
+    
+    def grammarASC(self):
+        v =('''
+        <tr> 
+        <td> <p>EXP  =>  E < E <br/> </p></td> 
+        <td><p> if(t[2]=="<")<br>
+        t[0]  = Menor(t[1],t[3]) </p></td> 
+        </tr>'''+self.val1.grammarASC()+self.val2.grammarASC())
+        return v
 
 class MayorI(Expresion):
     def __init__(self,val1,val2):
@@ -459,7 +658,22 @@ class MayorI(Expresion):
                 return Valor("Imposible realizar comparación Mayor!",TIPO.ERROR)
         except:
             return Valor("Imposible realizar comparación Mayor!",TIPO.ERROR)
-         
+        
+    def ast(self):
+        node = abs(hash(self))
+        v = "n"+str(node)+"\nn"+str(node)+'[label=" >= "] \n '
+        v+="n"+str(node)+"->"+self.val1.ast()
+        v+="n"+str(node)+"->"+self.val2.ast()
+        return v 
+    
+    def grammarASC(self):
+        v =('''
+        <tr> 
+        <td> <p>EXP  =>  E >= E <br/> </p></td> 
+        <td><p> if(t[2]==">=")<br>
+        t[0]  = MayorI(t[1],t[3]) </p></td> 
+        </tr>'''+self.val1.grammarASC()+self.val2.grammarASC())
+        return v
 
 
 class MenorI(Expresion):
@@ -496,6 +710,21 @@ class MenorI(Expresion):
         except:
             return Valor("Imposible realizar comparación MenorIGUAL!",TIPO.ERROR)
 
+    def ast(self):
+        node = abs(hash(self))
+        v = "n"+str(node)+"\nn"+str(node)+'[label=" <= "] \n '
+        v+="n"+str(node)+"->"+self.val1.ast()
+        v+="n"+str(node)+"->"+self.val2.ast()
+        return v
+    
+    def grammarASC(self):
+        v =('''
+        <tr> 
+        <td> <p>EXP  =>  E <= E <br/> </p></td> 
+        <td><p> if(t[2]=="<=")<br>
+        t[0]  = MenorI(t[1],t[3]) </p></td> 
+        </tr>'''+self.val1.grammarASC()+self.val2.grammarASC())
+        return v
 
 
 # =====================================================================================================================      OPERACIONES LOGICAS
@@ -511,6 +740,21 @@ class Not(Expresion):
             return Valor(not(v1.value), TIPO.ERROR)
         except:
             return Valor("Error, No se puede negar el numero!", TIPO.ERROR)
+
+    def ast(self):
+        node = abs(hash(self))
+        v = "n"+str(node)+"\nn"+str(node)+'[label=" ! E "] \n '
+        v+="n"+str(node)+"->"+self.val1.ast()
+        return v
+    
+    def grammarASC(self):
+        v =('''
+        <tr> 
+        <td> <p>EXP  => ! E  <br/> </p></td> 
+        <td><p> if(t[1]=="!")<br>
+        t[0]  = Not(t[2]) </p></td> 
+        </tr>'''+self.val1.grammarASC())
+        return v
 
 class And(Expresion):
     def __init__(self,val1,val2):
@@ -531,6 +775,22 @@ class And(Expresion):
         except:
                 return Valor("Error, No se puede realizar el AND!", TIPO.ERROR)
 
+    def ast(self):
+        node = abs(hash(self))
+        v = "n"+str(node)+"\nn"+str(node)+'[label=" AND & "] \n '
+        v+="n"+str(node)+"->"+self.val1.ast()
+        v+="n"+str(node)+"->"+self.val2.ast()
+        return v
+    
+    def grammarASC(self):
+        v =('''
+        <tr> 
+        <td> <p>EXP  =>  E && E <br/> </p></td> 
+        <td><p> if(t[2]=="&&")<br>
+        t[0]  = And(t[1],t[3]) </p></td> 
+        </tr>'''+self.val1.grammarASC()+self.val2.grammarASC())
+        return v
+
 class Or(Expresion):
     def __init__(self,val1,val2):
         super().__init__(val1,val2)
@@ -550,6 +810,21 @@ class Or(Expresion):
         except:
                 return Valor("Error, No se puede realizar el OR!", TIPO.ERROR)
 
+    def ast(self):
+        node = abs(hash(self))
+        v = "n"+str(node)+"\nn"+str(node)+'[label=" OR | "] \n '
+        v+="n"+str(node)+"->"+self.val1.ast()
+        v+="n"+str(node)+"->"+self.val2.ast()
+        return v
+    
+    def grammarASC(self):
+        v =('''
+        <tr> 
+        <td> <p>EXP  =>  E || E <br/> </p></td> 
+        <td><p> if(t[2]=="||")<br>
+        t[0]  = Or(t[1],t[3]) </p></td> 
+        </tr>'''+self.val1.grammarASC()+self.val2.grammarASC())
+        return v
 
 class Xor(Expresion):
     def __init__(self,val1,val2):
@@ -570,6 +845,21 @@ class Xor(Expresion):
         except:
                 return Valor("Error, No se puede realizar el XOR!", TIPO.ERROR)
 
+    def ast(self):
+        node = abs(hash(self))
+        v = "n"+str(node)+"\nn"+str(node)+'[label=" XOR ^ "] \n '
+        v+="n"+str(node)+"->"+self.val1.ast()
+        v+="n"+str(node)+"->"+self.val2.ast()
+        return v
+    
+    def grammarASC(self):
+        v =('''
+        <tr> 
+        <td> <p>EXP  =>  E ^ E <br/> </p></td> 
+        <td><p> if(t[2]=="^")<br>
+        t[0]  = Xor(t[1],t[3]) </p></td> 
+        </tr>'''+self.val1.grammarASC()+self.val2.grammarASC())
+        return v
 
 
 
@@ -587,6 +877,20 @@ class BNot(Expresion):
             return Valor(v,TIPO.ENTERO)
         except:
             return Valor("Error, No se puede negar el numero!", TIPO.ERROR)
+
+    def ast(self):
+        node = abs(hash(self))
+        v = "n"+str(node)+"\nn"+str(node)+'[label=" BitWise Not !E "] \n '
+        v+="n"+str(node)+"->"+self.val1.ast() 
+        return v
+    def grammarASC(self):
+        v =('''
+        <tr> 
+        <td> <p>EXP  => ! E  <br/> </p></td> 
+        <td><p> if(t[1]=="!")<br>
+        t[0]  = BNot(t[2]) </p></td> 
+        </tr>'''+self.val1.grammarASC())
+        return v
 
 
 class BOr(Expresion):
@@ -608,6 +912,22 @@ class BOr(Expresion):
         except:
                 return Valor("Error, No se puede realizar el BitwiseOR!", TIPO.ERROR)
 
+    def ast(self):
+        node = abs(hash(self))
+        v = "n"+str(node)+"\nn"+str(node)+'[label=" BitWise Or | "] \n '
+        v+="n"+str(node)+"->"+self.val1.ast()
+        v+="n"+str(node)+"->"+self.val2.ast()
+        return v
+    
+    def grammarASC(self):
+        v =('''
+        <tr> 
+        <td> <p>EXP  =>  E || E <br/> </p></td> 
+        <td><p> if(t[2]=="||")<br>
+        t[0]  = Bor(t[1],t[3]) </p></td> 
+        </tr>'''+self.val1.grammarASC()+self.val2.grammarASC())
+        return v
+
 class BAnd(Expresion):
     def __init__(self,val1,val2):
         super().__init__(val1,val2)
@@ -626,6 +946,22 @@ class BAnd(Expresion):
                 return Valor(vr,TIPO.ENTERO)    
         except:
                 return Valor("Error, No se puede realizar el BitwiseAnd!", TIPO.ERROR)
+ 
+    def ast(self):
+        node = abs(hash(self))
+        v = "n"+str(node)+"\nn"+str(node)+'[label=" BitWise AND & "] \n '
+        v+="n"+str(node)+"->"+self.val1.ast()
+        v+="n"+str(node)+"->"+self.val2.ast()
+        return v
+    
+    def grammarASC(self):
+        v =('''
+        <tr> 
+        <td> <p>EXP  =>  E && E <br/> </p></td> 
+        <td><p> if(t[2]=="&&")<br>
+        t[0]  = BAnd(t[1],t[3]) </p></td> 
+        </tr>'''+self.val1.grammarASC()+self.val2.grammarASC())
+        return v
 
 class BXor(Expresion):
     def __init__(self,val1,val2):
@@ -646,6 +982,20 @@ class BXor(Expresion):
         except:
                 return Valor("Error, No se puede realizar el BitwiseOR!", TIPO.ERROR)
 
+    def ast(self):
+        node = abs(hash(self))
+        v = "n"+str(node)+"\nn"+str(node)+'[label=" BitWise Xor ^ "] \n '
+        v+="n"+str(node)+"->"+self.val1.ast()
+        v+="n"+str(node)+"->"+self.val2.ast()
+        return v
+    def grammarASC(self):
+        v =('''
+        <tr> 
+        <td> <p>EXP  =>  E ^ E <br/> </p></td> 
+        <td><p> if(t[2]=="^")<br>
+        t[0]  = BXor(t[1],t[3]) </p></td> 
+        </tr>'''+self.val1.grammarASC()+self.val2.grammarASC())
+        return v
 class BLeft(Expresion):
     def __init__(self,val1,val2):
         super().__init__(val1,val2)
@@ -665,6 +1015,22 @@ class BLeft(Expresion):
         except:
                 return Valor("Error, No se puede realizar el BitwiseLeft!", TIPO.ERROR)
 
+    def ast(self):
+        node = abs(hash(self))
+        v = "n"+str(node)+"\nn"+str(node)+'[label=" BitWise Left << "] \n '
+        v+="n"+str(node)+"->"+self.val1.ast()
+        v+="n"+str(node)+"->"+self.val2.ast()
+        return v
+    
+    def grammarASC(self):
+        v =('''
+        <tr> 
+        <td> <p>EXP  =>  E << E <br/> </p></td> 
+        <td><p> if(t[2]=="<<")<br>
+        t[0]  = BLeft(t[1],t[3]) </p></td> 
+        </tr>'''+self.val1.grammarASC()+self.val2.grammarASC())
+        return v
+
 class BRight(Expresion):
     def __init__(self,val1,val2):
         super().__init__(val1,val2)
@@ -683,3 +1049,18 @@ class BRight(Expresion):
                 return Valor(vr,TIPO.ENTERO)    
         except:
                 return Valor("Error, No se puede realizar el BitwiseRight!", TIPO.ERROR)
+    def ast(self):
+        node = abs(hash(self))
+        v = "n"+str(node)+"\nn"+str(node)+'[label=" BitWise Right >> "] \n '
+        v+="n"+str(node)+"->"+self.val1.ast()
+        v+="n"+str(node)+"->"+self.val2.ast()
+        return v
+    
+    def grammarASC(self):
+        v =('''
+        <tr> 
+        <td> <p>EXP  =>  E >> E <br/> </p></td> 
+        <td><p> if(t[2]==">>")<br>
+        t[0]  = BRight(t[1],t[3]) </p></td> 
+        </tr>'''+self.val1.grammarASC()+self.val2.grammarASC())
+        return v
