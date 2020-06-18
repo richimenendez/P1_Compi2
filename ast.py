@@ -145,7 +145,7 @@ class Print(Nodo):
         v =('''<tr> <td colspan=2  class="et" > Contenido PRINT  '''+ " " +''' </td> </tr>
         <tr> 
         <td> <p>Print => PRINT LEFTPAR "("  ID2    ")" <br/> ID2 => ID LArray <br/> | ID <br/> LArray => IZQLLAVE"[" Expresion DERLLAVE"]" </p></td> 
-        <td><p> Se manda a llamar un registro para imprimirlo en consola. Se busca el ID en la tabla de simbolos para ejecutarse</p></td> 
+        <td><p> t[0] = Print()</p></td> 
         </tr>\n'''+self.valor.grammarASC())
         return v
  
@@ -173,7 +173,7 @@ class Unset(Nodo):
         v =('''<tr> <td colspan=2  class="et" > Contenido Unset  '''+ " " +''' </td> </tr>
         <tr> 
         <td> <p>Unset => Unset LEFTPAR "("  ID2    ")" <br/> ID2 => ID LArray <br/> | ID <br/> LArray => IZQLLAVE"[" Expresion DERLLAVE"]" </p></td> 
-        <td><p> Se manda a llamar un registro para imprimirlo en consola. Se busca el ID en la tabla de simbolos para ejecutarse</p></td> 
+        <td><p> t[0] = Unset(t[3]</p></td> 
         </tr>\n''')
         return v
 
@@ -226,7 +226,15 @@ class Leer(Nodo):
         node = abs(hash(self))
         v = "n"+str(node)+"\nn"+str(node)+'[label="Read()"] \n '
         return v
-        
+        v
+
+    def grammarASC(self):
+        v =('''<tr> <td colspan=2  class="et" > Contenido READ  '''+ " " +''' </td> </tr>
+        <tr> 
+        <td> <p>arry => Read LEFTPAR "("     DERPAR ")" <br/> </td> 
+        <td><p> t[0] = Leer(). </p></td> 
+        </tr>\n''')
+        return v
 
 
 class Exit(Nodo):

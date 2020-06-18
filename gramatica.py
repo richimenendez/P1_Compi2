@@ -3,6 +3,14 @@ ANALIZADOR DEL PROYECTO 1
     RICARDO ANTONIO MENÉNDEZ TOBÍAS
     201602916
 """
+
+
+
+import ply.yacc as yacc 
+
+from reportes import *
+from tkinter import *
+
 reservadas = {
     'main': 'main',
     'goto': 'goto',
@@ -147,13 +155,15 @@ def t_error(t):
     t.lexer.skip(1)
 
 #Creador del analizador lexico LEX
-import ply.lex as lex 
-lexer = lex.lex()
 from pprint import pprint
-
+import ply.lex as lex 
 from ast import *
 from ast_operacion import *
 from simbolos import *
+
+lexer = lex.lex()
+
+
 
 def p_s_tag(t):
     '''s    : ltag'''
@@ -409,16 +419,13 @@ def p_error(t):
         erroresSintacticos.append("Error Sintactico: No hay un token!")
 
 #Creador del Analisis Sintactico
-import ply.yacc as yacc 
-
-from reportes import *
-from tkinter import *
 
 erroresLexicos = []
 erroresSintacticos = []
 parser = yacc.yacc()
 
 def ejecutar(v):
+    lexer = lex.lex()
     global parser
     parser = yacc.yacc()
     ts = TablaMetodos()

@@ -16,5 +16,1030 @@
 <body>
 	<h1>Reporte Gramatical: Gramatica Ascendente</h1>
 	<h3> Ricardo Menéndez - 201602916 </h3>
-<table width="800" border="1" align="center">
-    </body></html>
+<table width="1000" border="1" align="center">
+    <tr> <td colspan=2  class="et" > Contenido Etiqueta  main </td> </tr>
+        <tr> 
+        <td> <p>ListaInstrucciones => ListaInstrucciones  PC ";"<br/> |  Instrucciones PC ";"<br/> </p></td> 
+        <td><p> 
+    if(len(t)==3):<br/>
+        t[0] = []<br/>
+        t[0].append(t[1])<br/><br/>
+    if(len(t)==4):<br/>
+        t[0] = t[1]<br/>
+        t[0].append(t[2]) </p></td> 
+        </tr>
+        <tr>
+            <td> Intrucciones =>    asignacion<br/>
+                    |   iff<br/>
+                    |   jump<br/>
+                    |   printt<br/>
+                    |   ext<br/>
+                    |   uns<br/> </td> <td> <p> t[0] = t[1] </p> </td>
+        </tr>
+<tr> <td colspan=2  class="et" > Contenido PRINT    </td> </tr>
+        <tr> 
+        <td> <p>Print => PRINT LEFTPAR "("  ID2    ")" <br/> ID2 => ID LArray <br/> | ID <br/> LArray => IZQLLAVE"[" Expresion DERLLAVE"]" </p></td> 
+        <td><p> t[0] = Print()</p></td> 
+        </tr>
+
+        <tr> 
+        <td> <p>E  =>  CADENA   <br/> </p></td> 
+        <td><p>t[0] = NodoCadena(t[1]) </p></td> 
+        </tr><tr> <td colspan=2  class="et" > Contenido PRINT    </td> </tr>
+        <tr> 
+        <td> <p>Print => PRINT LEFTPAR "("  ID2    ")" <br/> ID2 => ID LArray <br/> | ID <br/> LArray => IZQLLAVE"[" Expresion DERLLAVE"]" </p></td> 
+        <td><p> t[0] = Print()</p></td> 
+        </tr>
+
+        <tr> 
+        <td> <p>E  =>  CADENA   <br/> </p></td> 
+        <td><p>t[0] = NodoCadena(t[1]) </p></td> 
+        </tr><tr> <td colspan=2  class="et" > Contenido Etiqueta  menu </td> </tr>
+        <tr> 
+        <td> <p>ListaInstrucciones => ListaInstrucciones  PC ";"<br/> |  Instrucciones PC ";"<br/> </p></td> 
+        <td><p> 
+    if(len(t)==3):<br/>
+        t[0] = []<br/>
+        t[0].append(t[1])<br/><br/>
+    if(len(t)==4):<br/>
+        t[0] = t[1]<br/>
+        t[0].append(t[2]) </p></td> 
+        </tr>
+        <tr>
+            <td> Intrucciones =>    asignacion<br/>
+                    |   iff<br/>
+                    |   jump<br/>
+                    |   printt<br/>
+                    |   ext<br/>
+                    |   uns<br/> </td> <td> <p> t[0] = t[1] </p> </td>
+        </tr>
+<tr> <td colspan=2  class="et" > Contenido PRINT    </td> </tr>
+        <tr> 
+        <td> <p>Print => PRINT LEFTPAR "("  ID2    ")" <br/> ID2 => ID LArray <br/> | ID <br/> LArray => IZQLLAVE"[" Expresion DERLLAVE"]" </p></td> 
+        <td><p> t[0] = Print()</p></td> 
+        </tr>
+
+        <tr> 
+        <td> <p>E  =>  CADENA   <br/> </p></td> 
+        <td><p>t[0] = NodoCadena(t[1]) </p></td> 
+        </tr><tr> <td colspan=2  class="et" > Contenido PRINT    </td> </tr>
+        <tr> 
+        <td> <p>Print => PRINT LEFTPAR "("  ID2    ")" <br/> ID2 => ID LArray <br/> | ID <br/> LArray => IZQLLAVE"[" Expresion DERLLAVE"]" </p></td> 
+        <td><p> t[0] = Print()</p></td> 
+        </tr>
+
+        <tr> 
+        <td> <p>E  =>  CADENA   <br/> </p></td> 
+        <td><p>t[0] = NodoCadena(t[1]) </p></td> 
+        </tr><tr> <td colspan=2  class="et" > Contenido ASIGNACION    </td> </tr>
+        <tr> 
+        <td> <p>asignacion => var2 IGUAL exp  </p></td> 
+        <td><p> t[0] = Asignacion(t[1],t[3]) </p></td> 
+        </tr>
+        <tr>
+            <td> var2 => VAR arr <br/> arr </td> <td> 
+    if(len(t)==3): <br/>
+        t[0] = NodoVariable(t[1],t[2]) <br/>
+    else: <br/>
+        t[0] = NodoVariable(t[1],None) </td> 
+        </tr>
+        <tr>
+        <td> arr => arr IZQLLAVE E DERLLAVE <br/> | IZQLLAVE E DERLLAVE</td> <td>  if(len(t)==5):<br/> 
+        lar = t[1]<br/> 
+        lar.append(t[3])<br/> 
+        t[0] = lar <br/> 
+    else:<br/> 
+        lar = []<br/> 
+        lar.append(t[2])<br/> 
+        t[0] = lar </td><br/> 
+        </tr>
+<tr> <td colspan=2  class="et" > Contenido READ    </td> </tr>
+        <tr> 
+        <td> <p>arry => Read LEFTPAR "("     DERPAR ")" <br/> </td> 
+        <td><p> t[0] = Leer(). </p></td> 
+        </tr>
+<tr> <td colspan=2  class="et" > Contenido PRINT    </td> </tr>
+        <tr> 
+        <td> <p>Print => PRINT LEFTPAR "("  ID2    ")" <br/> ID2 => ID LArray <br/> | ID <br/> LArray => IZQLLAVE"[" Expresion DERLLAVE"]" </p></td> 
+        <td><p> t[0] = Print()</p></td> 
+        </tr>
+
+        <tr> 
+        <td> <p>E  =>  CADENA   <br/> </p></td> 
+        <td><p>t[0] = NodoCadena(t[1]) </p></td> 
+        </tr><tr> <td colspan=2  class="et" > Contenido PRINT    </td> </tr>
+        <tr> 
+        <td> <p>Print => PRINT LEFTPAR "("  ID2    ")" <br/> ID2 => ID LArray <br/> | ID <br/> LArray => IZQLLAVE"[" Expresion DERLLAVE"]" </p></td> 
+        <td><p> t[0] = Print()</p></td> 
+        </tr>
+
+        <tr> 
+        <td> <p>E  =>  CADENA   <br/> </p></td> 
+        <td><p>t[0] = NodoCadena(t[1]) </p></td> 
+        </tr><tr> <td colspan=2  class="et" > Contenido PRINT    </td> </tr>
+        <tr> 
+        <td> <p>Print => PRINT LEFTPAR "("  ID2    ")" <br/> ID2 => ID LArray <br/> | ID <br/> LArray => IZQLLAVE"[" Expresion DERLLAVE"]" </p></td> 
+        <td><p> t[0] = Print()</p></td> 
+        </tr>
+
+        <tr> 
+        <td> <p>E  =>  CADENA   <br/> </p></td> 
+        <td><p>t[0] = NodoCadena(t[1]) </p></td> 
+        </tr><tr> <td colspan=2  class="et" > Contenido PRINT    </td> </tr>
+        <tr> 
+        <td> <p>Print => PRINT LEFTPAR "("  ID2    ")" <br/> ID2 => ID LArray <br/> | ID <br/> LArray => IZQLLAVE"[" Expresion DERLLAVE"]" </p></td> 
+        <td><p> t[0] = Print()</p></td> 
+        </tr>
+
+        <tr> 
+        <td> <p>E  =>   ID <br/>| ID LCOR <br/> LCOR   => LCOR [E] <br/> | [E]  </p></td> 
+        <td><p> t[0] = NodoVariable(t[1]) </p></td> 
+        </tr><tr> <td colspan=2  class="et" > Contenido PRINT    </td> </tr>
+        <tr> 
+        <td> <p>Print => PRINT LEFTPAR "("  ID2    ")" <br/> ID2 => ID LArray <br/> | ID <br/> LArray => IZQLLAVE"[" Expresion DERLLAVE"]" </p></td> 
+        <td><p> t[0] = Print()</p></td> 
+        </tr>
+
+        <tr> 
+        <td> <p>E  =>  CADENA   <br/> </p></td> 
+        <td><p>t[0] = NodoCadena(t[1]) </p></td> 
+        </tr><tr> <td colspan=2  class="et" > Contenido PRINT    </td> </tr>
+        <tr> 
+        <td> <p>Print => PRINT LEFTPAR "("  ID2    ")" <br/> ID2 => ID LArray <br/> | ID <br/> LArray => IZQLLAVE"[" Expresion DERLLAVE"]" </p></td> 
+        <td><p> t[0] = Print()</p></td> 
+        </tr>
+
+        <tr> 
+        <td> <p>E  =>  CADENA   <br/> </p></td> 
+        <td><p>t[0] = NodoCadena(t[1]) </p></td> 
+        </tr><tr> <td colspan=2  class="et" > Contenido PRINT    </td> </tr>
+        <tr> 
+        <td> <p>Print => PRINT LEFTPAR "("  ID2    ")" <br/> ID2 => ID LArray <br/> | ID <br/> LArray => IZQLLAVE"[" Expresion DERLLAVE"]" </p></td> 
+        <td><p> t[0] = Print()</p></td> 
+        </tr>
+
+        <tr> 
+        <td> <p>E  =>  CADENA   <br/> </p></td> 
+        <td><p>t[0] = NodoCadena(t[1]) </p></td> 
+        </tr><tr> <td colspan=2  class="et" > Contenido ASIGNACION    </td> </tr>
+        <tr> 
+        <td> <p>asignacion => var2 IGUAL exp  </p></td> 
+        <td><p> t[0] = Asignacion(t[1],t[3]) </p></td> 
+        </tr>
+        <tr>
+            <td> var2 => VAR arr <br/> arr </td> <td> 
+    if(len(t)==3): <br/>
+        t[0] = NodoVariable(t[1],t[2]) <br/>
+    else: <br/>
+        t[0] = NodoVariable(t[1],None) </td> 
+        </tr>
+        <tr>
+        <td> arr => arr IZQLLAVE E DERLLAVE <br/> | IZQLLAVE E DERLLAVE</td> <td>  if(len(t)==5):<br/> 
+        lar = t[1]<br/> 
+        lar.append(t[3])<br/> 
+        t[0] = lar <br/> 
+    else:<br/> 
+        lar = []<br/> 
+        lar.append(t[2])<br/> 
+        t[0] = lar </td><br/> 
+        </tr>
+<tr> <td colspan=2  class="et" > Contenido READ    </td> </tr>
+        <tr> 
+        <td> <p>arry => Read LEFTPAR "("     DERPAR ")" <br/> </td> 
+        <td><p> t[0] = Leer(). </p></td> 
+        </tr>
+<tr> <td colspan=2  class="et" > Contenido PRINT    </td> </tr>
+        <tr> 
+        <td> <p>Print => PRINT LEFTPAR "("  ID2    ")" <br/> ID2 => ID LArray <br/> | ID <br/> LArray => IZQLLAVE"[" Expresion DERLLAVE"]" </p></td> 
+        <td><p> t[0] = Print()</p></td> 
+        </tr>
+
+        <tr> 
+        <td> <p>E  =>  CADENA   <br/> </p></td> 
+        <td><p>t[0] = NodoCadena(t[1]) </p></td> 
+        </tr><tr> <td colspan=2  class="et" > Contenido PRINT    </td> </tr>
+        <tr> 
+        <td> <p>Print => PRINT LEFTPAR "("  ID2    ")" <br/> ID2 => ID LArray <br/> | ID <br/> LArray => IZQLLAVE"[" Expresion DERLLAVE"]" </p></td> 
+        <td><p> t[0] = Print()</p></td> 
+        </tr>
+
+        <tr> 
+        <td> <p>E  =>  CADENA   <br/> </p></td> 
+        <td><p>t[0] = NodoCadena(t[1]) </p></td> 
+        </tr><tr> <td colspan=2  class="et" > Contenido PRINT    </td> </tr>
+        <tr> 
+        <td> <p>Print => PRINT LEFTPAR "("  ID2    ")" <br/> ID2 => ID LArray <br/> | ID <br/> LArray => IZQLLAVE"[" Expresion DERLLAVE"]" </p></td> 
+        <td><p> t[0] = Print()</p></td> 
+        </tr>
+
+        <tr> 
+        <td> <p>E  =>  CADENA   <br/> </p></td> 
+        <td><p>t[0] = NodoCadena(t[1]) </p></td> 
+        </tr><tr> <td colspan=2  class="et" > Contenido PRINT    </td> </tr>
+        <tr> 
+        <td> <p>Print => PRINT LEFTPAR "("  ID2    ")" <br/> ID2 => ID LArray <br/> | ID <br/> LArray => IZQLLAVE"[" Expresion DERLLAVE"]" </p></td> 
+        <td><p> t[0] = Print()</p></td> 
+        </tr>
+
+        <tr> 
+        <td> <p>E  =>   ID <br/>| ID LCOR <br/> LCOR   => LCOR [E] <br/> | [E]  </p></td> 
+        <td><p> t[0] = NodoVariable(t[1]) </p></td> 
+        </tr><tr> <td colspan=2  class="et" > Contenido PRINT    </td> </tr>
+        <tr> 
+        <td> <p>Print => PRINT LEFTPAR "("  ID2    ")" <br/> ID2 => ID LArray <br/> | ID <br/> LArray => IZQLLAVE"[" Expresion DERLLAVE"]" </p></td> 
+        <td><p> t[0] = Print()</p></td> 
+        </tr>
+
+        <tr> 
+        <td> <p>E  =>  CADENA   <br/> </p></td> 
+        <td><p>t[0] = NodoCadena(t[1]) </p></td> 
+        </tr><tr> <td colspan=2  class="et" > Contenido Etiqueta  operacion </td> </tr>
+        <tr> 
+        <td> <p>ListaInstrucciones => ListaInstrucciones  PC ";"<br/> |  Instrucciones PC ";"<br/> </p></td> 
+        <td><p> 
+    if(len(t)==3):<br/>
+        t[0] = []<br/>
+        t[0].append(t[1])<br/><br/>
+    if(len(t)==4):<br/>
+        t[0] = t[1]<br/>
+        t[0].append(t[2]) </p></td> 
+        </tr>
+        <tr>
+            <td> Intrucciones =>    asignacion<br/>
+                    |   iff<br/>
+                    |   jump<br/>
+                    |   printt<br/>
+                    |   ext<br/>
+                    |   uns<br/> </td> <td> <p> t[0] = t[1] </p> </td>
+        </tr>
+<tr> <td colspan=2  class="et" > Contenido PRINT    </td> </tr>
+        <tr> 
+        <td> <p>Print => PRINT LEFTPAR "("  ID2    ")" <br/> ID2 => ID LArray <br/> | ID <br/> LArray => IZQLLAVE"[" Expresion DERLLAVE"]" </p></td> 
+        <td><p> t[0] = Print()</p></td> 
+        </tr>
+
+        <tr> 
+        <td> <p>E  =>  CADENA   <br/> </p></td> 
+        <td><p>t[0] = NodoCadena(t[1]) </p></td> 
+        </tr><tr> <td colspan=2  class="et" > Contenido PRINT    </td> </tr>
+        <tr> 
+        <td> <p>Print => PRINT LEFTPAR "("  ID2    ")" <br/> ID2 => ID LArray <br/> | ID <br/> LArray => IZQLLAVE"[" Expresion DERLLAVE"]" </p></td> 
+        <td><p> t[0] = Print()</p></td> 
+        </tr>
+
+        <tr> 
+        <td> <p>E  =>  CADENA   <br/> </p></td> 
+        <td><p>t[0] = NodoCadena(t[1]) </p></td> 
+        </tr><tr> <td colspan=2  class="et" > Contenido ASIGNACION    </td> </tr>
+        <tr> 
+        <td> <p>asignacion => var2 IGUAL exp  </p></td> 
+        <td><p> t[0] = Asignacion(t[1],t[3]) </p></td> 
+        </tr>
+        <tr>
+            <td> var2 => VAR arr <br/> arr </td> <td> 
+    if(len(t)==3): <br/>
+        t[0] = NodoVariable(t[1],t[2]) <br/>
+    else: <br/>
+        t[0] = NodoVariable(t[1],None) </td> 
+        </tr>
+        <tr>
+        <td> arr => arr IZQLLAVE E DERLLAVE <br/> | IZQLLAVE E DERLLAVE</td> <td>  if(len(t)==5):<br/> 
+        lar = t[1]<br/> 
+        lar.append(t[3])<br/> 
+        t[0] = lar <br/> 
+    else:<br/> 
+        lar = []<br/> 
+        lar.append(t[2])<br/> 
+        t[0] = lar </td><br/> 
+        </tr>
+<tr> <td colspan=2  class="et" > Contenido READ    </td> </tr>
+        <tr> 
+        <td> <p>arry => Read LEFTPAR "("     DERPAR ")" <br/> </td> 
+        <td><p> t[0] = Leer(). </p></td> 
+        </tr>
+<tr> <td colspan=2  class="et" > Contenido PRINT    </td> </tr>
+        <tr> 
+        <td> <p>Print => PRINT LEFTPAR "("  ID2    ")" <br/> ID2 => ID LArray <br/> | ID <br/> LArray => IZQLLAVE"[" Expresion DERLLAVE"]" </p></td> 
+        <td><p> t[0] = Print()</p></td> 
+        </tr>
+
+        <tr> 
+        <td> <p>E  =>  CADENA   <br/> </p></td> 
+        <td><p>t[0] = NodoCadena(t[1]) </p></td> 
+        </tr><tr> <td colspan=2  class="et" > Contenido PRINT    </td> </tr>
+        <tr> 
+        <td> <p>Print => PRINT LEFTPAR "("  ID2    ")" <br/> ID2 => ID LArray <br/> | ID <br/> LArray => IZQLLAVE"[" Expresion DERLLAVE"]" </p></td> 
+        <td><p> t[0] = Print()</p></td> 
+        </tr>
+
+        <tr> 
+        <td> <p>E  =>  CADENA   <br/> </p></td> 
+        <td><p>t[0] = NodoCadena(t[1]) </p></td> 
+        </tr><tr> <td colspan=2  class="et" > Contenido PRINT    </td> </tr>
+        <tr> 
+        <td> <p>Print => PRINT LEFTPAR "("  ID2    ")" <br/> ID2 => ID LArray <br/> | ID <br/> LArray => IZQLLAVE"[" Expresion DERLLAVE"]" </p></td> 
+        <td><p> t[0] = Print()</p></td> 
+        </tr>
+
+        <tr> 
+        <td> <p>E  =>  CADENA   <br/> </p></td> 
+        <td><p>t[0] = NodoCadena(t[1]) </p></td> 
+        </tr><tr> <td colspan=2  class="et" > Contenido PRINT    </td> </tr>
+        <tr> 
+        <td> <p>Print => PRINT LEFTPAR "("  ID2    ")" <br/> ID2 => ID LArray <br/> | ID <br/> LArray => IZQLLAVE"[" Expresion DERLLAVE"]" </p></td> 
+        <td><p> t[0] = Print()</p></td> 
+        </tr>
+
+        <tr> 
+        <td> <p>E  =>   ID <br/>| ID LCOR <br/> LCOR   => LCOR [E] <br/> | [E]  </p></td> 
+        <td><p> t[0] = NodoVariable(t[1]) </p></td> 
+        </tr><tr> <td colspan=2  class="et" > Contenido PRINT    </td> </tr>
+        <tr> 
+        <td> <p>Print => PRINT LEFTPAR "("  ID2    ")" <br/> ID2 => ID LArray <br/> | ID <br/> LArray => IZQLLAVE"[" Expresion DERLLAVE"]" </p></td> 
+        <td><p> t[0] = Print()</p></td> 
+        </tr>
+
+        <tr> 
+        <td> <p>E  =>  CADENA   <br/> </p></td> 
+        <td><p>t[0] = NodoCadena(t[1]) </p></td> 
+        </tr><tr> <td colspan=2  class="et" > Contenido ASIGNACION    </td> </tr>
+        <tr> 
+        <td> <p>asignacion => var2 IGUAL exp  </p></td> 
+        <td><p> t[0] = Asignacion(t[1],t[3]) </p></td> 
+        </tr>
+        <tr>
+            <td> var2 => VAR arr <br/> arr </td> <td> 
+    if(len(t)==3): <br/>
+        t[0] = NodoVariable(t[1],t[2]) <br/>
+    else: <br/>
+        t[0] = NodoVariable(t[1],None) </td> 
+        </tr>
+        <tr>
+        <td> arr => arr IZQLLAVE E DERLLAVE <br/> | IZQLLAVE E DERLLAVE</td> <td>  if(len(t)==5):<br/> 
+        lar = t[1]<br/> 
+        lar.append(t[3])<br/> 
+        t[0] = lar <br/> 
+    else:<br/> 
+        lar = []<br/> 
+        lar.append(t[2])<br/> 
+        t[0] = lar </td><br/> 
+        </tr>
+
+        <tr> 
+        <td> <p>EXP  =>  LEFTPAR "("  int   DERPAR ")"  E <br/> </p></td> 
+        <td><p> t[0]  = Cast2Int(t[2]) </p></td> 
+        </tr>
+        <tr> 
+        <td> <p>E  =>   ID <br/>| ID LCOR <br/> LCOR   => LCOR [E] <br/> | [E]  </p></td> 
+        <td><p> t[0] = NodoVariable(t[1]) </p></td> 
+        </tr><tr> <td colspan=2  class="et" > Contenido SALTO CONDICIONAL    </td> </tr>
+        <tr> 
+        <td> <p>iff =>   if IZQPAR "(" exp DERPAR ")" goto ID</p></td> 
+        <td><p> t[0] = Si(t[3],t[6]) </p></td> 
+        </tr>
+
+        <tr> 
+        <td> <p>EXP  =>  E == E <br/> </p></td> 
+        <td><p> if(t[2]=="==")<br>
+        t[0]  = Igual(t[1],t[3]) </p></td> 
+        </tr>
+        <tr> 
+        <td> <p>E  =>   ID <br/>| ID LCOR <br/> LCOR   => LCOR [E] <br/> | [E]  </p></td> 
+        <td><p> t[0] = NodoVariable(t[1]) </p></td> 
+        </tr>
+        <tr> 
+        <td> <p>E  =>  ENTERO   <br/> </p></td> 
+        <td><p>t[0] = NodoEntero(t[1]) </p></td> 
+        </tr><tr> <td colspan=2  class="et" > Contenido SALTO CONDICIONAL    </td> </tr>
+        <tr> 
+        <td> <p>iff =>   if IZQPAR "(" exp DERPAR ")" goto ID</p></td> 
+        <td><p> t[0] = Si(t[3],t[6]) </p></td> 
+        </tr>
+
+        <tr> 
+        <td> <p>EXP  =>  E == E <br/> </p></td> 
+        <td><p> if(t[2]=="==")<br>
+        t[0]  = Igual(t[1],t[3]) </p></td> 
+        </tr>
+        <tr> 
+        <td> <p>E  =>   ID <br/>| ID LCOR <br/> LCOR   => LCOR [E] <br/> | [E]  </p></td> 
+        <td><p> t[0] = NodoVariable(t[1]) </p></td> 
+        </tr>
+        <tr> 
+        <td> <p>E  =>  ENTERO   <br/> </p></td> 
+        <td><p>t[0] = NodoEntero(t[1]) </p></td> 
+        </tr><tr> <td colspan=2  class="et" > Contenido SALTO CONDICIONAL    </td> </tr>
+        <tr> 
+        <td> <p>iff =>   if IZQPAR "(" exp DERPAR ")" goto ID</p></td> 
+        <td><p> t[0] = Si(t[3],t[6]) </p></td> 
+        </tr>
+
+        <tr> 
+        <td> <p>EXP  =>  E == E <br/> </p></td> 
+        <td><p> if(t[2]=="==")<br>
+        t[0]  = Igual(t[1],t[3]) </p></td> 
+        </tr>
+        <tr> 
+        <td> <p>E  =>   ID <br/>| ID LCOR <br/> LCOR   => LCOR [E] <br/> | [E]  </p></td> 
+        <td><p> t[0] = NodoVariable(t[1]) </p></td> 
+        </tr>
+        <tr> 
+        <td> <p>E  =>  ENTERO   <br/> </p></td> 
+        <td><p>t[0] = NodoEntero(t[1]) </p></td> 
+        </tr><tr> <td colspan=2  class="et" > Contenido SALTO CONDICIONAL    </td> </tr>
+        <tr> 
+        <td> <p>iff =>   if IZQPAR "(" exp DERPAR ")" goto ID</p></td> 
+        <td><p> t[0] = Si(t[3],t[6]) </p></td> 
+        </tr>
+
+        <tr> 
+        <td> <p>EXP  =>  E == E <br/> </p></td> 
+        <td><p> if(t[2]=="==")<br>
+        t[0]  = Igual(t[1],t[3]) </p></td> 
+        </tr>
+        <tr> 
+        <td> <p>E  =>   ID <br/>| ID LCOR <br/> LCOR   => LCOR [E] <br/> | [E]  </p></td> 
+        <td><p> t[0] = NodoVariable(t[1]) </p></td> 
+        </tr>
+        <tr> 
+        <td> <p>E  =>  ENTERO   <br/> </p></td> 
+        <td><p>t[0] = NodoEntero(t[1]) </p></td> 
+        </tr><tr> <td colspan=2  class="et" > Contenido SALTO    </td> </tr>
+        <tr> 
+        <td> <p>jump  => goto ID";" </p></td> 
+        <td><p> t[0] = Salto(t[2]) </p></td> 
+        </tr>
+<tr> <td colspan=2  class="et" > Contenido Etiqueta  suma </td> </tr>
+        <tr> 
+        <td> <p>ListaInstrucciones => ListaInstrucciones  PC ";"<br/> |  Instrucciones PC ";"<br/> </p></td> 
+        <td><p> 
+    if(len(t)==3):<br/>
+        t[0] = []<br/>
+        t[0].append(t[1])<br/><br/>
+    if(len(t)==4):<br/>
+        t[0] = t[1]<br/>
+        t[0].append(t[2]) </p></td> 
+        </tr>
+        <tr>
+            <td> Intrucciones =>    asignacion<br/>
+                    |   iff<br/>
+                    |   jump<br/>
+                    |   printt<br/>
+                    |   ext<br/>
+                    |   uns<br/> </td> <td> <p> t[0] = t[1] </p> </td>
+        </tr>
+<tr> <td colspan=2  class="et" > Contenido ASIGNACION    </td> </tr>
+        <tr> 
+        <td> <p>asignacion => var2 IGUAL exp  </p></td> 
+        <td><p> t[0] = Asignacion(t[1],t[3]) </p></td> 
+        </tr>
+        <tr>
+            <td> var2 => VAR arr <br/> arr </td> <td> 
+    if(len(t)==3): <br/>
+        t[0] = NodoVariable(t[1],t[2]) <br/>
+    else: <br/>
+        t[0] = NodoVariable(t[1],None) </td> 
+        </tr>
+        <tr>
+        <td> arr => arr IZQLLAVE E DERLLAVE <br/> | IZQLLAVE E DERLLAVE</td> <td>  if(len(t)==5):<br/> 
+        lar = t[1]<br/> 
+        lar.append(t[3])<br/> 
+        t[0] = lar <br/> 
+    else:<br/> 
+        lar = []<br/> 
+        lar.append(t[2])<br/> 
+        t[0] = lar </td><br/> 
+        </tr>
+
+        <tr> 
+        <td> <p>EXP  =>  E + E <br/> </p></td> 
+        <td><p> if(t[2]=="+")<br>
+        t[0]  = Suma(t[1],t[3]) </p></td> 
+        </tr>
+        <tr> 
+        <td> <p>E  =>   ID <br/>| ID LCOR <br/> LCOR   => LCOR [E] <br/> | [E]  </p></td> 
+        <td><p> t[0] = NodoVariable(t[1]) </p></td> 
+        </tr>
+        <tr> 
+        <td> <p>E  =>   ID <br/>| ID LCOR <br/> LCOR   => LCOR [E] <br/> | [E]  </p></td> 
+        <td><p> t[0] = NodoVariable(t[1]) </p></td> 
+        </tr><tr> <td colspan=2  class="et" > Contenido SALTO    </td> </tr>
+        <tr> 
+        <td> <p>jump  => goto ID";" </p></td> 
+        <td><p> t[0] = Salto(t[2]) </p></td> 
+        </tr>
+<tr> <td colspan=2  class="et" > Contenido Etiqueta  resta </td> </tr>
+        <tr> 
+        <td> <p>ListaInstrucciones => ListaInstrucciones  PC ";"<br/> |  Instrucciones PC ";"<br/> </p></td> 
+        <td><p> 
+    if(len(t)==3):<br/>
+        t[0] = []<br/>
+        t[0].append(t[1])<br/><br/>
+    if(len(t)==4):<br/>
+        t[0] = t[1]<br/>
+        t[0].append(t[2]) </p></td> 
+        </tr>
+        <tr>
+            <td> Intrucciones =>    asignacion<br/>
+                    |   iff<br/>
+                    |   jump<br/>
+                    |   printt<br/>
+                    |   ext<br/>
+                    |   uns<br/> </td> <td> <p> t[0] = t[1] </p> </td>
+        </tr>
+<tr> <td colspan=2  class="et" > Contenido ASIGNACION    </td> </tr>
+        <tr> 
+        <td> <p>asignacion => var2 IGUAL exp  </p></td> 
+        <td><p> t[0] = Asignacion(t[1],t[3]) </p></td> 
+        </tr>
+        <tr>
+            <td> var2 => VAR arr <br/> arr </td> <td> 
+    if(len(t)==3): <br/>
+        t[0] = NodoVariable(t[1],t[2]) <br/>
+    else: <br/>
+        t[0] = NodoVariable(t[1],None) </td> 
+        </tr>
+        <tr>
+        <td> arr => arr IZQLLAVE E DERLLAVE <br/> | IZQLLAVE E DERLLAVE</td> <td>  if(len(t)==5):<br/> 
+        lar = t[1]<br/> 
+        lar.append(t[3])<br/> 
+        t[0] = lar <br/> 
+    else:<br/> 
+        lar = []<br/> 
+        lar.append(t[2])<br/> 
+        t[0] = lar </td><br/> 
+        </tr>
+
+        <tr> 
+        <td> <p>EXP  =>  E - E <br/> </p></td> 
+        <td><p> if(t[2]=="-")<br>
+        t[0]  = Resta(t[1],t[3]) </p></td> 
+        </tr>
+        <tr> 
+        <td> <p>E  =>   ID <br/>| ID LCOR <br/> LCOR   => LCOR [E] <br/> | [E]  </p></td> 
+        <td><p> t[0] = NodoVariable(t[1]) </p></td> 
+        </tr>
+        <tr> 
+        <td> <p>E  =>   ID <br/>| ID LCOR <br/> LCOR   => LCOR [E] <br/> | [E]  </p></td> 
+        <td><p> t[0] = NodoVariable(t[1]) </p></td> 
+        </tr><tr> <td colspan=2  class="et" > Contenido SALTO    </td> </tr>
+        <tr> 
+        <td> <p>jump  => goto ID";" </p></td> 
+        <td><p> t[0] = Salto(t[2]) </p></td> 
+        </tr>
+<tr> <td colspan=2  class="et" > Contenido Etiqueta  mult </td> </tr>
+        <tr> 
+        <td> <p>ListaInstrucciones => ListaInstrucciones  PC ";"<br/> |  Instrucciones PC ";"<br/> </p></td> 
+        <td><p> 
+    if(len(t)==3):<br/>
+        t[0] = []<br/>
+        t[0].append(t[1])<br/><br/>
+    if(len(t)==4):<br/>
+        t[0] = t[1]<br/>
+        t[0].append(t[2]) </p></td> 
+        </tr>
+        <tr>
+            <td> Intrucciones =>    asignacion<br/>
+                    |   iff<br/>
+                    |   jump<br/>
+                    |   printt<br/>
+                    |   ext<br/>
+                    |   uns<br/> </td> <td> <p> t[0] = t[1] </p> </td>
+        </tr>
+<tr> <td colspan=2  class="et" > Contenido ASIGNACION    </td> </tr>
+        <tr> 
+        <td> <p>asignacion => var2 IGUAL exp  </p></td> 
+        <td><p> t[0] = Asignacion(t[1],t[3]) </p></td> 
+        </tr>
+        <tr>
+            <td> var2 => VAR arr <br/> arr </td> <td> 
+    if(len(t)==3): <br/>
+        t[0] = NodoVariable(t[1],t[2]) <br/>
+    else: <br/>
+        t[0] = NodoVariable(t[1],None) </td> 
+        </tr>
+        <tr>
+        <td> arr => arr IZQLLAVE E DERLLAVE <br/> | IZQLLAVE E DERLLAVE</td> <td>  if(len(t)==5):<br/> 
+        lar = t[1]<br/> 
+        lar.append(t[3])<br/> 
+        t[0] = lar <br/> 
+    else:<br/> 
+        lar = []<br/> 
+        lar.append(t[2])<br/> 
+        t[0] = lar </td><br/> 
+        </tr>
+
+        <tr> 
+        <td> <p>EXP  =>  E * E <br/> </p></td> 
+        <td><p> if(t[2]=="*")<br>
+        t[0]  = Multi(t[1],t[3]) </p></td> 
+        </tr>
+        <tr> 
+        <td> <p>E  =>   ID <br/>| ID LCOR <br/> LCOR   => LCOR [E] <br/> | [E]  </p></td> 
+        <td><p> t[0] = NodoVariable(t[1]) </p></td> 
+        </tr>
+        <tr> 
+        <td> <p>E  =>   ID <br/>| ID LCOR <br/> LCOR   => LCOR [E] <br/> | [E]  </p></td> 
+        <td><p> t[0] = NodoVariable(t[1]) </p></td> 
+        </tr><tr> <td colspan=2  class="et" > Contenido SALTO    </td> </tr>
+        <tr> 
+        <td> <p>jump  => goto ID";" </p></td> 
+        <td><p> t[0] = Salto(t[2]) </p></td> 
+        </tr>
+<tr> <td colspan=2  class="et" > Contenido Etiqueta  div </td> </tr>
+        <tr> 
+        <td> <p>ListaInstrucciones => ListaInstrucciones  PC ";"<br/> |  Instrucciones PC ";"<br/> </p></td> 
+        <td><p> 
+    if(len(t)==3):<br/>
+        t[0] = []<br/>
+        t[0].append(t[1])<br/><br/>
+    if(len(t)==4):<br/>
+        t[0] = t[1]<br/>
+        t[0].append(t[2]) </p></td> 
+        </tr>
+        <tr>
+            <td> Intrucciones =>    asignacion<br/>
+                    |   iff<br/>
+                    |   jump<br/>
+                    |   printt<br/>
+                    |   ext<br/>
+                    |   uns<br/> </td> <td> <p> t[0] = t[1] </p> </td>
+        </tr>
+<tr> <td colspan=2  class="et" > Contenido SALTO CONDICIONAL    </td> </tr>
+        <tr> 
+        <td> <p>iff =>   if IZQPAR "(" exp DERPAR ")" goto ID</p></td> 
+        <td><p> t[0] = Si(t[3],t[6]) </p></td> 
+        </tr>
+
+        <tr> 
+        <td> <p>EXP  =>  E == E <br/> </p></td> 
+        <td><p> if(t[2]=="==")<br>
+        t[0]  = Igual(t[1],t[3]) </p></td> 
+        </tr>
+        <tr> 
+        <td> <p>E  =>   ID <br/>| ID LCOR <br/> LCOR   => LCOR [E] <br/> | [E]  </p></td> 
+        <td><p> t[0] = NodoVariable(t[1]) </p></td> 
+        </tr>
+        <tr> 
+        <td> <p>E  =>  ENTERO   <br/> </p></td> 
+        <td><p>t[0] = NodoEntero(t[1]) </p></td> 
+        </tr><tr> <td colspan=2  class="et" > Contenido ASIGNACION    </td> </tr>
+        <tr> 
+        <td> <p>asignacion => var2 IGUAL exp  </p></td> 
+        <td><p> t[0] = Asignacion(t[1],t[3]) </p></td> 
+        </tr>
+        <tr>
+            <td> var2 => VAR arr <br/> arr </td> <td> 
+    if(len(t)==3): <br/>
+        t[0] = NodoVariable(t[1],t[2]) <br/>
+    else: <br/>
+        t[0] = NodoVariable(t[1],None) </td> 
+        </tr>
+        <tr>
+        <td> arr => arr IZQLLAVE E DERLLAVE <br/> | IZQLLAVE E DERLLAVE</td> <td>  if(len(t)==5):<br/> 
+        lar = t[1]<br/> 
+        lar.append(t[3])<br/> 
+        t[0] = lar <br/> 
+    else:<br/> 
+        lar = []<br/> 
+        lar.append(t[2])<br/> 
+        t[0] = lar </td><br/> 
+        </tr>
+
+        <tr> 
+        <td> <p>EXP  =>  E / E <br/> </p></td> 
+        <td><p> if(t[2]=="/")<br>
+        t[0]  = Divi(t[1],t[3]) </p></td> 
+        </tr>
+        <tr> 
+        <td> <p>E  =>   ID <br/>| ID LCOR <br/> LCOR   => LCOR [E] <br/> | [E]  </p></td> 
+        <td><p> t[0] = NodoVariable(t[1]) </p></td> 
+        </tr>
+        <tr> 
+        <td> <p>E  =>   ID <br/>| ID LCOR <br/> LCOR   => LCOR [E] <br/> | [E]  </p></td> 
+        <td><p> t[0] = NodoVariable(t[1]) </p></td> 
+        </tr><tr> <td colspan=2  class="et" > Contenido SALTO    </td> </tr>
+        <tr> 
+        <td> <p>jump  => goto ID";" </p></td> 
+        <td><p> t[0] = Salto(t[2]) </p></td> 
+        </tr>
+<tr> <td colspan=2  class="et" > Contenido Etiqueta  error </td> </tr>
+        <tr> 
+        <td> <p>ListaInstrucciones => ListaInstrucciones  PC ";"<br/> |  Instrucciones PC ";"<br/> </p></td> 
+        <td><p> 
+    if(len(t)==3):<br/>
+        t[0] = []<br/>
+        t[0].append(t[1])<br/><br/>
+    if(len(t)==4):<br/>
+        t[0] = t[1]<br/>
+        t[0].append(t[2]) </p></td> 
+        </tr>
+        <tr>
+            <td> Intrucciones =>    asignacion<br/>
+                    |   iff<br/>
+                    |   jump<br/>
+                    |   printt<br/>
+                    |   ext<br/>
+                    |   uns<br/> </td> <td> <p> t[0] = t[1] </p> </td>
+        </tr>
+<tr> <td colspan=2  class="et" > Contenido PRINT    </td> </tr>
+        <tr> 
+        <td> <p>Print => PRINT LEFTPAR "("  ID2    ")" <br/> ID2 => ID LArray <br/> | ID <br/> LArray => IZQLLAVE"[" Expresion DERLLAVE"]" </p></td> 
+        <td><p> t[0] = Print()</p></td> 
+        </tr>
+
+        <tr> 
+        <td> <p>E  =>  CADENA   <br/> </p></td> 
+        <td><p>t[0] = NodoCadena(t[1]) </p></td> 
+        </tr><tr> <td colspan=2  class="et" > Contenido PRINT    </td> </tr>
+        <tr> 
+        <td> <p>Print => PRINT LEFTPAR "("  ID2    ")" <br/> ID2 => ID LArray <br/> | ID <br/> LArray => IZQLLAVE"[" Expresion DERLLAVE"]" </p></td> 
+        <td><p> t[0] = Print()</p></td> 
+        </tr>
+
+        <tr> 
+        <td> <p>E  =>  CADENA   <br/> </p></td> 
+        <td><p>t[0] = NodoCadena(t[1]) </p></td> 
+        </tr><tr> <td colspan=2  class="et" > Contenido SALTO    </td> </tr>
+        <tr> 
+        <td> <p>jump  => goto ID";" </p></td> 
+        <td><p> t[0] = Salto(t[2]) </p></td> 
+        </tr>
+<tr> <td colspan=2  class="et" > Contenido Etiqueta  imprimir </td> </tr>
+        <tr> 
+        <td> <p>ListaInstrucciones => ListaInstrucciones  PC ";"<br/> |  Instrucciones PC ";"<br/> </p></td> 
+        <td><p> 
+    if(len(t)==3):<br/>
+        t[0] = []<br/>
+        t[0].append(t[1])<br/><br/>
+    if(len(t)==4):<br/>
+        t[0] = t[1]<br/>
+        t[0].append(t[2]) </p></td> 
+        </tr>
+        <tr>
+            <td> Intrucciones =>    asignacion<br/>
+                    |   iff<br/>
+                    |   jump<br/>
+                    |   printt<br/>
+                    |   ext<br/>
+                    |   uns<br/> </td> <td> <p> t[0] = t[1] </p> </td>
+        </tr>
+<tr> <td colspan=2  class="et" > Contenido PRINT    </td> </tr>
+        <tr> 
+        <td> <p>Print => PRINT LEFTPAR "("  ID2    ")" <br/> ID2 => ID LArray <br/> | ID <br/> LArray => IZQLLAVE"[" Expresion DERLLAVE"]" </p></td> 
+        <td><p> t[0] = Print()</p></td> 
+        </tr>
+
+        <tr> 
+        <td> <p>E  =>  CADENA   <br/> </p></td> 
+        <td><p>t[0] = NodoCadena(t[1]) </p></td> 
+        </tr><tr> <td colspan=2  class="et" > Contenido PRINT    </td> </tr>
+        <tr> 
+        <td> <p>Print => PRINT LEFTPAR "("  ID2    ")" <br/> ID2 => ID LArray <br/> | ID <br/> LArray => IZQLLAVE"[" Expresion DERLLAVE"]" </p></td> 
+        <td><p> t[0] = Print()</p></td> 
+        </tr>
+
+        <tr> 
+        <td> <p>E  =>   ID <br/>| ID LCOR <br/> LCOR   => LCOR [E] <br/> | [E]  </p></td> 
+        <td><p> t[0] = NodoVariable(t[1]) </p></td> 
+        </tr><tr> <td colspan=2  class="et" > Contenido PRINT    </td> </tr>
+        <tr> 
+        <td> <p>Print => PRINT LEFTPAR "("  ID2    ")" <br/> ID2 => ID LArray <br/> | ID <br/> LArray => IZQLLAVE"[" Expresion DERLLAVE"]" </p></td> 
+        <td><p> t[0] = Print()</p></td> 
+        </tr>
+
+        <tr> 
+        <td> <p>E  =>   ID <br/>| ID LCOR <br/> LCOR   => LCOR [E] <br/> | [E]  </p></td> 
+        <td><p> t[0] = NodoVariable(t[1]) </p></td> 
+        </tr><tr> <td colspan=2  class="et" > Contenido PRINT    </td> </tr>
+        <tr> 
+        <td> <p>Print => PRINT LEFTPAR "("  ID2    ")" <br/> ID2 => ID LArray <br/> | ID <br/> LArray => IZQLLAVE"[" Expresion DERLLAVE"]" </p></td> 
+        <td><p> t[0] = Print()</p></td> 
+        </tr>
+
+        <tr> 
+        <td> <p>E  =>   ID <br/>| ID LCOR <br/> LCOR   => LCOR [E] <br/> | [E]  </p></td> 
+        <td><p> t[0] = NodoVariable(t[1]) </p></td> 
+        </tr><tr> <td colspan=2  class="et" > Contenido PRINT    </td> </tr>
+        <tr> 
+        <td> <p>Print => PRINT LEFTPAR "("  ID2    ")" <br/> ID2 => ID LArray <br/> | ID <br/> LArray => IZQLLAVE"[" Expresion DERLLAVE"]" </p></td> 
+        <td><p> t[0] = Print()</p></td> 
+        </tr>
+
+        <tr> 
+        <td> <p>E  =>  CADENA   <br/> </p></td> 
+        <td><p>t[0] = NodoCadena(t[1]) </p></td> 
+        </tr><tr> <td colspan=2  class="et" > Contenido PRINT    </td> </tr>
+        <tr> 
+        <td> <p>Print => PRINT LEFTPAR "("  ID2    ")" <br/> ID2 => ID LArray <br/> | ID <br/> LArray => IZQLLAVE"[" Expresion DERLLAVE"]" </p></td> 
+        <td><p> t[0] = Print()</p></td> 
+        </tr>
+
+        <tr> 
+        <td> <p>E  =>  CADENA   <br/> </p></td> 
+        <td><p>t[0] = NodoCadena(t[1]) </p></td> 
+        </tr><tr> <td colspan=2  class="et" > Contenido PRINT    </td> </tr>
+        <tr> 
+        <td> <p>Print => PRINT LEFTPAR "("  ID2    ")" <br/> ID2 => ID LArray <br/> | ID <br/> LArray => IZQLLAVE"[" Expresion DERLLAVE"]" </p></td> 
+        <td><p> t[0] = Print()</p></td> 
+        </tr>
+
+        <tr> 
+        <td> <p>E  =>   ID <br/>| ID LCOR <br/> LCOR   => LCOR [E] <br/> | [E]  </p></td> 
+        <td><p> t[0] = NodoVariable(t[1]) </p></td> 
+        </tr><tr> <td colspan=2  class="et" > Contenido PRINT    </td> </tr>
+        <tr> 
+        <td> <p>Print => PRINT LEFTPAR "("  ID2    ")" <br/> ID2 => ID LArray <br/> | ID <br/> LArray => IZQLLAVE"[" Expresion DERLLAVE"]" </p></td> 
+        <td><p> t[0] = Print()</p></td> 
+        </tr>
+
+        <tr> 
+        <td> <p>E  =>  CADENA   <br/> </p></td> 
+        <td><p>t[0] = NodoCadena(t[1]) </p></td> 
+        </tr><tr> <td colspan=2  class="et" > Contenido Etiqueta  fin </td> </tr>
+        <tr> 
+        <td> <p>ListaInstrucciones => ListaInstrucciones  PC ";"<br/> |  Instrucciones PC ";"<br/> </p></td> 
+        <td><p> 
+    if(len(t)==3):<br/>
+        t[0] = []<br/>
+        t[0].append(t[1])<br/><br/>
+    if(len(t)==4):<br/>
+        t[0] = t[1]<br/>
+        t[0].append(t[2]) </p></td> 
+        </tr>
+        <tr>
+            <td> Intrucciones =>    asignacion<br/>
+                    |   iff<br/>
+                    |   jump<br/>
+                    |   printt<br/>
+                    |   ext<br/>
+                    |   uns<br/> </td> <td> <p> t[0] = t[1] </p> </td>
+        </tr>
+<tr> <td colspan=2  class="et" > Contenido PRINT    </td> </tr>
+        <tr> 
+        <td> <p>Print => PRINT LEFTPAR "("  ID2    ")" <br/> ID2 => ID LArray <br/> | ID <br/> LArray => IZQLLAVE"[" Expresion DERLLAVE"]" </p></td> 
+        <td><p> t[0] = Print()</p></td> 
+        </tr>
+
+        <tr> 
+        <td> <p>E  =>  CADENA   <br/> </p></td> 
+        <td><p>t[0] = NodoCadena(t[1]) </p></td> 
+        </tr><tr> <td colspan=2  class="et" > Contenido PRINT    </td> </tr>
+        <tr> 
+        <td> <p>Print => PRINT LEFTPAR "("  ID2    ")" <br/> ID2 => ID LArray <br/> | ID <br/> LArray => IZQLLAVE"[" Expresion DERLLAVE"]" </p></td> 
+        <td><p> t[0] = Print()</p></td> 
+        </tr>
+
+        <tr> 
+        <td> <p>E  =>  CADENA   <br/> </p></td> 
+        <td><p>t[0] = NodoCadena(t[1]) </p></td> 
+        </tr><tr> <td colspan=2  class="et" > Contenido ASIGNACION    </td> </tr>
+        <tr> 
+        <td> <p>asignacion => var2 IGUAL exp  </p></td> 
+        <td><p> t[0] = Asignacion(t[1],t[3]) </p></td> 
+        </tr>
+        <tr>
+            <td> var2 => VAR arr <br/> arr </td> <td> 
+    if(len(t)==3): <br/>
+        t[0] = NodoVariable(t[1],t[2]) <br/>
+    else: <br/>
+        t[0] = NodoVariable(t[1],None) </td> 
+        </tr>
+        <tr>
+        <td> arr => arr IZQLLAVE E DERLLAVE <br/> | IZQLLAVE E DERLLAVE</td> <td>  if(len(t)==5):<br/> 
+        lar = t[1]<br/> 
+        lar.append(t[3])<br/> 
+        t[0] = lar <br/> 
+    else:<br/> 
+        lar = []<br/> 
+        lar.append(t[2])<br/> 
+        t[0] = lar </td><br/> 
+        </tr>
+<tr> <td colspan=2  class="et" > Contenido READ    </td> </tr>
+        <tr> 
+        <td> <p>arry => Read LEFTPAR "("     DERPAR ")" <br/> </td> 
+        <td><p> t[0] = Leer(). </p></td> 
+        </tr>
+<tr> <td colspan=2  class="et" > Contenido PRINT    </td> </tr>
+        <tr> 
+        <td> <p>Print => PRINT LEFTPAR "("  ID2    ")" <br/> ID2 => ID LArray <br/> | ID <br/> LArray => IZQLLAVE"[" Expresion DERLLAVE"]" </p></td> 
+        <td><p> t[0] = Print()</p></td> 
+        </tr>
+
+        <tr> 
+        <td> <p>E  =>  CADENA   <br/> </p></td> 
+        <td><p>t[0] = NodoCadena(t[1]) </p></td> 
+        </tr><tr> <td colspan=2  class="et" > Contenido ASIGNACION    </td> </tr>
+        <tr> 
+        <td> <p>asignacion => var2 IGUAL exp  </p></td> 
+        <td><p> t[0] = Asignacion(t[1],t[3]) </p></td> 
+        </tr>
+        <tr>
+            <td> var2 => VAR arr <br/> arr </td> <td> 
+    if(len(t)==3): <br/>
+        t[0] = NodoVariable(t[1],t[2]) <br/>
+    else: <br/>
+        t[0] = NodoVariable(t[1],None) </td> 
+        </tr>
+        <tr>
+        <td> arr => arr IZQLLAVE E DERLLAVE <br/> | IZQLLAVE E DERLLAVE</td> <td>  if(len(t)==5):<br/> 
+        lar = t[1]<br/> 
+        lar.append(t[3])<br/> 
+        t[0] = lar <br/> 
+    else:<br/> 
+        lar = []<br/> 
+        lar.append(t[2])<br/> 
+        t[0] = lar </td><br/> 
+        </tr>
+
+        <tr> 
+        <td> <p>EXP  =>  LEFTPAR "("  int   DERPAR ")"  E <br/> </p></td> 
+        <td><p> t[0]  = Cast2Int(t[2]) </p></td> 
+        </tr>
+        <tr> 
+        <td> <p>E  =>   ID <br/>| ID LCOR <br/> LCOR   => LCOR [E] <br/> | [E]  </p></td> 
+        <td><p> t[0] = NodoVariable(t[1]) </p></td> 
+        </tr><tr> <td colspan=2  class="et" > Contenido SALTO CONDICIONAL    </td> </tr>
+        <tr> 
+        <td> <p>iff =>   if IZQPAR "(" exp DERPAR ")" goto ID</p></td> 
+        <td><p> t[0] = Si(t[3],t[6]) </p></td> 
+        </tr>
+
+        <tr> 
+        <td> <p>EXP  =>  E == E <br/> </p></td> 
+        <td><p> if(t[2]=="==")<br>
+        t[0]  = Igual(t[1],t[3]) </p></td> 
+        </tr>
+        <tr> 
+        <td> <p>E  =>   ID <br/>| ID LCOR <br/> LCOR   => LCOR [E] <br/> | [E]  </p></td> 
+        <td><p> t[0] = NodoVariable(t[1]) </p></td> 
+        </tr>
+        <tr> 
+        <td> <p>E  =>  ENTERO   <br/> </p></td> 
+        <td><p>t[0] = NodoEntero(t[1]) </p></td> 
+        </tr><tr> <td colspan=2  class="et" > Contenido SALTO CONDICIONAL    </td> </tr>
+        <tr> 
+        <td> <p>iff =>   if IZQPAR "(" exp DERPAR ")" goto ID</p></td> 
+        <td><p> t[0] = Si(t[3],t[6]) </p></td> 
+        </tr>
+
+        <tr> 
+        <td> <p>EXP  =>  E == E <br/> </p></td> 
+        <td><p> if(t[2]=="==")<br>
+        t[0]  = Igual(t[1],t[3]) </p></td> 
+        </tr>
+        <tr> 
+        <td> <p>E  =>   ID <br/>| ID LCOR <br/> LCOR   => LCOR [E] <br/> | [E]  </p></td> 
+        <td><p> t[0] = NodoVariable(t[1]) </p></td> 
+        </tr>
+        <tr> 
+        <td> <p>E  =>  ENTERO   <br/> </p></td> 
+        <td><p>t[0] = NodoEntero(t[1]) </p></td> 
+        </tr><tr> <td colspan=2  class="et" > Contenido PRINT    </td> </tr>
+        <tr> 
+        <td> <p>Print => PRINT LEFTPAR "("  ID2    ")" <br/> ID2 => ID LArray <br/> | ID <br/> LArray => IZQLLAVE"[" Expresion DERLLAVE"]" </p></td> 
+        <td><p> t[0] = Print()</p></td> 
+        </tr>
+
+        <tr> 
+        <td> <p>E  =>  CADENA   <br/> </p></td> 
+        <td><p>t[0] = NodoCadena(t[1]) </p></td> 
+        </tr><tr> <td colspan=2  class="et" > Contenido PRINT    </td> </tr>
+        <tr> 
+        <td> <p>Print => PRINT LEFTPAR "("  ID2    ")" <br/> ID2 => ID LArray <br/> | ID <br/> LArray => IZQLLAVE"[" Expresion DERLLAVE"]" </p></td> 
+        <td><p> t[0] = Print()</p></td> 
+        </tr>
+
+        <tr> 
+        <td> <p>E  =>  CADENA   <br/> </p></td> 
+        <td><p>t[0] = NodoCadena(t[1]) </p></td> 
+        </tr><tr> <td colspan=2  class="et" > Contenido SALTO    </td> </tr>
+        <tr> 
+        <td> <p>jump  => goto ID";" </p></td> 
+        <td><p> t[0] = Salto(t[2]) </p></td> 
+        </tr>
+<tr> <td colspan=2  class="et" > Contenido Etiqueta  salir </td> </tr>
+        <tr> 
+        <td> <p>ListaInstrucciones => ListaInstrucciones  PC ";"<br/> |  Instrucciones PC ";"<br/> </p></td> 
+        <td><p> 
+    if(len(t)==3):<br/>
+        t[0] = []<br/>
+        t[0].append(t[1])<br/><br/>
+    if(len(t)==4):<br/>
+        t[0] = t[1]<br/>
+        t[0].append(t[2]) </p></td> 
+        </tr>
+        <tr>
+            <td> Intrucciones =>    asignacion<br/>
+                    |   iff<br/>
+                    |   jump<br/>
+                    |   printt<br/>
+                    |   ext<br/>
+                    |   uns<br/> </td> <td> <p> t[0] = t[1] </p> </td>
+        </tr>
+<tr> <td colspan=2  class="et" > Contenido EXIT    </td> </tr>
+        <tr> 
+        <td> <p>ext => exit  </p></td> 
+        <td><p> t[0] = Exit() </p></td> 
+        </tr>
+</body></html>

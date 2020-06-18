@@ -1,7 +1,6 @@
-from ast import *
 from values import * 
 
-class Expresion(Nodo):
+class Expresion():
     def __init__(self,val1,val2):
         self.val1 = val1 
         self.val2 = val2
